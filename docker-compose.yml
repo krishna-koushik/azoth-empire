@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  azoth-empire-webapp:
+    build: azoth-empire-ui/
+    ports:
+      - "3333:3333"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+#    links:
+#      - mongodb
+#  mongodb:
+#    image: mongodb:latest
+volumes:
+  logvolume01: {}

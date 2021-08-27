@@ -1,32 +1,32 @@
 {
-  "name": "azoth-empire-ui",
-  "private": true,
-  "version": "0.0.1",
-  "description": "azoth-empire-ui",
-  "license": "MIT",
-  "files": [
-    "dist/",
-    "www/"
-  ],
-  "scripts": {
-    "build": "stencil build",
-    "start": "stencil build --dev --watch --serve",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watch",
-    "generate": "stencil generate"
-  },
-  "devDependencies": {
-    "@ionic/core": "^5.3.2",
-    "@stencil/core": "2.7.1",
-    "@stencil/sass": "^1.4.1",
-    "@types/jest": "^26.0.24",
-    "jest": "^26.6.3",
-    "jest-cli": "^26.6.3",
-    "puppeteer": "^10.0.0",
-    "stencil-router-v2": "^0.6.0"
-  },
-  "dependencies": {
-    "@bulmil/core": "^0.17.1",
-    "d3-stencil": "^2.2.3"
-  }
+    "name": "azoth-empire-ui",
+    "private": true,
+    "version": "0.0.1",
+    "description": "azoth-empire-ui",
+    "license": "MIT",
+    "files": [
+        "dist/",
+        "www/"
+    ],
+    "scripts": {
+        "build": "stencil build",
+        "start": "stencil build --dev --watch --serve",
+        "test": "stencil test --spec --e2e",
+        "test.watch": "stencil test --spec --e2e --watch",
+        "generate": "stencil generate"
+    },
+    "devDependencies": {
+        "@ionic/core": "^5.3.2",
+        "@stencil/core": "2.7.1",
+        "@stencil/sass": "^1.4.1",
+        "@types/jest": "^26.0.24",
+        "jest": "^26.6.3",
+        "jest-cli": "^26.6.3",
+        "prettier": "^2.3.2",
+        "puppeteer": "^10.0.0"
+    },
+    "dependencies": {
+        "@bulmil/core": "^0.17.1",
+        "d3-stencil": "^2.2.3"
+    }
 }

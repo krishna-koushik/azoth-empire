@@ -1,35 +1,21 @@
-import {Component, h, Host} from '@stencil/core';
-
-import { createRouter, Route } from 'stencil-router-v2';
-
-const Router = createRouter();
+import { Component, h } from '@stencil/core';
 
 @Component({
-  tag: 'app-root',
-  styleUrl: 'app-root.scss',
-  shadow: false,
-  scoped: true
+    tag: 'app-root',
+    styleUrl: 'app-root.scss',
 })
 export class AppRoot {
-  render() {
-    return (
-      <Host>
-        <Router.Switch>
-
-          <Route path="/">
-            <app-home></app-home>
-          </Route>
-
-          <Route path={"/attendance"}>
-            <war-attendance></war-attendance>
-          </Route>
-
-          <Route path={"/members"}>
-            <nw-members></nw-members>
-          </Route>
-
-        </Router.Switch>
-      </Host>
-    );
-  }
+    render() {
+        return (
+            <ion-app>
+                <ion-router useHash={false}>
+                    <ion-route url="/" component="app-home"></ion-route>
+                    <ion-route url="/attendance" component="war-attendance"></ion-route>
+                    <ion-route url="/members" component="nw-members"></ion-route>
+                    <ion-route url="/member/:memberId" component="nw-member"></ion-route>
+                </ion-router>
+                <ion-nav />
+            </ion-app>
+        );
+    }
 }

@@ -5,7 +5,8 @@ FROM node:14 as builder
 ENV NODE_ENV=${NODE_ENV}
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci
+RUN npm i plotly.js-dist-min
 
 # Final stage/image
 FROM node:14

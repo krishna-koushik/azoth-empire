@@ -43,6 +43,11 @@ export class Member {
                         <ion-back-button defaultHref="/members" />
                     </ion-buttons>
                     <ion-title>Member Details</ion-title>
+                    <ion-buttons slot="secondary">
+                        <ion-button href={`/member/${this.memberId}/edit`}>
+                            <ion-icon name="pencil-outline"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
                 </ion-toolbar>
             </ion-header>,
 

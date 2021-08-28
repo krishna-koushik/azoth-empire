@@ -1,15 +1,22 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
 
 @Component({
     tag: 'nw-members',
     styleUrl: 'members.scss',
 })
 export class Members {
-    @State() state = false;
-    @Prop() name: string;
+    @State() memberList: any[];
+
+    private searchInput: any;
+
+    componentWillLoad() {
+        this.memberList = [];
+    }
 
     componentDidLoad() {
-        console.log(this);
+        this.searchInput.addEventListener('ionChange', e => {
+            const { detail: { value = '' } = {} } = e;
+        });
     }
 
     render() {
@@ -22,15 +29,21 @@ export class Members {
                     <ion-title>Members</ion-title>
                 </ion-toolbar>
             </ion-header>,
-
             <ion-content class="ion-padding">
                 <p>Members List</p>
-
                 <ion-item>
                     <section class="section">
                         <h1 class="title">Member List</h1>
                         <h2 class="subtitle">List of New World members and the guilds they belong to</h2>
                         <div class="container">
+                            <ion-searchbar
+                                ref={el => {
+                                    this.searchInput = el;
+                                }}
+                                placeholder="Find Members"
+                                animated
+                                debounce={500}
+                            ></ion-searchbar>
                             <div class="block notification is-primary">
                                 <table class="table">
                                     <thead>
@@ -62,6 +75,11 @@ export class Members {
                         </div>
                     </section>
                 </ion-item>
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button href="/member">
+                        <ion-icon name="add"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
             </ion-content>,
         ];
     }

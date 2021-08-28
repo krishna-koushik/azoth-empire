@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "author": "",
   "dependencies": {
-    "d3-stencil": "git+https://github.com/d0whc3r/d3-stencil.git#c31e84dc",
     "plotly.js-dist-min": "^2.4.1"
   },
   "devDependencies": {

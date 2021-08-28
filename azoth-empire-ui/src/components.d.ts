@@ -6,19 +6,24 @@
  */
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
+    interface AddMember {}
     interface AppHome {}
     interface AppRoot {}
+    interface EditMember {}
     interface NwMember {
         memberId: number;
     }
-    interface NwMembers {
-        name: string;
-    }
+    interface NwMembers {}
     interface WarAttendance {
         name: string;
     }
 }
 declare global {
+    interface HTMLAddMemberElement extends Components.AddMember, HTMLStencilElement {}
+    var HTMLAddMemberElement: {
+        prototype: HTMLAddMemberElement;
+        new (): HTMLAddMemberElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
     var HTMLAppHomeElement: {
         prototype: HTMLAppHomeElement;
@@ -28,6 +33,11 @@ declare global {
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    interface HTMLEditMemberElement extends Components.EditMember, HTMLStencilElement {}
+    var HTMLEditMemberElement: {
+        prototype: HTMLEditMemberElement;
+        new (): HTMLEditMemberElement;
     };
     interface HTMLNwMemberElement extends Components.NwMember, HTMLStencilElement {}
     var HTMLNwMemberElement: {
@@ -45,28 +55,32 @@ declare global {
         new (): HTMLWarAttendanceElement;
     };
     interface HTMLElementTagNameMap {
+        'add-member': HTMLAddMemberElement;
         'app-home': HTMLAppHomeElement;
         'app-root': HTMLAppRootElement;
+        'edit-member': HTMLEditMemberElement;
         'nw-member': HTMLNwMemberElement;
         'nw-members': HTMLNwMembersElement;
         'war-attendance': HTMLWarAttendanceElement;
     }
 }
 declare namespace LocalJSX {
+    interface AddMember {}
     interface AppHome {}
     interface AppRoot {}
+    interface EditMember {}
     interface NwMember {
         memberId?: number;
     }
-    interface NwMembers {
-        name?: string;
-    }
+    interface NwMembers {}
     interface WarAttendance {
         name?: string;
     }
     interface IntrinsicElements {
+        'add-member': AddMember;
         'app-home': AppHome;
         'app-root': AppRoot;
+        'edit-member': EditMember;
         'nw-member': NwMember;
         'nw-members': NwMembers;
         'war-attendance': WarAttendance;
@@ -76,8 +90,10 @@ export { LocalJSX as JSX };
 declare module '@stencil/core' {
     export namespace JSX {
         interface IntrinsicElements {
+            'add-member': LocalJSX.AddMember & JSXBase.HTMLAttributes<HTMLAddMemberElement>;
             'app-home': LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             'app-root': LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            'edit-member': LocalJSX.EditMember & JSXBase.HTMLAttributes<HTMLEditMemberElement>;
             'nw-member': LocalJSX.NwMember & JSXBase.HTMLAttributes<HTMLNwMemberElement>;
             'nw-members': LocalJSX.NwMembers & JSXBase.HTMLAttributes<HTMLNwMembersElement>;
             'war-attendance': LocalJSX.WarAttendance & JSXBase.HTMLAttributes<HTMLWarAttendanceElement>;

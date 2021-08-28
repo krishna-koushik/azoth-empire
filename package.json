@@ -1,23 +1,24 @@
 {
   "name": "azoth-empire",
-  "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "prepare": "husky install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com//krishna-koushik/azoth-empire-ui.git"
-  },
+  "version": "1.0.0",
   "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "d3-stencil": "git+https://github.com/d0whc3r/d3-stencil.git#c31e84dc",
+    "plotly.js-dist-min": "^2.4.1"
+  },
   "devDependencies": {
     "husky": "^7.0.0",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1"
   },
-  "dependencies": {
-    "d3-stencil": "git+https://github.com/d0whc3r/d3-stencil.git#c31e84dc"
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//krishna-koushik/azoth-empire-ui.git"
+  },
+  "scripts": {
+    "prepare": "husky install"
   }
 }

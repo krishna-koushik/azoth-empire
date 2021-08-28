@@ -8,6 +8,10 @@
         "dist/",
         "www/"
     ],
+    "main": "./dist/index.cjs.js",
+    "module": "./dist/index.js",
+    "types": "./dist/types/components.d.ts",
+    "collection": "./dist/collection/collection-manifest.json",
     "scripts": {
         "build": "stencil build",
         "start": "stencil build --dev --watch --serve",

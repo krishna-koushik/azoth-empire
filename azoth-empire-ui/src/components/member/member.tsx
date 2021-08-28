@@ -1,5 +1,5 @@
-import { Component, h, Prop, State } from '@stencil/core';
-import { GraphData } from 'd3-stencil/dist/types/interfaces';
+import { Component, h, Prop } from '@stencil/core';
+import Plotly from 'plotly.js-dist-min';
 
 @Component({
     tag: 'nw-member',
@@ -8,61 +8,31 @@ import { GraphData } from 'd3-stencil/dist/types/interfaces';
 export class Member {
     @Prop() memberId: number;
     private tabElement: any;
-
-    @State() graphData: GraphData;
+    private chartsDiv: any;
 
     componentDidLoad() {
         this.tabElement.select('tab-detail');
-        // this.graphData = {
-        //     pieChart: {
-        //         labelFormat: 'ANY',
-        //         dataFormat: 'GROUPED_TWO_DIGITS',
-        //     },
-        //     styles: {
-        //         width: '100%',
-        //         height: '500px',
-        //         margin: '20px 0',
-        //     },
-        //     colors: [
-        //         '#98abc5',
-        //         '#8a89a6',
-        //         '#7b6888',
-        //         '#d0743c',
-        //         '#ff8c00',
-        //     ],
-        //     labels: ['PVE', 'Crafting', 'PVP', 'Company War', 'Invasion'],
-        //     data: [
-        //         [2704659, 4499890, 2159981, 3853788, 16106543],
-        //         [2704659, 4499890, 2159981, 3853788, 16106543],
-        //         [2704659, 4499890, 2159981, 3853788, 16106543],
-        //         [2704659, 4499890, 2159981, 3853788, 16106543],
-        //         [2704659, 4499890, 2159981, 3853788, 16106543]
-        //     ],
-        // };
+        this.renderChart();
+    }
 
-        this.graphData = {
-            labels: ['<5', '5-13', '14-17', '18-24', '25-44', '45-64', '≥65'],
-            barChart: {
-                axis: {
-                    x: {
-                        format: 'CURRENCY',
-                    },
-                },
-                margin: {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
-                },
+    renderChart() {
+        const data = [
+            {
+                x: ['Jewel crafting', 'Engineering', 'Food / Cooking', 'Tailor / Outfitting/ Armoring', 'Weaponsmithing', 'Arcane', 'Furnishing', 'Stone cutting'],
+                y: [20, 250, 250, 50, 35, 40, 10, 150, 100],
+                type: 'bar',
             },
-            styles: {
-                width: '100%',
-                height: '500px',
-                margin: '20px 0',
+        ];
+        const layout = {
+            showlegend: false,
+            xaxis: {
+                tickangle: -45,
             },
-            colors: ['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'],
-            data: [[1250, 200, 20, 140, 600, 3002, 5985]],
         };
+
+        const config = { responsive: true };
+
+        Plotly.newPlot(this.chartsDiv, data, layout, config);
     }
 
     render() {
@@ -102,10 +72,21 @@ export class Member {
                                     <div slot="start">In Game Name</div>
                                     <ion-label>Bodnapa</ion-label>
                                 </ion-item>
+                                <ion-item>
+                                    <ion-chip>
+                                        <ion-icon name="skull-outline"></ion-icon>
+                                        <ion-label>PVP</ion-label>
+                                    </ion-chip>
+                                    <ion-chip>
+                                        <ion-icon name="pizza-outline"></ion-icon>
+                                        <ion-label>Crafter</ion-label>
+                                    </ion-chip>
+                                    <ion-chip>
+                                        <ion-icon name="rocket-outline"></ion-icon>
+                                        <ion-label>Siege Team</ion-label>
+                                    </ion-chip>
+                                </ion-item>
                                 <ion-card-content>Any notes about this Member.</ion-card-content>
-                            </ion-card>
-                            <ion-card>
-                                <horizontal-bar-chart graphData={this.graphData} />
                             </ion-card>
                         </section>
                     </ion-tab>
@@ -125,6 +106,26 @@ export class Member {
                                     <ion-badge color="primary">15</ion-badge>
                                 </ion-item>
                             </ion-card>
+                            <ion-card>
+                                <ion-item>
+                                    <ion-label slot="start">Weapon 1</ion-label>
+                                    <ion-note slot="end">Musket</ion-note>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label slot="start">Weapon 2</ion-label>
+                                    <ion-note slot="end">Raipier</ion-note>
+                                </ion-item>
+                            </ion-card>
+                            <ion-card>
+                                <ion-card-header>
+                                    <ion-card-title>Crafting</ion-card-title>
+                                </ion-card-header>
+                                <div
+                                    ref={el => {
+                                        this.chartsDiv = el;
+                                    }}
+                                ></div>
+                            </ion-card>
                         </section>
                     </ion-tab>
 
@@ -136,7 +137,7 @@ export class Member {
 
                         <ion-tab-button tab="tab-level">
                             <ion-icon name="speedometer-outline"></ion-icon>
-                            <ion-label>Game Levels</ion-label>
+                            <ion-label>Game</ion-label>
                         </ion-tab-button>
                     </ion-tab-bar>
                 </ion-tabs>

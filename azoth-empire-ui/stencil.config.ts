@@ -7,7 +7,11 @@ export const config: Config = {
     globalScript: 'src/global/app.ts',
     globalStyle: 'src/global/app.css',
     taskQueue: 'async',
-    plugins: [sass({})],
+    plugins: [
+        sass({
+            includePaths: ['./node_modules/'],
+        }),
+    ],
     namespace: 'azoth-empire',
     outputTargets: [
         {

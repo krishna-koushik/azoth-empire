@@ -14,15 +14,26 @@ export class AppHome {
             </ion-header>,
 
             <ion-content class="ion-padding">
-                <p>Welcome to the Azoth Empire.</p>
-
-                <ion-button href="/attendance" expand="block">
-                    War Attendance
-                </ion-button>
-
-                <ion-button href="/members" expand="block">
-                    Member List
-                </ion-button>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <p>Welcome to the Azoth Empire.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-img src="/assets/icon/AE_Final.png"></ion-img>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button href="/members" expand="block">
+                                Member List
+                            </ion-button>
+                            <ion-button href="/attendance" expand="block">
+                                War Attendance
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </ion-content>,
         ];
     }

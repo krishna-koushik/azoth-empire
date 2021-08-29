@@ -8,31 +8,67 @@ import Plotly from 'plotly.js-dist-min';
 export class Member {
     @Prop() memberId: number;
     private tabElement: any;
-    private chartsDiv: any;
+    private chartsDiv1: any;
+    private chartsDiv2: any;
+    private warChart: any;
 
     componentDidLoad() {
         this.tabElement.select('tab-detail');
         this.renderChart();
+        this.renderWarChart();
     }
 
     renderChart() {
-        const data = [
+        const data1 = [
             {
-                x: ['Jewel crafting', 'Engineering', 'Food / Cooking', 'Tailor / Outfitting/ Armoring', 'Weaponsmithing', 'Arcane', 'Furnishing', 'Stone cutting'],
-                y: [20, 250, 250, 50, 35, 40, 10, 150, 100],
-                type: 'bar',
+                type: 'scatterpolar',
+                r: [20, 250, 250, 50, 35, 40, 10, 150, 100],
+                theta: ['Jewel crafting', 'Engineering', 'Food / Cooking', 'Tailor / Outfitting/ Armoring', 'Weaponsmithing', 'Arcane', 'Furnishing', 'Stone cutting'],
+                fill: 'toself',
+            },
+        ];
+        const data2 = [
+            {
+                type: 'scatterpolar',
+                r: [175, 200, 170, 50, 250, 150, 50, 150, 100, 0],
+                theta: ['Smelting', 'Woodworking', 'Weaving', 'Leatherworking', 'Logging', 'Mining', 'Harvesting', 'Tracking & Skinning', 'Fishing'],
+                fill: 'toself',
             },
         ];
         const layout = {
-            showlegend: false,
-            xaxis: {
-                tickangle: -45,
+            polar: {
+                radialaxis: {
+                    visible: true,
+                    range: [0, 250],
+                },
             },
+            showlegend: false,
         };
 
         const config = { responsive: true };
 
-        Plotly.newPlot(this.chartsDiv, data, layout, config);
+        Plotly.newPlot(this.chartsDiv1, data1, layout, config);
+        Plotly.newPlot(this.chartsDiv2, data2, layout, config);
+    }
+
+    renderWarChart() {
+        const trace1 = {
+            x: ['Wednesday(Everfall)', 'Wednesday(Windsward)', "Thursday(Monarch's Bluff)", 'Friday(First Light)'],
+            y: [5255, 63257, 20423, 10565],
+            type: 'scatter',
+            name: 'Damage',
+        };
+
+        const trace2 = {
+            x: ['Wednesday(Everfall)', 'Wednesday(Windsward)', "Thursday(Monarch's Bluff)", 'Friday(First Light)'],
+            y: [1600765, 783389, 644622, 597697],
+            type: 'scatter',
+            name: 'Healing',
+        };
+
+        const data = [trace1, trace2];
+
+        Plotly.newPlot(this.warChart, data);
     }
 
     render() {
@@ -97,7 +133,7 @@ export class Member {
                     </ion-tab>
 
                     <ion-tab tab="tab-level">
-                        <section class="section">
+                        <section class="section is-large">
                             <ion-nav></ion-nav>
                             <ion-card>
                                 <ion-card-header>
@@ -121,15 +157,53 @@ export class Member {
                                     <ion-note slot="end">Raipier</ion-note>
                                 </ion-item>
                             </ion-card>
+                        </section>
+                    </ion-tab>
+
+                    <ion-tab tab="tab-stats">
+                        <section class="section is-large">
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-card>
+                                            <ion-card-header>
+                                                <ion-card-title>Crafting</ion-card-title>
+                                            </ion-card-header>
+                                            <ion-card-content
+                                                ref={el => {
+                                                    this.chartsDiv1 = el;
+                                                }}
+                                            ></ion-card-content>
+                                        </ion-card>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-card>
+                                            <ion-card-header>
+                                                <ion-card-title>Tradeskill</ion-card-title>
+                                            </ion-card-header>
+                                            <ion-card-content
+                                                ref={el => {
+                                                    this.chartsDiv2 = el;
+                                                }}
+                                            ></ion-card-content>
+                                        </ion-card>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </section>
+                    </ion-tab>
+
+                    <ion-tab tab="tab-war">
+                        <section class="section is-large">
                             <ion-card>
                                 <ion-card-header>
-                                    <ion-card-title>Crafting</ion-card-title>
+                                    <ion-card-title>Last 4 war stats</ion-card-title>
                                 </ion-card-header>
-                                <div
+                                <ion-card-content
                                     ref={el => {
-                                        this.chartsDiv = el;
+                                        this.warChart = el;
                                     }}
-                                ></div>
+                                ></ion-card-content>
                             </ion-card>
                         </section>
                     </ion-tab>
@@ -143,6 +217,16 @@ export class Member {
                         <ion-tab-button tab="tab-level">
                             <ion-icon name="speedometer-outline"></ion-icon>
                             <ion-label>Game</ion-label>
+                        </ion-tab-button>
+
+                        <ion-tab-button tab="tab-stats">
+                            <ion-icon name="stats-chart-outline"></ion-icon>
+                            <ion-label>Stats</ion-label>
+                        </ion-tab-button>
+
+                        <ion-tab-button tab="tab-war">
+                            <ion-icon name="game-controller-outline"></ion-icon>
+                            <ion-label>War</ion-label>
                         </ion-tab-button>
                     </ion-tab-bar>
                 </ion-tabs>

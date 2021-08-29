@@ -132,7 +132,7 @@ export class Member {
                         </section>
                     </ion-tab>
 
-                    <ion-tab tab="tab-level">
+                    <ion-tab tab="tab-game">
                         <section class="section is-large">
                             <ion-nav></ion-nav>
                             <ion-card>
@@ -141,22 +141,114 @@ export class Member {
                                     <ion-card-title>Bodnapa</ion-card-title>
                                 </ion-card-header>
                             </ion-card>
-                            <ion-card>
-                                <ion-item>
-                                    <ion-label slot="start">Level</ion-label>
-                                    <ion-badge color="primary">15</ion-badge>
-                                </ion-item>
-                            </ion-card>
-                            <ion-card>
-                                <ion-item>
-                                    <ion-label slot="start">Weapon 1</ion-label>
-                                    <ion-note slot="end">Musket</ion-note>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label slot="start">Weapon 2</ion-label>
-                                    <ion-note slot="end">Raipier</ion-note>
-                                </ion-item>
-                            </ion-card>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-card>
+                                            <ion-item>
+                                                <ion-label slot="start">Level</ion-label>
+                                                <ion-badge color="primary">15</ion-badge>
+                                            </ion-item>
+                                        </ion-card>
+                                        <ion-card>
+                                            <ion-item>
+                                                <ion-label slot="start">Average GS</ion-label>
+                                                <ion-badge color="secondary">382</ion-badge>
+                                            </ion-item>
+                                        </ion-card>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-card>
+                                            <ion-item>
+                                                <ion-label slot="start">Weapon 1</ion-label>
+                                                <ion-note slot="end">Musket</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Weapon 2</ion-label>
+                                                <ion-note slot="end">Raipier</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Amulet</ion-label>
+                                                <ion-note slot="end">300</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Ring</ion-label>
+                                                <ion-note slot="end">420</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Earring</ion-label>
+                                                <ion-note slot="end">350</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Bag 1</ion-label>
+                                                <ion-note slot="end">100</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Bag 2</ion-label>
+                                                <ion-note slot="end">100</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Bag 3</ion-label>
+                                                <ion-note slot="end">100</ion-note>
+                                            </ion-item>
+                                        </ion-card>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-card>
+                                            <ion-item>
+                                                <ion-label slot="start">Helm</ion-label>
+                                                <ion-note slot="end">300</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Chest</ion-label>
+                                                <ion-note slot="end">250</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Hands</ion-label>
+                                                <ion-note slot="end">425</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Pants</ion-label>
+                                                <ion-note slot="end">600</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Boots</ion-label>
+                                                <ion-note slot="end">100</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Sheild</ion-label>
+                                                <ion-note slot="end">0</ion-note>
+                                            </ion-item>
+                                        </ion-card>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-card>
+                                            <ion-item>
+                                                <ion-label slot="start">Primary</ion-label>
+                                                <ion-note slot="end">Dexterity</ion-note>
+                                            </ion-item>
+                                            <ion-item>
+                                                <ion-label slot="start">Secondary</ion-label>
+                                                <ion-note slot="end">Constituion</ion-note>
+                                            </ion-item>
+                                        </ion-card>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-card>
+                                            <ion-item>
+                                                <ion-label slot="start">Preferred Weight Class</ion-label>
+                                                <ion-note slot="end">Medium</ion-note>
+                                            </ion-item>
+                                        </ion-card>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
                         </section>
                     </ion-tab>
 
@@ -214,7 +306,7 @@ export class Member {
                             <ion-label>Details</ion-label>
                         </ion-tab-button>
 
-                        <ion-tab-button tab="tab-level">
+                        <ion-tab-button tab="tab-game">
                             <ion-icon name="speedometer-outline"></ion-icon>
                             <ion-label>Game</ion-label>
                         </ion-tab-button>

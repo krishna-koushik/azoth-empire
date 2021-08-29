@@ -10,6 +10,8 @@ export class Members {
     @State() findBy: string = 'name';
     private searchInput: any;
     private findByInput: any;
+    private fabButton: any;
+    private modalElement: any;
 
     componentWillLoad() {
         this.memberList = [
@@ -64,6 +66,10 @@ export class Members {
             const { detail: { value = '' } = {} } = e;
             this.findBy = value;
         });
+
+        this.fabButton.addEventListener('click', _e => {
+            this.openAddMemberModal();
+        });
     }
 
     private findMemberByCriteria(memberList: any[]) {
@@ -77,6 +83,33 @@ export class Members {
             });
         }
         return memberList;
+    }
+
+    openAddMemberModal() {
+        // create the modal with the `modal-page` component
+        this.modalElement = document.createElement('ion-modal');
+        this.modalElement.component = 'add-member';
+
+        this.modalElement.addEventListener('closeButtonClicked', async _e => {
+            await this.dismissModal();
+        });
+
+        this.modalElement.addEventListener('submitButtonClicked', async _e => {
+            console.log(_e);
+            await this.dismissModal();
+        });
+
+        // present the modal
+        document.body.appendChild(this.modalElement);
+        return this.modalElement.present();
+    }
+
+    async dismissModal() {
+        await this.modalElement.dismiss({
+            dismissed: true,
+        });
+
+        this.modalElement.remove();
     }
 
     renderMemberRow(member) {
@@ -103,7 +136,7 @@ export class Members {
                     <ion-title>Members</ion-title>
                 </ion-toolbar>
             </ion-header>,
-            <ion-content class="ion-padding">
+            <ion-content class="ion-padding" overflow-scroll="false">
                 <p>Members List</p>
                 <ion-item>
                     <section class="section">
@@ -171,7 +204,11 @@ export class Members {
                     </section>
                 </ion-item>
                 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                    <ion-fab-button href="/member">
+                    <ion-fab-button
+                        ref={el => {
+                            this.fabButton = el;
+                        }}
+                    >
                         <ion-icon name="add"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>

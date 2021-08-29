@@ -65,7 +65,10 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface AddMember {}
+    interface AddMember {
+        onCloseButtonClicked?: (event: CustomEvent<any>) => void;
+        onSubmitButtonClicked?: (event: CustomEvent<any>) => void;
+    }
     interface AppHome {}
     interface AppRoot {}
     interface EditMember {}

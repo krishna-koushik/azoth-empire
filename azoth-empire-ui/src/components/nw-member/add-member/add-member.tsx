@@ -30,6 +30,22 @@ export class AddMember {
     private weaponInput: any[] = [];
     private teamInput: any[] = [];
     private activeInput: any;
+    private content: any;
+    private amuletInput: any;
+    private helmInput: any;
+    private ringInput: any;
+    private chestInput: any;
+    private earringInput: any;
+    private handInput: any;
+    private bag1Input: any;
+    private pantsInput: any;
+    private bag2Input: any;
+    private bootsInput: any;
+    private bag3Input: any;
+    private shieldInput: any;
+    private primaryStatInput: any;
+    private secondaryStatInput: any;
+    private preferredWeightClassInput: any;
 
     private dismissModal(e: any) {
         this.closeButtonClicked.emit(e.detail);
@@ -77,8 +93,13 @@ export class AddMember {
         this.weaponInput.map(weapon => {
             weapon.addEventListener('ionChange', e => {
                 const { detail: { value = '' } = {} } = e;
-                this.member.gameData.weapons = this.checkAndUpdateArray(this.member.gameData.weapons, value);
-                this.member = { ...this.member };
+                console.log(this.member.gameData.weapons);
+                if (this.member.gameData.weapons.length < 2) {
+                    this.member.gameData.weapons = this.checkAndUpdateArray(this.member.gameData.weapons, value);
+                    this.member = { ...this.member };
+                } else {
+                    this.presentAlert();
+                }
             });
         });
 
@@ -92,7 +113,7 @@ export class AddMember {
 
         this.activeInput.addEventListener('ionChange', e => {
             const { detail: { value = '' } = {} } = e;
-            this.member.active = value;
+            this.member.active = value === 'on';
             this.member = { ...this.member };
         });
     }
@@ -105,6 +126,17 @@ export class AddMember {
             data.splice(index, 1);
         }
         return data;
+    }
+
+    presentAlert() {
+        const alert = document.createElement('ion-alert');
+        alert.header = 'Alert';
+        // alert.subHeader = 'Subtitle';
+        alert.message = 'You can only choose 2 weapons.';
+        alert.buttons = ['OK'];
+        console.log(alert);
+        this.content.appendChild(alert);
+        return alert.present();
     }
 
     render() {
@@ -120,7 +152,13 @@ export class AddMember {
                         </ion-buttons>
                     </ion-toolbar>
                 </ion-header>
-                <ion-content class="ion-padding" overflow-scroll="false">
+                <ion-content
+                    class="ion-padding"
+                    overflow-scroll="false"
+                    ref={el => {
+                        this.content = el;
+                    }}
+                >
                     <div class="box">
                         <ion-item>
                             <ion-label position="floating">Name</ion-label>
@@ -174,7 +212,9 @@ export class AddMember {
                                     this.levelInput = el;
                                 }}
                                 required={true}
-                                max="250"
+                                max="65"
+                                type="number"
+                                inputmode="numeric"
                                 debounce={500}
                                 value={this.member.gameData.level}
                                 clear-input={true}
@@ -196,6 +236,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Sword & Shield"
+                                                    checked={this.member.gameData.weapons.includes('Sword & Shield')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -206,6 +247,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Rapier"
+                                                    checked={this.member.gameData.weapons.includes('Rapier')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -216,6 +258,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Hatchet"
+                                                    checked={this.member.gameData.weapons.includes('Hatchet')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -226,6 +269,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Spear"
+                                                    checked={this.member.gameData.weapons.includes('Spear')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -236,6 +280,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="War Hammer"
+                                                    checked={this.member.gameData.weapons.includes('War Hammer')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -246,6 +291,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Great Axe"
+                                                    checked={this.member.gameData.weapons.includes('Great Axe')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -256,6 +302,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Musket"
+                                                    checked={this.member.gameData.weapons.includes('Musket')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -266,6 +313,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Bow"
+                                                    checked={this.member.gameData.weapons.includes('Bow')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -276,6 +324,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Fire Staff"
+                                                    checked={this.member.gameData.weapons.includes('Fire Staff')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -286,6 +335,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Life Staff"
+                                                    checked={this.member.gameData.weapons.includes('Life Staff')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -296,6 +346,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Ice Gauntlet"
+                                                    checked={this.member.gameData.weapons.includes('Ice Gauntlet')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                         </ion-list>
@@ -313,6 +364,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="PVP"
+                                                    checked={this.member.gameData.teams.includes('PVP')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -323,6 +375,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Crafters"
+                                                    checked={this.member.gameData.teams.includes('Crafters')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -333,6 +386,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Siege Team"
+                                                    checked={this.member.gameData.teams.includes('Siege Team')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -343,6 +397,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Heal Team"
+                                                    checked={this.member.gameData.teams.includes('Heal Team')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -353,6 +408,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Vanguard Team"
+                                                    checked={this.member.gameData.teams.includes('Vanguard Team')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -363,6 +419,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Flank Team"
+                                                    checked={this.member.gameData.teams.includes('Flank Team')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                             <ion-item>
@@ -373,6 +430,7 @@ export class AddMember {
                                                     }}
                                                     slot="end"
                                                     value="Friends/Family/Casual"
+                                                    checked={this.member.gameData.teams.includes('Friends/Family/Casual')}
                                                 ></ion-checkbox>
                                             </ion-item>
                                         </ion-list>
@@ -381,15 +439,239 @@ export class AddMember {
                             </ion-grid>
                         </ion-item>
                         <ion-item>
-                            <ion-label>Active</ion-label>
-                            <ion-toggle
-                                ref={el => {
-                                    this.activeInput = el;
-                                }}
-                                slot="end"
-                                color="primary"
-                                style={{ border: '1px solid #CDCDCD' }}
-                            ></ion-toggle>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Amulet</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.amuletInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.amulet}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Helm</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.helmInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.helm}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Ring</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.ringInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.ring}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Chest</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.chestInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.chest}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Earring</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.earringInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.earring}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Hands</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.handInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.hands}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Bag 1</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.bag1Input = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.bag1}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Pants</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.pantsInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.pants}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Bag 2</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.bag2Input = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.bag2}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Boots</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.bootsInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.boots}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Bag 3</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.bag3Input = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.bag3}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Shield</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.shieldInput = el;
+                                            }}
+                                            max="999"
+                                            type="number"
+                                            inputmode="numeric"
+                                            debounce={500}
+                                            value={this.member.gameData.shield}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Primary Stat</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.primaryStatInput = el;
+                                            }}
+                                            max-length="250"
+                                            debounce={500}
+                                            value={this.member.gameData.primaryStat}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Secondary Stat</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.secondaryStatInput = el;
+                                            }}
+                                            max-length="250"
+                                            debounce={500}
+                                            value={this.member.gameData.secondaryStat}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label>Preferred Weight class</ion-label>
+                                        <ion-input
+                                            ref={el => {
+                                                this.preferredWeightClassInput = el;
+                                            }}
+                                            max-length="250"
+                                            debounce={500}
+                                            value={this.member.gameData.preferredWeightClass}
+                                            clear-input={true}
+                                        ></ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-label>Active</ion-label>
+                                        <ion-toggle
+                                            ref={el => {
+                                                this.activeInput = el;
+                                            }}
+                                            slot="end"
+                                            color="primary"
+                                            style={{ border: '1px solid #CDCDCD' }}
+                                        ></ion-toggle>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
                         </ion-item>
                         <ion-item>
                             <ion-button

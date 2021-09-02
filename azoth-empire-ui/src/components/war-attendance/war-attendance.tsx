@@ -1,42 +1,61 @@
 import { Component, Prop, State, h } from '@stencil/core';
-import { sayHello } from '../../helpers/utils';
+import { createWorker, PSM } from 'tesseract.js';
 
 @Component({
-  tag: 'war-attendance',
-  styleUrl: 'war-attendance.scss',
+    tag: 'war-attendance',
+    styleUrl: 'war-attendance.scss',
 })
 export class WarAttendance {
-  @State() state = false;
-  @Prop() name: string;
+    @State() state = false;
+    @Prop() name: string;
 
-  formattedName(): string {
-    if (this.name) {
-      return this.name.substr(0, 1).toUpperCase() + this.name.substr(1).toLowerCase();
+    private worker = createWorker({
+        logger: m => console.log(m),
+    });
+
+    formattedName(): string {
+        if (this.name) {
+            return this.name.substr(0, 1).toUpperCase() + this.name.substr(1).toLowerCase();
+        }
+        return '';
     }
-    return '';
-  }
 
-  render() {
-    return [
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="/" />
-          </ion-buttons>
-          <ion-title>War Attendance</ion-title>
-        </ion-toolbar>
-      </ion-header>,
+    async startTesseract() {
+        console.log(this.worker);
+        await this.worker.load();
+        await this.worker.loadLanguage('eng');
+        await this.worker.initialize('eng');
+        await this.worker.setParameters({ tessedit_pageseg_mode: PSM.SINGLE_BLOCK });
+        const {
+            data: { text },
+        } = await this.worker.recognize('/assets/image/1.png', {});
+        console.log(text);
+        await this.worker.terminate();
+    }
 
-      <ion-content class="ion-padding">
-        <p>
-          {sayHello()}! My name is {this.formattedName()}. My name was passed in through a route param!
-        </p>
+    async componentDidLoad() {
+        await this.startTesseract();
+    }
 
-        <ion-item>
-          <ion-label>Setting ({this.state.toString()})</ion-label>
-          <ion-toggle checked={this.state} onIonChange={ev => (this.state = ev.detail.checked)} />
-        </ion-item>
-      </ion-content>,
-    ];
-  }
+    render() {
+        return [
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <ion-buttons slot="start">
+                        <ion-back-button defaultHref="/" />
+                    </ion-buttons>
+                    <ion-title>War Attendance</ion-title>
+                </ion-toolbar>
+            </ion-header>,
+
+            <ion-content class="ion-padding">
+                <p>My name was passed in through a route param!</p>
+
+                <ion-item>
+                    <ion-label>Setting ({this.state.toString()})</ion-label>
+                    <ion-toggle checked={this.state} onIonChange={ev => (this.state = ev.detail.checked)} />
+                </ion-item>
+            </ion-content>,
+        ];
+    }
 }

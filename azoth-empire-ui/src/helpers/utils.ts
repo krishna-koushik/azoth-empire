@@ -1,3 +1,5 @@
 export function sayHello() {
-  return Math.random() < 0.5 ? 'Hello' : 'Hola';
+    return Math.random() < 0.5 ? 'Hello' : 'Hola';
 }
+
+export function warRoster() {}

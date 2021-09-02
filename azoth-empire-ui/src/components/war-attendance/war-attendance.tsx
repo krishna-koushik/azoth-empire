@@ -1,5 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { createWorker, PSM } from 'tesseract.js';
+import { warRoster } from '../../helpers/utils';
 
 @Component({
     tag: 'war-attendance',
@@ -31,6 +32,8 @@ export class WarAttendance {
         } = await this.worker.recognize('/assets/image/1.png', {});
         console.log(text);
         await this.worker.terminate();
+
+        warRoster();
     }
 
     async componentDidLoad() {

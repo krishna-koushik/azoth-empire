@@ -17,6 +17,7 @@ export namespace Components {
     interface WarAttendance {
         name: string;
     }
+    interface WarReport {}
 }
 declare global {
     interface HTMLAddMemberElement extends Components.AddMember, HTMLStencilElement {}
@@ -54,6 +55,11 @@ declare global {
         prototype: HTMLWarAttendanceElement;
         new (): HTMLWarAttendanceElement;
     };
+    interface HTMLWarReportElement extends Components.WarReport, HTMLStencilElement {}
+    var HTMLWarReportElement: {
+        prototype: HTMLWarReportElement;
+        new (): HTMLWarReportElement;
+    };
     interface HTMLElementTagNameMap {
         'add-member': HTMLAddMemberElement;
         'app-home': HTMLAppHomeElement;
@@ -62,6 +68,7 @@ declare global {
         'nw-member': HTMLNwMemberElement;
         'nw-members': HTMLNwMembersElement;
         'war-attendance': HTMLWarAttendanceElement;
+        'war-report': HTMLWarReportElement;
     }
 }
 declare namespace LocalJSX {
@@ -79,6 +86,10 @@ declare namespace LocalJSX {
     interface WarAttendance {
         name?: string;
     }
+    interface WarReport {
+        onCloseButtonClicked?: (event: CustomEvent<any>) => void;
+        onSubmitButtonClicked?: (event: CustomEvent<any>) => void;
+    }
     interface IntrinsicElements {
         'add-member': AddMember;
         'app-home': AppHome;
@@ -87,6 +98,7 @@ declare namespace LocalJSX {
         'nw-member': NwMember;
         'nw-members': NwMembers;
         'war-attendance': WarAttendance;
+        'war-report': WarReport;
     }
 }
 export { LocalJSX as JSX };
@@ -100,6 +112,7 @@ declare module '@stencil/core' {
             'nw-member': LocalJSX.NwMember & JSXBase.HTMLAttributes<HTMLNwMemberElement>;
             'nw-members': LocalJSX.NwMembers & JSXBase.HTMLAttributes<HTMLNwMembersElement>;
             'war-attendance': LocalJSX.WarAttendance & JSXBase.HTMLAttributes<HTMLWarAttendanceElement>;
+            'war-report': LocalJSX.WarReport & JSXBase.HTMLAttributes<HTMLWarReportElement>;
         }
     }
 }

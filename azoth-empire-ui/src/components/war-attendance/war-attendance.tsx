@@ -1,6 +1,4 @@
 import { Component, Prop, State, h } from '@stencil/core';
-import { createWorker, PSM } from 'tesseract.js';
-import { warRoster } from '../../helpers/utils';
 
 @Component({
     tag: 'war-attendance',
@@ -9,35 +7,47 @@ import { warRoster } from '../../helpers/utils';
 export class WarAttendance {
     @State() state = false;
     @Prop() name: string;
+    private fabButton: any;
+    private modalElement: any;
 
-    private worker = createWorker({
-        logger: m => console.log(m),
-    });
+    componentDidLoad() {
+        this.fabButton.addEventListener('click', _e => {
+            this.openAddWarReportModal();
+        });
+    }
+
+    openAddWarReportModal() {
+        // create the modal with the `modal-page` component
+        this.modalElement = document.createElement('ion-modal');
+        this.modalElement.component = 'war-report';
+
+        this.modalElement.addEventListener('closeButtonClicked', async _e => {
+            await this.dismissModal();
+        });
+
+        this.modalElement.addEventListener('submitButtonClicked', async _e => {
+            console.log(_e);
+            await this.dismissModal();
+        });
+
+        // present the modal
+        document.body.appendChild(this.modalElement);
+        return this.modalElement.present();
+    }
+
+    async dismissModal() {
+        await this.modalElement.dismiss({
+            dismissed: true,
+        });
+
+        this.modalElement.remove();
+    }
 
     formattedName(): string {
         if (this.name) {
             return this.name.substr(0, 1).toUpperCase() + this.name.substr(1).toLowerCase();
         }
         return '';
-    }
-
-    async startTesseract() {
-        console.log(this.worker);
-        await this.worker.load();
-        await this.worker.loadLanguage('eng');
-        await this.worker.initialize('eng');
-        await this.worker.setParameters({ tessedit_pageseg_mode: PSM.SINGLE_BLOCK });
-        const {
-            data: { text },
-        } = await this.worker.recognize('/assets/image/1.png', {});
-        console.log(text);
-        await this.worker.terminate();
-
-        warRoster();
-    }
-
-    async componentDidLoad() {
-        await this.startTesseract();
     }
 
     render() {
@@ -52,12 +62,16 @@ export class WarAttendance {
             </ion-header>,
 
             <ion-content class="ion-padding">
-                <p>My name was passed in through a route param!</p>
-
-                <ion-item>
-                    <ion-label>Setting ({this.state.toString()})</ion-label>
-                    <ion-toggle checked={this.state} onIonChange={ev => (this.state = ev.detail.checked)} />
-                </ion-item>
+                <p>List of past wars. Please click on the fab icon in the bottom right corner to create new war report. You can add images there.</p>
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button
+                        ref={el => {
+                            this.fabButton = el;
+                        }}
+                    >
+                        <ion-icon name="add"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
             </ion-content>,
         ];
     }

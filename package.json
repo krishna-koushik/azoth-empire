@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "",
   "dependencies": {
+    "@ionic/core": "^5.7.0",
     "opencv4nodejs": "^5.6.0",
     "plotly.js-dist-min": "^2.4.1"
   },

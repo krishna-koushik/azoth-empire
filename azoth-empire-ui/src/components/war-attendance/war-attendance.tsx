@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h, Element } from '@stencil/core';
 
 @Component({
     tag: 'war-attendance',
@@ -9,6 +9,7 @@ export class WarAttendance {
     @Prop() name: string;
     private fabButton: any;
     private modalElement: any;
+    private contentElement: any;
 
     componentDidLoad() {
         this.fabButton.addEventListener('click', _e => {
@@ -20,6 +21,7 @@ export class WarAttendance {
         // create the modal with the `modal-page` component
         this.modalElement = document.createElement('ion-modal');
         this.modalElement.component = 'war-report';
+        this.modalElement.presentingElement = document.querySelector('ion-nav');
 
         this.modalElement.addEventListener('closeButtonClicked', async _e => {
             await this.dismissModal();
@@ -31,7 +33,7 @@ export class WarAttendance {
         });
 
         // present the modal
-        document.body.appendChild(this.modalElement);
+        this.contentElement.appendChild(this.modalElement);
         return this.modalElement.present();
     }
 
@@ -61,7 +63,12 @@ export class WarAttendance {
                 </ion-toolbar>
             </ion-header>,
 
-            <ion-content class="ion-padding">
+            <ion-content
+                class="ion-padding"
+                ref={el => {
+                    this.contentElement = el;
+                }}
+            >
                 <p>List of past wars. Please click on the fab icon in the bottom right corner to create new war report. You can add images there.</p>
                 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                     <ion-fab-button

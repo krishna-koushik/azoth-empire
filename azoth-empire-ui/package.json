@@ -33,6 +33,7 @@
     "dependencies": {
         "@bulmil/core": "^0.17.1",
         "d3-stencil": "^2.2.3",
+        "opencv4nodejs": "^5.6.0",
         "plotly.js-dist-min": "^2.4.2",
         "tesseract.js": "^2.1.5"
     }

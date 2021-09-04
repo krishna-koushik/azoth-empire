@@ -1,5 +1,5 @@
-import { Component, Host, h, State, Event, EventEmitter } from '@stencil/core';
-import { createWorker, PSM } from 'tesseract.js';
+import { Component, Event, EventEmitter, h, Host, State } from '@stencil/core';
+import { createWorker, OEM, PSM } from 'tesseract.js';
 import { warRoster } from '../../helpers/utils';
 
 @Component({
@@ -46,11 +46,14 @@ export class WarReport {
         await this.imageProcessor.load();
         await this.imageProcessor.loadLanguage('eng');
         await this.imageProcessor.initialize('eng');
-        await this.imageProcessor.setParameters({ tessedit_pageseg_mode: PSM.SINGLE_BLOCK });
+        await this.imageProcessor.setParameters({
+            tessedit_ocr_engine_mode: OEM.TESSERACT_LSTM_COMBINED,
+            tessedit_pageseg_mode: PSM.SPARSE_TEXT_OSD,
+        });
+
         const { data } = await this.imageProcessor.recognize(image, {});
         console.log(data);
-
-        warRoster();
+        return data;
     }
 
     async disconnectedCallback() {
@@ -66,12 +69,18 @@ export class WarReport {
             const {
                 target: { files },
             } = e;
+
             const file = files[0];
 
             this.attendanceImage = { ...file };
 
             // Process the report which captures players for war attendance and which group they belonged to in the war.
-            await this.startTesseract(file);
+            const roster = warRoster(URL.createObjectURL(file));
+            const dataPromiseArray: any[] = roster.map(async img => {
+                return await this.startTesseract(img);
+            });
+            const response = await Promise.all(dataPromiseArray);
+            console.log('response', response);
         });
 
         this.imageReportInput.addEventListener('change', async e => {
@@ -214,18 +223,18 @@ export class WarReport {
                                         }}
                                     >
                                         <ion-icon slot="start" name="image-outline"></ion-icon>
-                                        <input
-                                            hidden
-                                            type="file"
-                                            accept="image/*"
-                                            ref={el => {
-                                                this.imageAttendenceInput = el;
-                                            }}
-                                        />
                                         War roster
                                     </ion-button>
+                                    <input
+                                        hidden
+                                        type="file"
+                                        accept="image/*"
+                                        ref={el => {
+                                            this.imageAttendenceInput = el;
+                                        }}
+                                    />
                                 </ion-col>
-                                {!!this.attendanceImage && (
+                                {!!this.attendanceImage && Object.keys(this.attendanceImage).length > 0 && (
                                     <ion-col>
                                         <img src={URL.createObjectURL(this.attendanceImage)} style={{ height: '100px', width: '100px' }} />
                                     </ion-col>
@@ -253,11 +262,6 @@ export class WarReport {
                                         War report
                                     </ion-button>
                                 </ion-col>
-                                {!!this.attendanceImage && (
-                                    <ion-col>
-                                        <img src={URL.createObjectURL(this.attendanceImage)} style={{ height: '100px', width: '100px' }} />
-                                    </ion-col>
-                                )}
                                 {this.performanceReportImages.length > 0 && (
                                     <ion-col>
                                         {this.performanceReportImages.map(item => (

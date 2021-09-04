@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 // https://stenciljs.com/docs/config
 
@@ -13,6 +14,9 @@ export const config: Config = {
         }),
     ],
     namespace: 'azoth-empire',
+    rollupPlugins: {
+        after: [nodePolyfills()],
+    },
     outputTargets: [
         {
             type: 'dist',

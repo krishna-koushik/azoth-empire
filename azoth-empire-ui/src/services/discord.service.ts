@@ -3,7 +3,6 @@ import axios from 'axios';
 const CLIENT_ID = '######';
 const CLIENT_SECRET = '######';
 const REDIRECT_URI = 'https%3A%2F%2Flocalhost%3A3333%2Fdiscord%2Fcallback';
-// const AZOTH_EMPIRE_GUILD_ID = "#####";
 const AZOTH_EMPIRE_GUILD_ID = '#####';
 const BOT_TOKEN = '#######';
 class DiscordService {

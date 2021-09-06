@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const CLIENT_ID = '883348010308874301';
-const CLIENT_SECRET = 'koFOA5GDNIZSEQoVklJAxIZwm602i9Fb';
+const CLIENT_ID = '######';
+const CLIENT_SECRET = '######';
 const REDIRECT_URI = 'https%3A%2F%2Flocalhost%3A3333%2Fdiscord%2Fcallback';
-// const AZOTH_EMPIRE_GUILD_ID = "654661232497786893";
-const AZOTH_EMPIRE_GUILD_ID = '884134783867822140';
-const BOT_TOKEN = 'ODgzMzQ4MDEwMzA4ODc0MzAx.YTIn8Q.4F8O7il0idXPme-Wc-xFyyygC4U';
+// const AZOTH_EMPIRE_GUILD_ID = "#####";
+const AZOTH_EMPIRE_GUILD_ID = '#####';
+const BOT_TOKEN = '#######';
 class DiscordService {
     constructor() {}
     buildDiscordLogin(isBotAuth = false) {

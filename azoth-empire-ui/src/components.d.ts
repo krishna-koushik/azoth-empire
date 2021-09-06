@@ -8,7 +8,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
     interface AddMember {}
     interface AppHome {}
+    interface AppLogin {}
     interface AppRoot {}
+    interface DiscordCallback {}
     interface EditMember {}
     interface NwMember {
         memberId: number;
@@ -30,10 +32,20 @@ declare global {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
     };
+    interface HTMLAppLoginElement extends Components.AppLogin, HTMLStencilElement {}
+    var HTMLAppLoginElement: {
+        prototype: HTMLAppLoginElement;
+        new (): HTMLAppLoginElement;
+    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    interface HTMLDiscordCallbackElement extends Components.DiscordCallback, HTMLStencilElement {}
+    var HTMLDiscordCallbackElement: {
+        prototype: HTMLDiscordCallbackElement;
+        new (): HTMLDiscordCallbackElement;
     };
     interface HTMLEditMemberElement extends Components.EditMember, HTMLStencilElement {}
     var HTMLEditMemberElement: {
@@ -63,7 +75,9 @@ declare global {
     interface HTMLElementTagNameMap {
         'add-member': HTMLAddMemberElement;
         'app-home': HTMLAppHomeElement;
+        'app-login': HTMLAppLoginElement;
         'app-root': HTMLAppRootElement;
+        'discord-callback': HTMLDiscordCallbackElement;
         'edit-member': HTMLEditMemberElement;
         'nw-member': HTMLNwMemberElement;
         'nw-members': HTMLNwMembersElement;
@@ -77,7 +91,9 @@ declare namespace LocalJSX {
         onSubmitButtonClicked?: (event: CustomEvent<any>) => void;
     }
     interface AppHome {}
+    interface AppLogin {}
     interface AppRoot {}
+    interface DiscordCallback {}
     interface EditMember {}
     interface NwMember {
         memberId?: number;
@@ -93,7 +109,9 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         'add-member': AddMember;
         'app-home': AppHome;
+        'app-login': AppLogin;
         'app-root': AppRoot;
+        'discord-callback': DiscordCallback;
         'edit-member': EditMember;
         'nw-member': NwMember;
         'nw-members': NwMembers;
@@ -107,7 +125,9 @@ declare module '@stencil/core' {
         interface IntrinsicElements {
             'add-member': LocalJSX.AddMember & JSXBase.HTMLAttributes<HTMLAddMemberElement>;
             'app-home': LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
+            'app-login': LocalJSX.AppLogin & JSXBase.HTMLAttributes<HTMLAppLoginElement>;
             'app-root': LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            'discord-callback': LocalJSX.DiscordCallback & JSXBase.HTMLAttributes<HTMLDiscordCallbackElement>;
             'edit-member': LocalJSX.EditMember & JSXBase.HTMLAttributes<HTMLEditMemberElement>;
             'nw-member': LocalJSX.NwMember & JSXBase.HTMLAttributes<HTMLNwMemberElement>;
             'nw-members': LocalJSX.NwMembers & JSXBase.HTMLAttributes<HTMLNwMembersElement>;

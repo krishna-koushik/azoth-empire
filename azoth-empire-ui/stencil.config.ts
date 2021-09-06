@@ -1,6 +1,7 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-// import nodePolyfills from 'rollup-plugin-node-polyfills';
+import { readFileSync } from 'fs';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 // https://stenciljs.com/docs/config
 
@@ -14,9 +15,9 @@ export const config: Config = {
         }),
     ],
     namespace: 'azoth-empire',
-    // rollupPlugins: {
-    //     after: [nodePolyfills()],
-    // },
+    rollupPlugins: {
+        after: [nodePolyfills()],
+    },
     outputTargets: [
         {
             type: 'dist',
@@ -30,5 +31,9 @@ export const config: Config = {
     devServer: {
         reloadStrategy: 'pageReload',
         port: 3333,
+        https: {
+            cert: readFileSync('localhost.crt', 'utf8'),
+            key: readFileSync('localhost.key', 'utf8'),
+        },
     },
 };

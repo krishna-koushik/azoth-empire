@@ -17,7 +17,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com//krishna-koushik/azoth-empire-ui.git"
+    "url": "https://github.com//krishna-koushik/azoth-empire.git"
   },
   "scripts": {
     "prepare": "husky install"

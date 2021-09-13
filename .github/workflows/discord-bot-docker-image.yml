@@ -15,7 +15,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build the Docker image for AE Bot
-        run: docker build . --file azoth-empire-bot/Dockerfile --tag bodnapa/azoth-empire-bot:${GITHUB_SHA}
+        run: docker build . --file azoth-empire-bot/Dockerfile --tag bodnapa/azoth-empire-bot:${GITHUB_SHA::8}
       - name: Push the Docker image for AE Bot
         run: docker push bodnapa/azoth-empire-bot:${GITHUB_SHA}
   build-webapp:
@@ -28,6 +28,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push the Docker image for AE Webapp
-        run: docker build . --file azoth-empire-ui/Dockerfile --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA}
+        run: docker build . --file azoth-empire-ui/Dockerfile --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA::8}
       - name: Push the Docker image for AE Webapp
         run: docker push bodnapa/azoth-empire-web-app:${GITHUB_SHA}

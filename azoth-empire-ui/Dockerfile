@@ -5,7 +5,7 @@ FROM node:14 as builder
 ENV NODE_ENV=${NODE_ENV}
 
 COPY package*.json ./
-RUN npm i plotly.js-dist-min opencv4nodejs
+RUN npm i plotly.js-dist-min
 RUN npm ci
 
 # Final stage/image

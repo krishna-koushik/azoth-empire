@@ -5,7 +5,6 @@
   "author": "",
   "dependencies": {
     "@ionic/core": "^5.7.0",
-    "opencv4nodejs": "^5.6.0",
     "plotly.js-dist-min": "^2.4.1"
   },
   "devDependencies": {
@@ -17,7 +16,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com//krishna-koushik/azoth-empire-ui.git"
+    "url": "https://github.com//krishna-koushik/azoth-empire.git"
   },
   "scripts": {
     "prepare": "husky install"

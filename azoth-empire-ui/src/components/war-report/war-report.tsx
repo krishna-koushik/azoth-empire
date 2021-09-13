@@ -1,6 +1,6 @@
 import { Component, Event, EventEmitter, h, Host, State } from '@stencil/core';
-import { createWorker, OEM, PSM } from 'tesseract.js';
-import { warRoster } from '../../helpers/utils';
+// import { createWorker, OEM, PSM } from 'tesseract.js';
+// import { warRoster } from '../../helpers/utils';
 
 @Component({
     tag: 'war-report',
@@ -19,16 +19,16 @@ export class WarReport {
     @State() attendanceImage: any;
     @State() performanceReportImages: any[] = [];
 
-    private imageProcessor = createWorker({
-        logger: m => {
-            console.log(m);
-            const { progress, workerId } = m;
-            this.processingImages[workerId] = progress;
-
-            this.processingImages = { ...this.processingImages };
-            console.log(this.processingImages);
-        },
-    });
+    // private imageProcessor = createWorker({
+    //     logger: m => {
+    //         console.log(m);
+    //         const { progress, workerId } = m;
+    //         this.processingImages[workerId] = progress;
+    //
+    //         this.processingImages = { ...this.processingImages };
+    //         console.log(this.processingImages);
+    //     },
+    // });
 
     private imageAttendenceInput: any;
     private imageReportInput: any;
@@ -41,23 +41,23 @@ export class WarReport {
     private reportStartDateInput: any;
     private reportEndDateInput: any;
 
-    async startTesseract(image) {
-        this.processing = true;
-        await this.imageProcessor.load();
-        await this.imageProcessor.loadLanguage('eng');
-        await this.imageProcessor.initialize('eng');
-        await this.imageProcessor.setParameters({
-            tessedit_ocr_engine_mode: OEM.TESSERACT_LSTM_COMBINED,
-            tessedit_pageseg_mode: PSM.SPARSE_TEXT_OSD,
-        });
-
-        const { data } = await this.imageProcessor.recognize(image, {});
-        console.log(data);
-        return data;
-    }
+    // async startTesseract(image) {
+    //     this.processing = true;
+    //     await this.imageProcessor.load();
+    //     await this.imageProcessor.loadLanguage('eng');
+    //     await this.imageProcessor.initialize('eng');
+    //     await this.imageProcessor.setParameters({
+    //         tessedit_ocr_engine_mode: OEM.TESSERACT_LSTM_COMBINED,
+    //         tessedit_pageseg_mode: PSM.SPARSE_TEXT_OSD,
+    //     });
+    //
+    //     const { data } = await this.imageProcessor.recognize(image, {});
+    //     console.log(data);
+    //     return data;
+    // }
 
     async disconnectedCallback() {
-        await this.imageProcessor.terminate();
+        // await this.imageProcessor.terminate();
     }
 
     async componentDidLoad() {
@@ -75,12 +75,12 @@ export class WarReport {
             this.attendanceImage = { ...file };
 
             // Process the report which captures players for war attendance and which group they belonged to in the war.
-            const roster = warRoster(URL.createObjectURL(file));
-            const dataPromiseArray: any[] = roster.map(async img => {
-                return await this.startTesseract(img);
-            });
-            const response = await Promise.all(dataPromiseArray);
-            console.log('response', response);
+            // const roster = warRoster(URL.createObjectURL(file));
+            // const dataPromiseArray: any[] = roster.map(async img => {
+            //     return await this.startTesseract(img);
+            // });
+            // const response = await Promise.all(dataPromiseArray);
+            // console.log('response', response);
         });
 
         this.imageReportInput.addEventListener('change', async e => {
@@ -91,9 +91,9 @@ export class WarReport {
             this.performanceReportImages = [...files];
 
             // Process the war report after the war which captures performance of all players
-            for (const file of files) {
-                await this.startTesseract(file);
-            }
+            // for (const file of files) {
+            //     await this.startTesseract(file);
+            // }
         });
 
         this.nameInput.addEventListener('ionChange', e => {

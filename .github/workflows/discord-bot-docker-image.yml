@@ -1,0 +1,19 @@
+name: Azoth Empire Discord Bot Docker Image CI
+on:
+  push:
+    branches: [main]
+#  pull_request:
+#    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image for AE Bot
+        run: docker build . --file azoth-empire-bot/Dockerfile --tag bodnapa/azoth-empire-bot:${GITHUB_SHA}
+      - name: Push the Docker image for AE Bot
+        run: docker push bodnapa/azoth-empire-bot:${GITHUB_SHA}
+      - name: Push the Docker image for AE Webapp
+        run: docker build . --file azoth-empire-ui/Dockerfile --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA}
+      - name: Push the Docker image for AE Webapp
+        run: docker push bodnapa/azoth-empire-web-app:${GITHUB_SHA}

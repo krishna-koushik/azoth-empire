@@ -3,20 +3,22 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const { CLIENT_ID, CLIENT_TOKEN, GUILD_ID } = process.env;
-const PlayerInfo = require("../src/discord-bot/bot-commands/player-info");
-console.log(PlayerInfo.buildSlashCommand());
-const commands = [
-  new SlashCommandBuilder()
-    .setName("ping")
-    .setDescription("Replies with pong!"),
-  new SlashCommandBuilder()
-    .setName("server")
-    .setDescription("Replies with server info!"),
-  new SlashCommandBuilder()
-    .setName("user")
-    .setDescription("Replies with user info!"),
-  PlayerInfo.buildSlashCommand(),
-].map((command) => command.toJSON());
+const fs = require("fs");
+
+const commandFiles = fs
+  .readdirSync("./src/discord-bot/commands")
+  .filter((file) => file.endsWith(".js"));
+let commands = [];
+for (const file of commandFiles) {
+  const command = require(`../src/discord-bot/commands/${file}`);
+  commands.push(
+    new SlashCommandBuilder()
+      .setName(command.name)
+      .setDescription(command.description)
+  );
+}
+
+commands = commands.map((command) => command.toJSON());
 
 const rest = new REST({ version: "9" }).setToken(CLIENT_TOKEN);
 

@@ -15,11 +15,6 @@ class Database {
           keepAlive: true,
           keepAliveInitialDelay: 300000,
           retryWrites: true,
-          // "auth": {
-          //     "authSource": "admin",
-          // },
-          // "user": MONGO_USERNAME,
-          // "pass": MONGO_PASSWORD
         },
         (error) => {
           if (error) {

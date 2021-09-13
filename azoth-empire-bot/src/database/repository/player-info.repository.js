@@ -5,7 +5,6 @@ class PlayerInfoRepository {
 
   async findPlayerByDiscordId(discordId) {
     console.log(`fetching player info for discord id ${discordId}`);
-
     return await players.findOne({ "discord.id": `${discordId}` }).exec();
   }
 

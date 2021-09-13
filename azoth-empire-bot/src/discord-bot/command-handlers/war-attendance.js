@@ -9,7 +9,7 @@ const { capitalize } = require("../../lib/utils");
 class WarAttendance {
   constructor() {}
 
-  handleInteraction(interaction) {
+  async handleInteraction(interaction) {
     const { guild, user } = interaction;
 
     // const row = new MessageActionRow()

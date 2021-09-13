@@ -5,8 +5,7 @@ FROM node:16 as builder
 ENV NODE_ENV=${NODE_ENV}
 
 COPY package*.json ./
-RUN npm i husky
-RUN npm ci --production
+RUN npm ci
 
 # Final stage/image
 FROM node:16

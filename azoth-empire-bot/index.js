@@ -6,7 +6,10 @@ const Server = require("./src/database/mongodb/mongoose/server");
 let CLIENT_TOKEN = "";
 
 try {
-  CLIENT_TOKEN = fs.readFileSync(".client-token", "utf8").toString().trim();
+  CLIENT_TOKEN = fs
+    .readFileSync("secrets/.client-token", "utf8")
+    .toString()
+    .trim();
 } catch (e) {
   console.error(
     "Cannot import client token. Please assign appropriate values."

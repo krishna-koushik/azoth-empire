@@ -1,5 +1,12 @@
 const Mongoose = require("mongoose");
-const { MONGO_URI } = process.env;
+const fs = require("fs");
+// const { MONGO_URI } = process.env;
+
+const MONGO_URI = (CLIENT_TOKEN = fs
+  .readFileSync("secrets/.mongo-uri", "utf8")
+  .toString()
+  .trim());
+
 const {} = require("./models");
 class Database {
   constructor() {

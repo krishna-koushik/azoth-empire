@@ -9,8 +9,11 @@ let CLIENT_ID = "";
 let CLIENT_TOKEN = "";
 
 try {
-  CLIENT_ID = fs.readFileSync(".client-id", "utf8").toString().trim();
-  CLIENT_TOKEN = fs.readFileSync(".client-token", "utf8").toString().trim();
+  CLIENT_ID = fs.readFileSync("secrets/.client-id", "utf8").toString().trim();
+  CLIENT_TOKEN = fs
+    .readFileSync("secrets/.client-token", "utf8")
+    .toString()
+    .trim();
 } catch (e) {
   console.error(
     "Cannot import client id and token. Please assign appropriate values."

@@ -3,6 +3,16 @@ const { Client, Intents, Collection } = require("discord.js"); //import discord.
 const fs = require("fs");
 const Server = require("./src/database/mongodb/mongoose/server");
 
+let CLIENT_TOKEN = "";
+
+try {
+  CLIENT_TOKEN = fs.readFileSync(".client-token", "utf8").toString().trim();
+} catch (e) {
+  console.error(
+    "Cannot import client token. Please assign appropriate values."
+  );
+}
+
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -84,7 +94,7 @@ client.on("ready", () => {
 Server.checkAndConnect().then(() => {
   //make sure this line is the last line
   client
-    .login(process.env.CLIENT_TOKEN)
+    .login(CLIENT_TOKEN)
     .then((res) => {
       console.log(res);
     })

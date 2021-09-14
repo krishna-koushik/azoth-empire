@@ -103,3 +103,6 @@ dist
 # TernJS port file
 .tern-port
 !/azoth-empire-bot/scripts/members.csv
+
+!/azoth-empire-bot/.client-id
+!/azoth-empire-bot/.client-token

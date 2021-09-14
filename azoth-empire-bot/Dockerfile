@@ -5,7 +5,7 @@ FROM node:16 as builder
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
 
-COPY package*.json .
+COPY package*.json ./
 RUN npm ci
 
 # Final stage/image

@@ -20,6 +20,8 @@ jobs:
           docker build . --tag bodnapa/azoth-empire-bot:${GITHUB_SHA::8}
       - name: Push the Docker image for AE Bot
         run: docker push bodnapa/azoth-empire-bot:${GITHUB_SHA::8}
+      - name: Push latest Docker image for AE Bot
+        run: docker push bodnapa/azoth-empire-bot:latest
   build-webapp:
     runs-on: ubuntu-latest
     steps:
@@ -35,3 +37,5 @@ jobs:
           docker build . --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA::8}
       - name: Push the Docker image for AE Webapp
         run: docker push bodnapa/azoth-empire-web-app:${GITHUB_SHA::8}
+      - name: Push the Docker image for AE Webapp
+        run: docker push bodnapa/azoth-empire-web-app:latest

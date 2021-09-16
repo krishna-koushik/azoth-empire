@@ -1,0 +1,31 @@
+{
+  "name": "azoth-empire-api",
+  "description": "",
+  "version": "1.0.0",
+  "author": "",
+  "_moduleAliases": {
+    "@application": "./src/application",
+    "@database": "./src/database",
+    "@discord": "./src/discord",
+    "@graphql": "./src/graphql"
+  },
+  "dependencies": {
+    "@hapi/boom": "^9.1.4",
+    "apollo-server": "^3.3.0",
+    "apollo-server-core": "^3.3.0",
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.5.3",
+    "module-alias": "^2.2.2",
+    "mongoose": "^6.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:local": "nodemon index.js"
+  }
+}

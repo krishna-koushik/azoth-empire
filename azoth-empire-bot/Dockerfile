@@ -1,7 +1,7 @@
 ARG NODE_ENV=production
 
 #Builder stage
-FROM node:16 as builder
+FROM node:current-bullseye-slim as builder
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm ci
 
 # Final stage/image
-FROM node:16
+FROM node:current-bullseye-slim
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
 

@@ -19,6 +19,12 @@ let playerSchema = new Schema({
     type: String,
     index: true,
   },
+  appData: new Schema({
+    login: {
+      type: Boolean,
+      default: false,
+    },
+  }),
   gameData: new Schema({
     level: {
       type: Number,

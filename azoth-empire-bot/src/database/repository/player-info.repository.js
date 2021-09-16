@@ -35,6 +35,18 @@ class PlayerInfoRepository {
     });
     return response;
   }
+
+  async updatePlayerInfo(findQuery, updateData) {
+    console.info(`starting to update player in mongodb for findQuery`, {
+      findQuery,
+      updateData,
+    });
+    const response = await players.updateOne(findQuery, updateData);
+    console.info(`finished updating player in mongodb for findQuery`, {
+      response,
+    });
+    return response;
+  }
 }
 
 module.exports = new PlayerInfoRepository();

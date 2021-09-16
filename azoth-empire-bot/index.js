@@ -2,6 +2,7 @@ require("dotenv").config(); //initialize dotenv
 const { Client, Intents, Collection } = require("discord.js"); //import discord.js
 const fs = require("fs");
 const Server = require("./src/database/mongodb/mongoose/server");
+const { fetchDiscordUser } = require("./src/lib/utils");
 
 let CLIENT_TOKEN = "";
 
@@ -22,6 +23,7 @@ const client = new Client({
     Intents.FLAGS.DIRECT_MESSAGES,
     Intents.FLAGS.GUILD_MEMBERS,
     Intents.FLAGS.GUILD_MESSAGE_TYPING,
+    Intents.FLAGS.GUILD_MESSAGES,
   ],
 }); //create new client
 
@@ -46,10 +48,7 @@ client.on("interactionCreate", async (interaction) => {
   }
 
   try {
-    const allMembers = await guild.members.fetch();
-    const member = allMembers.find((m) => {
-      return m.user.username === user.username;
-    });
+    const member = await fetchDiscordUser(guild, user);
 
     if (
       member.roles.cache.some((role) => role.name === "New World") &&

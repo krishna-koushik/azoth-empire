@@ -1,11 +1,10 @@
 const Mongoose = require("mongoose");
 const fs = require("fs");
-// const { MONGO_URI } = process.env;
 
-const MONGO_URI = (CLIENT_TOKEN = fs
+const MONGO_URI = fs
   .readFileSync("secrets/.mongo-uri", "utf8")
   .toString()
-  .trim());
+  .trim();
 
 const {} = require("./models");
 class Database {

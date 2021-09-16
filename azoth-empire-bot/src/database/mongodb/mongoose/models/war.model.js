@@ -16,6 +16,7 @@ let warSchema = new Schema({
     type: String,
     enum: ["INVASION", "WAR"],
     default: "WAR",
+    index: true,
   },
   location: {
     type: String,

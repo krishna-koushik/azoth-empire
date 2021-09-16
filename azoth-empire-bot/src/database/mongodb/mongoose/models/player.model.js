@@ -12,6 +12,7 @@ let playerSchema = new Schema({
       type: String,
       index: true,
       unique: true,
+      sparse: true,
     },
   }),
   guild: {

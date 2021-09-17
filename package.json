@@ -17,6 +17,9 @@
   "license": "ISC",
   "main": "index.js",
   "release": {
+    "branches": [
+      "main"
+    ],
     "publish": [
       "@semantic-release/github"
     ]

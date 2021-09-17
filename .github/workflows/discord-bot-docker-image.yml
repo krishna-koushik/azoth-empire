@@ -2,7 +2,7 @@ name: Azoth Empire Discord Bot Docker Image CI
 on:
   push:
     tags:
-      - v*
+      - '*'
 jobs:
   build-bot:
     runs-on: ubuntu-latest

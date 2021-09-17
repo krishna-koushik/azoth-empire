@@ -1,9 +1,8 @@
 name: Azoth Empire Discord Bot Docker Image CI
 on:
   push:
-    branches: [main]
-#  pull_request:
-#    branches: [main]
+    tags:
+      - v*
 jobs:
   build-bot:
     runs-on: ubuntu-latest
@@ -17,7 +16,7 @@ jobs:
       - name: Build the Docker image for AE Bot
         run: |
           cd azoth-empire-bot && \
-          docker build --tag bodnapa/azoth-empire-bot:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-bot:latest .
+          docker build --tag bodnapa/azoth-empire-bot:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-bot:${GITHUB_REF} --tag bodnapa/azoth-empire-bot:latest .
       - name: Push the Docker image for AE Bot
         run: docker push --all-tags bodnapa/azoth-empire-bot
   build-webapp:
@@ -32,7 +31,7 @@ jobs:
       - name: Push the Docker image for AE Webapp
         run: |
           cd azoth-empire-ui && \
-          docker build --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-web-app:latest .
+          docker build --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-web-app:${GITHUB_REF} --tag bodnapa/azoth-empire-web-app:latest .
       - name: Push the Docker image for AE Webapp
         run: docker push --all-tags bodnapa/azoth-empire-web-app
   build-api:
@@ -47,6 +46,6 @@ jobs:
       - name: Push the Docker image for AE API
         run: |
           cd azoth-empire-api && \
-          docker build --tag bodnapa/azoth-empire-graphql-api:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-graphql-api:latest .
+          docker build --tag bodnapa/azoth-empire-graphql-api:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-graphql-api:${GITHUB_REF} --tag bodnapa/azoth-empire-graphql-api:latest .
       - name: Push the Docker image for AE API
         run: docker push --all-tags bodnapa/azoth-empire-graphql-api

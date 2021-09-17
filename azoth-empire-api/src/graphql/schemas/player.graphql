@@ -1,0 +1,31 @@
+type Player {
+  _id: ID!
+  name: String
+  discord: Discord
+  guild: String
+  appData: AppData
+  gameData: GameData
+  joinDate: Date
+  notes: String
+  active: Boolean
+}
+
+type PlayerEdge {
+  cursor: String!
+  node: Player!
+}
+
+type PlayerConnection {
+  edges: [PlayerEdge!]!
+  pageInfo: PageInfo!
+}
+
+type Query {
+  player(id: ID!): Player
+  players(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): PlayerConnection!
+}

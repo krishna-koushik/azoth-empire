@@ -14,7 +14,18 @@ const {
 
 const Server = require("@database/mongodb/mongoose/server");
 
-const { typeDefs, resolvers } = require("@graphql/definitions");
+const path = require("path");
+const { mergeTypeDefs, mergeResolvers } = require("@graphql-tools/merge");
+const { loadFilesSync } = require("@graphql-tools/load-files");
+
+const typeDefs = mergeTypeDefs(
+  loadFilesSync(path.join(__dirname, "./src/graphql/schemas")),
+  { all: true }
+);
+const resolvers = mergeResolvers(
+  loadFilesSync(path.join(__dirname, "./src/graphql/resolvers/*.resolver.js"))
+);
+
 const fs = require("fs");
 
 // const privateKey  = fs.readFileSync('secrets/server.key', 'utf8');

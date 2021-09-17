@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com//krishna-koushik/azoth-empire.git"
+    "url": "https://github.com/krishna-koushik/azoth-empire.git"
   },
   "scripts": {
     "prepare": "husky install"

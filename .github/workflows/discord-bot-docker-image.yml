@@ -1,10 +1,10 @@
 name: Azoth Empire Discord Bot Docker Image CI
 on:
-  push:
-    tags:
-      - "*"
+  create:
+
 jobs:
   build-bot:
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +20,7 @@ jobs:
       - name: Push the Docker image for AE Bot
         run: docker push --all-tags bodnapa/azoth-empire-bot
   build-webapp:
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,6 +36,7 @@ jobs:
       - name: Push the Docker image for AE Webapp
         run: docker push --all-tags bodnapa/azoth-empire-web-app
   build-api:
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

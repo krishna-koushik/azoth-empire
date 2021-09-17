@@ -10,6 +10,18 @@ type Player {
   active: Boolean
 }
 
+enum PlayerOrderField {
+  NAME
+  GUILD_NAME
+  JOIN_DATE
+  ACTIVE
+}
+
+input PlayerOrder {
+  direction: OrderDirection!
+  field: PlayerOrderField!
+}
+
 type PlayerEdge {
   cursor: String!
   node: Player!
@@ -27,5 +39,6 @@ type Query {
     after: String
     last: Int
     before: String
+    orderBy: PlayerOrder
   ): PlayerConnection!
 }

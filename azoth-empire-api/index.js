@@ -66,7 +66,7 @@ const server = new ApolloServer({
     } = args;
     const { operationName } = body;
     let event = args.req.body.variables;
-    if (operationName !== "operationName") {
+    if (operationName !== "IntrospectionQuery") {
       try {
         const { authorization, "x-token-code": xTokenCode } = args.req.headers;
         const { credentials } = await authenticate(authorization, xTokenCode);

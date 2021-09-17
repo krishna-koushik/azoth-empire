@@ -1,7 +1,6 @@
-name: Azoth Empire Discord Bot Docker Image CI
 on:
   create:
-
+name: Azoth Empire Discord Bot Docker Image CI
 jobs:
   build-bot:
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}

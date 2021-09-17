@@ -47,6 +47,15 @@ class PlayerInfoRepository {
     });
     return response;
   }
+
+  async getPlayers(findQuery) {
+    console.info(`starting finding players in mongodb`);
+    const response = await players.find(findQuery);
+    console.info(`finished finding players in mongodb`, {
+      response,
+    });
+    return response;
+  }
 }
 
 module.exports = new PlayerInfoRepository();

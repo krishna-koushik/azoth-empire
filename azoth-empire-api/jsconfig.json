@@ -1,13 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "es2020",
-    "baseUrl": ".",
-    "paths": {
-      "@graphql/*": ["./src/graphql/*"],
-      "@database/*": ["./src/database/*"],
-      "@application/*": ["./src/application/*"],
-      "@discord": ["./src/discord/*"]
-    }
-  },
-  "include": ["src/**/*"]
+    "compilerOptions": {
+        "target": "es2020",
+        "baseUrl": ".",
+        "paths": {
+            "@graphql/*": ["./src/graphql/*"],
+            "@database/*": ["./src/database/*"],
+            "@application/*": ["./src/application/*"],
+            "@discord": ["./src/discord/*"],
+            "@lib": ["./src/lib/*"]
+        }
+    },
+    "include": ["src/**/*"]
 }

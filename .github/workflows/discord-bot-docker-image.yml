@@ -17,6 +17,6 @@ jobs:
       - name: Build the Docker image for AE Bot
         run: |
           cd azoth-empire-bot && \
-          docker build --tag bodnapa/azoth-empire-bot:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-bot:${GITHUB_REF} --tag bodnapa/azoth-empire-bot:latest .
+          docker build --tag bodnapa/azoth-empire-bot:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-bot:${{ github.event.ref }} --tag bodnapa/azoth-empire-bot:latest .
       - name: Push the Docker image for AE Bot
         run: docker push --all-tags bodnapa/azoth-empire-bot

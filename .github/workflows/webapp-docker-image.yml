@@ -17,6 +17,6 @@ jobs:
       - name: Push the Docker image for AE Webapp
         run: |
           cd azoth-empire-ui && \
-          docker build --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-web-app:${GITHUB_REF} --tag bodnapa/azoth-empire-web-app:latest .
+          docker build --tag bodnapa/azoth-empire-web-app:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-web-app:${{ github.event.ref }} --tag bodnapa/azoth-empire-web-app:latest .
       - name: Push the Docker image for AE Webapp
         run: docker push --all-tags bodnapa/azoth-empire-web-app

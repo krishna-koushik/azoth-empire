@@ -17,6 +17,6 @@ jobs:
       - name: Push the Docker image for AE API
         run: |
           cd azoth-empire-api && \
-          docker build --tag bodnapa/azoth-empire-graphql-api:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-graphql-api:${{ github.event.ref }} --tag bodnapa/azoth-empire-graphql-api:latest .
+          docker build --tag bodnapa/azoth-empire-graphql-api:${GITHUB_SHA::8} --tag bodnapa/azoth-empire-graphql-api:${GITHUB_REF:10} --tag bodnapa/azoth-empire-graphql-api:latest .
       - name: Push the Docker image for AE API
         run: docker push --all-tags bodnapa/azoth-empire-graphql-api

@@ -1,0 +1,16 @@
+on:
+  push:
+      branches: [main]
+name: Azoth Empire Semantic Release
+
+jobs:
+  run-semantic-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - name: Run Semantic release
+        env:
+          GITHUB_TOKEN: ${{ secrets.AE_GITHUB_TOKEN }}
+          DEBUG: semantic-release:github
+        run: npx semantic-release

@@ -1,0 +1,26 @@
+type GameAttributes {
+  primary: String
+  secondary: String
+  preferredWeightClass: String
+}
+
+type GameData {
+  level: Int
+  weapon: [String]
+  teams: [String]
+  averageGs: Int
+  amulet: Int
+  ring: Int
+  earring: Int
+  bag1: Int
+  bag2: Int
+  bag3: Int
+  helm: Int
+  chest: Int
+  hands: Int
+  pants: Int
+  boots: Int
+  shield: Int
+  attribute: GameAttributes
+  skills: GameSkill
+}

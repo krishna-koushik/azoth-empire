@@ -1,0 +1,8 @@
+type Discord {
+  name: String
+  id: String
+}
+
+type AppData {
+  login: Boolean
+}

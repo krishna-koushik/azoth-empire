@@ -108,16 +108,10 @@ dist
 !/azoth-empire-bot/secrets/.client-token
 !/azoth-empire-bot/secrets/.mongo-uri
 
-!/azoth-empire-api/secrets/.client-id
-!/azoth-empire-api/secrets/.client-token
-!/azoth-empire-api/secrets/.mongo-uri
-!/azoth-empire-api/secrets/.client-id
-
-!/azoth-empire-api/secrets/.client-secret
-
-!/azoth-empire-api/secrets/.client-token
-
-!/azoth-empire-api/secrets/.mongo-uri
+/azoth-empire-api/secrets/.client-id
+/azoth-empire-api/secrets/.client-token
+/azoth-empire-api/secrets/.mongo-uri
+/azoth-empire-api/secrets/.client-secret
 
 !/azoth-empire-api/secrets/server.crt
 

@@ -1,11 +1,19 @@
 class AuthService {
     constructor() {}
     isAuthenticated() {
-        return !!sessionStorage.getItem('ae_token');
+        return !!localStorage.getItem('ae_token');
+    }
+
+    getToken() {
+        return localStorage.getItem('ae_token');
+    }
+
+    login(token) {
+        localStorage.setItem('ae_token', token);
     }
 
     logout() {
-        sessionStorage.clear();
+        localStorage.clear();
         window.location.href = '/login';
     }
 }

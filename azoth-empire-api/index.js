@@ -22,23 +22,30 @@ async function authenticate(authToken, xTokenCode) {
             throw Boom.unauthorized('You are not ready. This is the way!');
         }
 
-        let credentials = await new Promise(async resolve => {
-            if (xTokenCode) {
-                authToken = await getOauthToken(xTokenCode);
-            }
+        let credentials = await new Promise(async (resolve, reject) => {
+            try {
+                if (xTokenCode) {
+                    authToken = await getOauthToken(xTokenCode);
+                    if (!authToken) {
+                        throw Boom.unauthorized('You are not ready. This is the way!');
+                    }
+                }
 
-            if (authToken) {
-                const res = await getCurrentUser(authToken);
-                const { appData: { login = false } = {} } = await PlayerInfo.findPlayerByDiscordId(res.id);
-                if (!login) {
+                if (authToken) {
+                    const res = await getCurrentUser(authToken);
+                    const { appData: { login = false } = {} } = await PlayerInfo.findPlayerByDiscordId(res.id);
+                    if (!login) {
+                        throw Boom.unauthorized('You are not ready. This is the way!');
+                    }
+                    resolve({
+                        authToken,
+                        user: res,
+                    });
+                } else {
                     throw Boom.unauthorized('You are not ready. This is the way!');
                 }
-                resolve({
-                    authToken,
-                    user: res,
-                });
-            } else {
-                throw Boom.unauthorized('You are not ready. This is the way!');
+            } catch (e) {
+                reject(e);
             }
         });
 
@@ -61,7 +68,9 @@ const server = new ApolloServer({
             req: { body },
         } = args;
         const { operationName } = body;
-        let event = args.req.body.variables;
+        let event = args.req.body.variables || {
+            requestContext: {},
+        };
         if (operationName !== 'IntrospectionQuery') {
             try {
                 const { authorization, 'x-token-code': xTokenCode } = args.req.headers;

@@ -15,12 +15,20 @@ module.exports = {
         node: obj => PlayerInfoRepository.getById(obj.node),
     },
     Query: {
-        async player(obj, args) {
+        async player(obj, args, context) {
+            const { event: { requestContext } = {} } = context;
+            if (!requestContext) {
+                return null;
+            }
+
             return PlayerInfoRepository.getById(args.id);
         },
-        async players(obj, args) {
+        async players(obj, args, context) {
+            const { event: { requestContext } = {} } = context;
+            if (!requestContext) {
+                return null;
+            }
             try {
-                console.log(args);
                 const m = new PlayersApplicationModel(args);
                 return PlayersApplicationHandler.handle(m);
             } catch (e) {

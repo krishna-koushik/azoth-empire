@@ -1,44 +1,33 @@
 type Player {
-  _id: ID!
-  name: String
-  discord: Discord
-  guild: String
-  appData: AppData
-  gameData: GameData
-  joinDate: Date
-  notes: String
-  active: Boolean
+    _id: ID!
+    name: String
+    discord: Discord
+    guild: String
+    appData: AppData
+    gameData: GameData
+    joinDate: Date
+    notes: String
+    active: Boolean
 }
 
 enum PlayerOrderField {
-  NAME
-  GUILD_NAME
-  JOIN_DATE
-  ACTIVE
+    NAME
+    GUILD_NAME
+    JOIN_DATE
+    ACTIVE
 }
 
 input PlayerOrder {
-  direction: OrderDirection!
-  field: PlayerOrderField!
+    direction: OrderDirection!
+    field: PlayerOrderField!
 }
 
 type PlayerEdge {
-  cursor: String!
-  node: Player!
+    cursor: String!
+    node: Player!
 }
 
 type PlayerConnection {
-  edges: [PlayerEdge!]!
-  pageInfo: PageInfo!
-}
-
-type Query {
-  player(id: ID!): Player
-  players(
-    first: Int
-    after: String
-    last: Int
-    before: String
-    orderBy: PlayerOrder
-  ): PlayerConnection!
+    edges: [PlayerEdge!]!
+    pageInfo: PageInfo!
 }

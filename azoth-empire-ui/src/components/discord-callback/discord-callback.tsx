@@ -1,5 +1,6 @@
 import { Component, Host, h, State, Element } from '@stencil/core';
-import { discordService } from '../../services/discord.service';
+import { authService } from '../../services/auth.service';
+import GraphQLService from '../../services/graphql.service';
 
 @Component({
     tag: 'discord-callback',
@@ -20,34 +21,19 @@ export class DiscordCallback {
     }
 
     async componentDidLoad() {
-        await this.getDiscordUser();
-        // verify if the user has member access in Azoth Empire
-        await this.getDiscordUserGuildPerms();
-
+        await this.login(this.code);
         this.redirectToHome();
     }
 
     redirectToHome() {
-        // window.location.href = '/';
+        window.location.href = '/';
     }
 
-    async getDiscordUser() {
-        const token = await discordService.getOauthToken(this.code);
-        const { id = '', username = '', discriminator = '' } = await discordService.getCurrentUser(token);
-
-        if (!!username && !!discriminator) {
-            this.username = `${username}#${discriminator}`;
-            this.loggedinDiscordUserId = id;
-        }
-    }
-
-    async getDiscordUserGuildPerms() {
-        const token = await discordService.getOauthToken(this.code);
-        console.log(await discordService.getOauthTokenMe(token));
-        console.log(await discordService.getCurrentUserGuilds(this.code));
-        // const response = await discordService.getAzothEmpireGuildPermsByUserId(token, this.loggedinDiscordUserId);
-        //
-        // console.log(response);
+    async login(code) {
+        const {
+            data: { login },
+        } = await GraphQLService.login(code);
+        await authService.login(login);
     }
 
     render() {

@@ -59,7 +59,7 @@ class PlayerInfoRepository {
 
     async findByAggregation(query) {
         console.info(`starting find players by aggregation query in mongodb`, { query });
-        const response = players.aggregate(query.aggregationQuery);
+        const response = await players.aggregate(query.aggregationQuery);
         console.info(`finished finding players by aggregation query in mongodb`, {
             response,
         });

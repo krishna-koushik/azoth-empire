@@ -13,7 +13,7 @@ export namespace Components {
     interface DiscordCallback {}
     interface EditMember {}
     interface NwMember {
-        memberId: number;
+        memberId: string;
     }
     interface NwMembers {}
     interface WarAttendance {
@@ -96,7 +96,7 @@ declare namespace LocalJSX {
     interface DiscordCallback {}
     interface EditMember {}
     interface NwMember {
-        memberId?: number;
+        memberId?: string;
     }
     interface NwMembers {}
     interface WarAttendance {

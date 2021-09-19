@@ -1,42 +1,42 @@
 type TradeSkill {
-  jewel: Int
-  engineering: Int
-  food: Int
-  armoring: Int
-  weaponsmithing: Int
-  arcana: Int
-  furnishing: Int
-  stone: Int
+    jewel: Int
+    engineering: Int
+    food: Int
+    armoring: Int
+    weaponsmithing: Int
+    arcana: Int
+    furnishing: Int
+    stone: Int
 }
 
 type GatheringSkill {
-  smelting: Int
-  woodworking: Int
-  weaving: Int
-  leatherworking: Int
-  logging: Int
-  mining: Int
-  harvesting: Int
-  skinning: Int
-  fishing: Int
+    smelting: Int
+    woodworking: Int
+    weaving: Int
+    leatherworking: Int
+    logging: Int
+    mining: Int
+    harvesting: Int
+    skinning: Int
+    fishing: Int
 }
 
 type WeaponSkill {
-  swordAndShield: Int
-  rapier: Int
-  hatchet: Int
-  spear: Int
-  greatAxe: Int
-  warHammer: Int
-  bow: Int
-  musket: Int
-  lifeStaff: Int
-  fireStaff: Int
-  iceGauntlet: Int
+    swordAndShield: Int
+    rapier: Int
+    hatchet: Int
+    spear: Int
+    greatAxe: Int
+    warHammer: Int
+    bow: Int
+    musket: Int
+    lifeStaff: Int
+    fireStaff: Int
+    iceGauntlet: Int
 }
 
 type GameSkill {
-  trade: TradeSkill
-  gathering: GatheringSkill
-  weapons: WeaponSkill
+    trade: TradeSkill
+    gathering: GatheringSkill
+    weapons: WeaponSkill
 }

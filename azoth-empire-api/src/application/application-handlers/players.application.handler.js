@@ -43,8 +43,9 @@ class PlayersApplicationHandler {
             pageInfo: {
                 startCursor: startEdge ? startEdge.cursor : null,
                 endCursor: endEdge ? endEdge.cursor : null,
-                hasPreviousPage: typeof last === 'number' ? limit > last : skip > 0,
-                hasNextPage: typeof first === 'number' ? limit > first : skip + limit < total,
+                hasPreviousPage: last > 0 ? limit > last : skip > 0,
+                hasNextPage: skip + limit < total,
+                total,
             },
         };
     }

@@ -1,4 +1,6 @@
 import { Component, h, State } from '@stencil/core';
+import GraphQLService from '../../../services/graphql.service';
+import NWGQLQuery, { IPlayerOrder, OrderDirection, PlayerOrderField } from '../../../interfaces/graphql.interface';
 
 @Component({
     tag: 'nw-members',
@@ -6,54 +8,42 @@ import { Component, h, State } from '@stencil/core';
 })
 export class Members {
     @State() memberList: any[] = [];
+    @State() totalMembers: number = 0;
     @State() findMember: string = '';
     @State() findBy: string = 'name';
+    @State() isLoading: boolean = false;
+    @State() hasMorePlayers: boolean = true;
     private searchInput: any;
     private findByInput: any;
-    private fabButton: any;
+    // private fabButton: any;
     private modalElement: any;
 
-    componentWillLoad() {
-        this.memberList = [
-            {
-                _id: 1,
-                name: 'Bodnapa',
-                guild: 'Unbroken',
-                active: true,
-            },
-            {
-                _id: 2,
-                name: 'Kin',
-                guild: 'PAX',
-                active: true,
-            },
-            {
-                _id: 3,
-                name: 'Sol',
-                guild: 'PAX',
-                active: true,
-            },
-            {
-                _id: 3,
-                name: 'PotatoSack',
-                guild: 'Unbroken',
-                active: false,
-            },
-        ];
+    private first: number = 25;
+    private after: string = '';
+    private before: string = '';
+    private last: number;
+    private orderBy: IPlayerOrder = {
+        direction: OrderDirection.ASC,
+        field: PlayerOrderField.NAME,
+    };
+    private infiniteScroll: any;
 
-        this.memberList.sort((a, b) => {
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            }
+    async componentWillLoad() {
+        const members = await this.fetchPlayers();
+        this.memberList = [...members];
+    }
 
-            // names must be equal
-            return 0;
-        });
+    async fetchPlayers() {
+        this.isLoading = true;
+        const { data: { players: { edges: players = [], pageInfo = {} } = {} } = {} } = await GraphQLService.query(
+            NWGQLQuery.playersQuery(this.first, this.after, this.last, this.before, this.orderBy),
+        );
+
+        this.totalMembers = pageInfo.total || 0;
+        this.after = pageInfo.endCursor;
+        this.isLoading = false;
+        this.hasMorePlayers = pageInfo.hasNextPage || false;
+        return players.map(p => p.node);
     }
 
     componentDidLoad() {
@@ -66,10 +56,16 @@ export class Members {
             const { detail: { value = '' } = {} } = e;
             this.findBy = value;
         });
+    }
 
-        this.fabButton.addEventListener('click', _e => {
-            this.openAddMemberModal();
-        });
+    async infiniteScrollMembers(_e) {
+        if (!!this.hasMorePlayers) {
+            const members = await this.fetchPlayers();
+            (this.infiniteScroll as any).complete();
+            this.memberList = [...this.memberList, ...members];
+        } else {
+            (this.infiniteScroll as any).disabled = true;
+        }
     }
 
     private findMemberByCriteria(memberList: any[]) {
@@ -95,7 +91,6 @@ export class Members {
         });
 
         this.modalElement.addEventListener('submitButtonClicked', async _e => {
-            console.log(_e);
             await this.dismissModal();
         });
 
@@ -138,80 +133,93 @@ export class Members {
             </ion-header>,
             <ion-content class="ion-padding" overflow-scroll="false">
                 <p>Members List</p>
-                <ion-item>
-                    <section class="section">
-                        <h1 class="title">Member List</h1>
-                        <h2 class="subtitle">List of New World members and the guilds they belong to</h2>
-                        <div class="container">
-                            <div class="block">
-                                <ion-grid>
-                                    <ion-row>
-                                        <ion-col>
-                                            <ion-searchbar
-                                                ref={el => {
-                                                    this.searchInput = el;
-                                                }}
-                                                placeholder="Find Members"
-                                                animated
-                                                debounce={500}
-                                            ></ion-searchbar>
-                                        </ion-col>
-                                        <ion-col>
-                                            <ion-list>
-                                                <ion-item>
-                                                    <ion-label>Filter By</ion-label>
-                                                    <ion-select
-                                                        placeholder="Select One"
-                                                        value={this.findBy}
-                                                        ref={el => {
-                                                            this.findByInput = el;
-                                                        }}
-                                                    >
-                                                        <ion-select-option value="name">Name</ion-select-option>
-                                                        <ion-select-option value="guild">Guild</ion-select-option>
-                                                        <ion-select-option value="isActive">Is Active</ion-select-option>
-                                                    </ion-select>
-                                                </ion-item>
-                                            </ion-list>
-                                        </ion-col>
-                                    </ion-row>
-                                </ion-grid>
-                            </div>
-                            <div class="block notification is-primary">
-                                <ion-text color="dark">
-                                    <h5>Total Members: {this.memberList.length}</h5>
-                                </ion-text>
-                                <table class="table is-fullwidth">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Guild</th>
-                                            <th>Is Active</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.findMember.length > 0
-                                            ? this.findMemberByCriteria(this.memberList).map(m => {
-                                                  return this.renderMemberRow(m);
-                                              })
-                                            : this.memberList.map(m => {
-                                                  return this.renderMemberRow(m);
-                                              })}
-                                    </tbody>
-                                </table>
-                            </div>
+                <section class="section is-large">
+                    <h1 class="title">Member List</h1>
+                    <h2 class="subtitle">List of New World members and the guilds they belong to</h2>
+                    <div class="container">
+                        <div class="block">
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-searchbar
+                                            ref={el => {
+                                                this.searchInput = el;
+                                            }}
+                                            placeholder="Find Members"
+                                            animated
+                                            debounce={500}
+                                        ></ion-searchbar>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-list>
+                                            <ion-item>
+                                                <ion-label>Filter By</ion-label>
+                                                <ion-select
+                                                    placeholder="Select One"
+                                                    value={this.findBy}
+                                                    ref={el => {
+                                                        this.findByInput = el;
+                                                    }}
+                                                >
+                                                    <ion-select-option value="name">Name</ion-select-option>
+                                                    <ion-select-option value="guild">Guild</ion-select-option>
+                                                    <ion-select-option value="isActive">Is Active</ion-select-option>
+                                                </ion-select>
+                                            </ion-item>
+                                        </ion-list>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
                         </div>
-                    </section>
-                </ion-item>
-                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                    <ion-fab-button
-                        ref={el => {
-                            this.fabButton = el;
-                        }}
-                    >
-                        <ion-icon name="add"></ion-icon>
-                    </ion-fab-button>
-                </ion-fab>
+                        <div class="block notification is-primary">
+                            <ion-text color="dark">
+                                <h5>Total Members: {this.totalMembers}</h5>
+                            </ion-text>
+                            <table class="table is-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Guild</th>
+                                        <th>Is Active</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.findMember.length > 0
+                                        ? this.findMemberByCriteria(this.memberList).map(m => {
+                                              return this.renderMemberRow(m);
+                                          })
+                                        : this.memberList.map(m => {
+                                              return this.renderMemberRow(m);
+                                          })}
+                                    <tr>
+                                        <td colSpan={3}>
+                                            <ion-infinite-scroll
+                                                threshold="100px"
+                                                ref={el => {
+                                                    this.infiniteScroll = el;
+                                                }}
+                                                onIonInfinite={ev => {
+                                                    return this.infiniteScrollMembers(ev);
+                                                }}
+                                            >
+                                                <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more members..."></ion-infinite-scroll-content>
+                                            </ion-infinite-scroll>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                {/*<ion-fab vertical="bottom" horizontal="end" slot="fixed">*/}
+                {/*    <ion-fab-button*/}
+                {/*        ref={el => {*/}
+                {/*            this.fabButton = el;*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        <ion-icon name="add"></ion-icon>*/}
+                {/*    </ion-fab-button>*/}
+                {/*</ion-fab>*/}
             </ion-content>,
         ];
     }

@@ -18,8 +18,15 @@ class PlayersApplicationModel {
 
         this.first = first;
         this.last = last;
-        this.after = after;
-        this.before = before;
+
+        if (!!after) {
+            this.after = after;
+        }
+
+        if (!!before) {
+            this.before = before;
+        }
+
         this.orderBy = orderBy;
     }
 }

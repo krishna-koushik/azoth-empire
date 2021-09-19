@@ -1,5 +1,5 @@
 import { authService } from './auth.service';
-import { IGraphQLQuery, loginQuery } from '../interfaces/graphql.interfase';
+import GraphqlInterface, { IGraphQLQuery } from '../interfaces/graphql.interface';
 
 export class GraphQLService {
     AE_API_URL = window['__env__'].AE_API_URL;
@@ -26,7 +26,7 @@ export class GraphQLService {
                 'sec-fetch-mode': 'cors',
                 'sec-fetch-site': 'cross-site',
             },
-            body: JSON.stringify(loginQuery()),
+            body: JSON.stringify(GraphqlInterface.loginQuery()),
             method: 'POST',
             mode: 'cors',
         }).then(response => response.json());

@@ -6,13 +6,14 @@ scalar Password
 scalar JWT
 
 type PageInfo {
-  hasPreviousPage: Boolean!
-  hasNextPage: Boolean!
-  startCursor: String
-  endCursor: String
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+    startCursor: String
+    endCursor: String
+    total: Int
 }
 
 enum OrderDirection {
-  ASC
-  DESC
+    ASC
+    DESC
 }

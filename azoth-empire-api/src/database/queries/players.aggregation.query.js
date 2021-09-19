@@ -13,6 +13,7 @@ class PlayersAggregationQuery {
 
         const afterOffset = getOffsetFromOpaqueCursor(after, 0);
         const beforeOffset = getOffsetFromOpaqueCursor(before, totalCount + 1);
+
         let skip = Math.max(afterOffset, 0);
         let limit = Math.min(beforeOffset, totalCount + 1) - skip - 1;
 

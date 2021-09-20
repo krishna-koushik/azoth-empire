@@ -5,7 +5,7 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 // https://stenciljs.com/docs/config
 
-export const config: Config = {
+const stencilConfig: Config = {
     globalScript: 'src/global/app.ts',
     globalStyle: 'src/global/app.css',
     taskQueue: 'async',
@@ -26,14 +26,21 @@ export const config: Config = {
         {
             type: 'www',
             serviceWorker: null,
+            baseUrl: 'https://myapp.local/',
+            copy: [{ src: 'index.ejs', dest: 'index.ejs' }],
         },
     ],
-    devServer: {
+};
+
+if (process.env.ENV === 'LOCAL') {
+    stencilConfig.devServer = {
         reloadStrategy: 'pageReload',
         port: 3333,
         https: {
             cert: readFileSync('localhost.crt', 'utf8'),
             key: readFileSync('localhost.key', 'utf8'),
         },
-    },
-};
+    };
+}
+
+export const config: Config = stencilConfig;

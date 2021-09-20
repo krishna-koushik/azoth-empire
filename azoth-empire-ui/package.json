@@ -19,11 +19,13 @@
     "unpkg": "./dist/ionic/ionic.js",
     "collection:main": "./dist/collection/index.js",
     "scripts": {
-        "build": "stencil build",
-        "start": "stencil build --dev --watch --serve",
+        "build": "stencil build --prod",
+        "start": "export ENV=LOCAL && npm run convert-ejs:local && stencil build --dev --watch --serve",
+        "convert-ejs:deploy": "node scripts/convert-ejs --env deploy",
         "test": "stencil test --spec --e2e",
         "test.watch": "stencil test --spec --e2e --watch",
-        "generate": "stencil generate"
+        "generate": "stencil generate",
+        "convert-ejs:local": "cat src/index.ejs | npx @immutablewebapps/ejs-cli --d config/local.json > src/index.html"
     },
     "devDependencies": {
         "@ionic/core": "^5.7.0",

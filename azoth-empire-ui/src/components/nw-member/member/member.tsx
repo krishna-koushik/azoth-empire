@@ -323,7 +323,6 @@ export class Member {
                             <ion-icon name="book-outline"></ion-icon>
                             <ion-label>Details</ion-label>
                         </ion-tab-button>
-                        lp-=
                         {!!this.member.gameData && (
                             <ion-tab-button tab="tab-game">
                                 <ion-icon name="speedometer-outline"></ion-icon>

@@ -9,8 +9,8 @@ import GraphQLService from '../../services/graphql.service';
 })
 export class DiscordCallback {
     @State() code;
-    @State() username: string = '';
-    @State() loggedinDiscordUserId: any;
+    @State() triedToLogin: any = false;
+    @State() token: string = null;
 
     @Element() el;
 
@@ -21,30 +21,50 @@ export class DiscordCallback {
     }
 
     async componentDidLoad() {
-        await this.login(this.code);
-        this.redirectToHome();
+        try {
+            this.token = await this.login(this.code);
+        } catch (e) {
+            console.error(e);
+        }
+
+        if (!!this.token) {
+            this.redirectToHome();
+        } else {
+            this.redirectToLogin();
+        }
     }
 
     redirectToHome() {
         window.location.href = '/';
     }
 
+    redirectToLogin() {
+        setTimeout(() => {
+            authService.logout();
+            window.location.href = '/login';
+        }, 1000);
+    }
+
     async login(code) {
         const {
             data: { login },
         } = await GraphQLService.login(code);
-        await authService.login(login);
+        if (!!login) {
+            await authService.login(login);
+        }
+
+        return login;
     }
 
     render() {
         return (
             <Host>
-                {!this.username ? (
-                    <ion-progress-bar type="indeterminate"></ion-progress-bar>
-                ) : (
+                {!this.token && !this.triedToLogin ? (
                     <ion-text color="secondary">
-                        <h1>Welcome {this.username} to Azoth Empire App</h1>
+                        <h1>You do not have permissions to use Azoth Empire App. Please contact Azoth Empire Leadership</h1>
                     </ion-text>
+                ) : (
+                    <ion-progress-bar type="indeterminate"></ion-progress-bar>
                 )}
             </Host>
         );

@@ -8,6 +8,7 @@ module.exports = {
 
             const { event: { requestContext: { credentials: { authToken = '', user } = {} } = {} } = {} } = context;
             console.log(`Login made by user Id ${user.id} - ${user.username}#${user.discriminator}`, { user });
+
             return authToken;
         },
     },

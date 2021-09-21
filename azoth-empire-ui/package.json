@@ -1,31 +1,17 @@
 {
     "name": "azoth-empire-ui",
-    "private": true,
-    "version": "0.0.1",
     "description": "azoth-empire-ui",
-    "license": "MIT",
-    "files": [
-        "dist/",
-        "css/",
-        "loader/",
-        "www/"
-    ],
-    "main": "./dist/index.cjs.js",
-    "module": "./dist/index.js",
-    "types": "./dist/types/components.d.ts",
+    "version": "0.0.1",
     "collection": "./dist/collection/collection-manifest.json",
-    "es2015": "./dist/esm/index.mjs",
-    "es2017": "./dist/esm/index.mjs",
-    "unpkg": "./dist/ionic/ionic.js",
     "collection:main": "./dist/collection/index.js",
-    "scripts": {
-        "build": "stencil build --prod",
-        "start": "export ENV=LOCAL && npm run convert-ejs:local && stencil build --dev --watch --serve",
-        "convert-ejs:deploy": "node scripts/convert-ejs --env deploy",
-        "test": "stencil test --spec --e2e",
-        "test.watch": "stencil test --spec --e2e --watch",
-        "generate": "stencil generate",
-        "convert-ejs:local": "cat src/index.ejs | npx @immutablewebapps/ejs-cli --d config/local.json > src/index.html"
+    "dependencies": {
+        "@bulmil/core": "^0.17.1",
+        "axios": "^0.21.3",
+        "d3-stencil": "^2.2.3",
+        "dayjs": "^1.10.7",
+        "discord-api-types": "^0.22.0",
+        "discord.js": "^13.1.0",
+        "plotly.js-dist-min": "^2.4.2"
     },
     "devDependencies": {
         "@ionic/core": "^5.7.0",
@@ -43,13 +29,27 @@
         "puppeteer": "^10.0.0",
         "rollup-plugin-node-polyfills": "^0.2.1"
     },
-    "dependencies": {
-        "@bulmil/core": "^0.17.1",
-        "axios": "^0.21.3",
-        "d3-stencil": "^2.2.3",
-        "dayjs": "^1.10.7",
-        "discord-api-types": "^0.22.0",
-        "discord.js": "^13.1.0",
-        "plotly.js-dist-min": "^2.4.2"
-    }
+    "es2015": "./dist/esm/index.mjs",
+    "es2017": "./dist/esm/index.mjs",
+    "files": [
+        "dist/",
+        "css/",
+        "loader/",
+        "www/"
+    ],
+    "license": "MIT",
+    "main": "./dist/index.cjs.js",
+    "module": "./dist/index.js",
+    "private": true,
+    "scripts": {
+        "build": "stencil build --prod",
+        "convert-ejs:deploy": "node scripts/convert-ejs --env deploy",
+        "convert-ejs:local": "cat src/index.ejs | npx @immutablewebapps/ejs-cli --d config/local.json > src/index.html",
+        "generate": "stencil generate",
+        "start": "export ENV=LOCAL && npm run convert-ejs:local && stencil build --dev --watch --serve",
+        "test": "stencil test --spec --e2e",
+        "test.watch": "stencil test --spec --e2e --watch"
+    },
+    "types": "./dist/types/components.d.ts",
+    "unpkg": "./dist/ionic/ionic.js"
 }

@@ -1,0 +1,52 @@
+type War {
+    _id: ID!
+    warType: WarType!
+    location: String!
+    time: Date!
+    army: [ArmyPlayer!]!
+    attacker: Attacker
+}
+
+enum WarType {
+    WAR
+    INVASION
+}
+
+enum Faction {
+    COVENANT
+    MARAUDERS
+    SYNDICATE
+}
+
+type Attacker {
+    guild: String!
+    faction: Faction!
+}
+
+type ArmyPlayer {
+    player: Player!
+    name: String!
+    group: String!
+}
+
+enum WarOrderField {
+    ATTACKER
+    DEFENDER
+    WAR_TIME
+    WAR_TYPE
+}
+
+input WarOrder {
+    direction: OrderDirection!
+    field: WarOrderField!
+}
+
+type WarEdge {
+    cursor: String!
+    node: War!
+}
+
+type WarConnection {
+    edges: [WarEdge!]!
+    pageInfo: PageInfo!
+}

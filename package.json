@@ -5,7 +5,7 @@
   "author": "",
   "dependencies": {
     "@ionic/core": "^5.7.0",
-    "plotly.js-dist-min": "^2.4.1"
+    "plotly.js-dist-min": "^2.4.2"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^8.0.1",

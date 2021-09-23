@@ -1,4 +1,4 @@
-class PlayerCountAggregationQuery {
+class ConnectionCountAggregationQuery {
     constructor(_args) {
         this.aggregationQuery = [
             {
@@ -11,4 +11,4 @@ class PlayerCountAggregationQuery {
     }
 }
 
-module.exports = PlayerCountAggregationQuery;
+module.exports = ConnectionCountAggregationQuery;

@@ -1,0 +1,10 @@
+type Faction {
+  _id: ID!
+  name: FactionName!
+}
+
+enum FactionName {
+  COVENANT
+  MARAUDERS
+  SYNDICATE
+}

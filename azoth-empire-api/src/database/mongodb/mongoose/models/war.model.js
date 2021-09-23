@@ -1,21 +1,38 @@
-const Mongoose = require("mongoose");
+const Mongoose = require('mongoose');
 const { Schema } = Mongoose;
 const {
   Types: { ObjectId },
 } = Schema;
 
 let warSchema = new Schema({
-  attacker: {
-    type: String,
-    default: "NPC",
-  },
-  defender: {
-    type: String,
-  },
+  attacker: new Schema({
+    factionId: {
+      type: ObjectId,
+      ref: 'Faction',
+      index: true,
+    },
+    guildId: {
+      type: ObjectId,
+      ref: 'Guild',
+      index: true,
+    },
+  }),
+  defender: new Schema({
+    factionId: {
+      type: ObjectId,
+      ref: 'Faction',
+      index: true,
+    },
+    guildId: {
+      type: ObjectId,
+      ref: 'Guild',
+      index: true,
+    },
+  }),
   warType: {
     type: String,
-    enum: ["INVASION", "WAR"],
-    default: "WAR",
+    enum: ['INVASION', 'WAR'],
+    default: 'WAR',
     index: true,
   },
   location: {
@@ -30,13 +47,13 @@ let warSchema = new Schema({
     new Schema({
       playerId: {
         type: ObjectId,
-        ref: "Player",
+        ref: 'Player',
         index: true,
       },
       group: {
         type: String,
-        enum: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "STANDBY"],
-        default: "STANDBY",
+        enum: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'STANDBY'],
+        default: 'STANDBY',
       },
     }),
   ],
@@ -44,7 +61,7 @@ let warSchema = new Schema({
     new Schema({
       playerId: {
         type: ObjectId,
-        ref: "Player",
+        ref: 'Player',
         index: true,
       },
       rank: {
@@ -79,4 +96,4 @@ let warSchema = new Schema({
   ],
 });
 
-module.exports = Mongoose.model("wars", warSchema);
+module.exports = Mongoose.model('wars', warSchema);

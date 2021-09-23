@@ -1,15 +1,18 @@
 const { getOffsetFromOpaqueCursor } = require('@lib/utils');
 
-class PlayersAggregationQuery {
+class ConnectionAggregationQuery {
     constructor(args, totalCount) {
         const { first, last, after, before, orderBy } = args;
 
         this.aggregationQuery = [];
+        let $sort = { ['time']: -1 };
 
         if (orderBy) {
             const { direction, field } = orderBy;
-            this.aggregationQuery.push({ $sort: { [field]: direction } });
+            $sort = { [field]: direction };
         }
+
+        this.aggregationQuery.push({ $sort });
 
         const afterOffset = getOffsetFromOpaqueCursor(after, 0);
         const beforeOffset = getOffsetFromOpaqueCursor(before, totalCount + 1);
@@ -41,4 +44,4 @@ class PlayersAggregationQuery {
     }
 }
 
-module.exports = PlayersAggregationQuery;
+module.exports = ConnectionAggregationQuery;

@@ -28,7 +28,6 @@ app.get('/server-info', async (req, res) => {
         console.error(e);
         throw res.sendStatus(401);
     }
-    // res.sendStatus(200);
 });
 
 const httpServer = http.createServer(app);

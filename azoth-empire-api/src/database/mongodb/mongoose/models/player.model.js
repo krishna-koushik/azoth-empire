@@ -1,4 +1,4 @@
-const Mongoose = require("mongoose");
+const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 
 let playerSchema = new Schema({
@@ -223,4 +223,4 @@ let playerSchema = new Schema({
   },
 });
 
-module.exports = Mongoose.model("players", playerSchema);
+module.exports = Mongoose.model('players', playerSchema);

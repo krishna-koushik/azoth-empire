@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-class PlayersApplicationModel {
+class ConnectionModel {
     constructor(args) {
         const { first, last, after, before, orderBy } = args;
 
@@ -31,4 +31,4 @@ class PlayersApplicationModel {
     }
 }
 
-module.exports = PlayersApplicationModel;
+module.exports = ConnectionModel;

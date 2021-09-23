@@ -41,7 +41,7 @@ class Utils {
             fontSize: 18,
             fontFamily: 'Balthazar',
             margin: 0,
-            textColor: 'grey',
+            textColor: '#fefefe',
             customHeight: 25,
             textAlign: 'center',
             verticalAlign: 'center',
@@ -54,7 +54,7 @@ class Utils {
         for (let i = 0; i < image.bitmap.height - 25; i += watermarkImg.bitmap.height) {
             image.composite(watermarkImg, 25, i, {
                 mode: Jimp.BLEND_OVERLAY,
-                opacitySource: 0.1,
+                opacitySource: 0.01,
                 opacityDest: 1,
             });
         }

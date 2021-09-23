@@ -11,11 +11,8 @@ const app = express();
 const ServerInfoApplicationModel = require('@application/application-model/server-info.application.model');
 const ServerInfoApplicationHandler = require('@application/application-handlers/server-info.application.handler');
 
-const stream = require('stream');
-
 app.get('/server-info', async (req, res) => {
     const { authorization } = req.headers;
-    const ps = new stream.PassThrough();
 
     if (!authorization) {
         throw Boom.unauthorized('You are not ready. This is the way!');
@@ -24,22 +21,14 @@ app.get('/server-info', async (req, res) => {
     try {
         const model = new ServerInfoApplicationModel(authorization);
         const response = await ServerInfoApplicationHandler.handle(model);
-        stream.pipeline(
-            response,
-            ps, // <---- this makes a trick with stream error handling
-            err => {
-                if (err) {
-                    console.log(err); // No such file or any other kind of error
-                    return res.sendStatus(400);
-                }
-            },
-        );
+
+        res.setHeader('content-type', 'image/jpeg');
+        res.end(response);
     } catch (e) {
         console.error(e);
         throw res.sendStatus(401);
     }
-
-    ps.pipe(res);
+    // res.sendStatus(200);
 });
 
 const httpServer = http.createServer(app);

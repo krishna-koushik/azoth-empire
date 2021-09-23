@@ -1,7 +1,7 @@
 type Query {
-    player(id: ID!): Player
-    players(first: Int, after: String, last: Int, before: String, orderBy: PlayerOrder): PlayerConnection!
-    war(id: ID!): War
-    wars(first: Int, after: String, last: Int, before: String, orderBy: WarOrder): WarConnection!
-    login: String
+  player(id: ID!): Player
+  players(first: Int, after: String, last: Int, before: String, orderBy: PlayerOrder): PlayerConnection!
+  war(id: ID!): War
+  wars(first: Int, after: String, last: Int, before: String, orderBy: WarOrder): WarConnection!
+  login: String
 }

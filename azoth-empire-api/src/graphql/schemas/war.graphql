@@ -6,11 +6,23 @@ type War {
   army: [ArmyPlayer!]!
   attacker: Attacker
   defender: Defender
+  performance: [PlayerPerformance!]
 }
 
 enum WarType {
   WAR
   INVASION
+}
+
+type PlayerPerformance {
+  player: Player!
+  rank: Int!
+  score: Int!
+  kills: Int!
+  assists: Int!
+  deaths: Int!
+  healing: Int!
+  damage: Int!
 }
 
 type Attacker {

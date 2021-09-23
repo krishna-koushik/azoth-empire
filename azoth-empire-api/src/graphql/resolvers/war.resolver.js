@@ -21,6 +21,9 @@ module.exports = {
   ArmyPlayer: {
     player: obj => PlayerInfoRepository.getById(obj.playerId),
   },
+  PlayerPerformance: {
+    player: obj => PlayerInfoRepository.getById(obj.playerId),
+  },
   Attacker: {
     guild: obj => GuildInfoRepository.getById(obj.guildId),
     faction: obj => FactionInfoRepository.getById(obj.factionId),
@@ -40,9 +43,9 @@ module.exports = {
     },
     async wars(obj, args, context) {
       const { event: { requestContext } = {} } = context;
-      //   if (!requestContext) {
-      //     return null;
-      //   }
+      if (!requestContext) {
+        return null;
+      }
       try {
         const m = new ConnectionModel(args);
         return new ConnectionHandler('wars').handle(m);

@@ -1,12 +1,50 @@
 require('module-alias/register');
 require('dotenv').config(); //initialize dotenv
 const { NODE_ENV } = process.env;
-const { ApolloServer } = require('apollo-server');
-const { ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandingPageDisabled } = require('apollo-server-core');
+const { ApolloServer } = require('apollo-server-express');
+const { ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandingPageDisabled, ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
 const Boom = require('@hapi/boom');
 const { getOauthToken, getCurrentUser } = require('@discord/repository/discord.repository');
+const express = require('express');
+const http = require('http');
+const app = express();
+const ServerInfoApplicationModel = require('@application/application-model/server-info.application.model');
+const ServerInfoApplicationHandler = require('@application/application-handlers/server-info.application.handler');
 
-const Server = require('@database/mongodb/mongoose/server');
+const stream = require('stream');
+
+app.get('/server-info', async (req, res) => {
+    const { authorization } = req.headers;
+    const ps = new stream.PassThrough();
+
+    if (!authorization) {
+        throw Boom.unauthorized('You are not ready. This is the way!');
+    }
+
+    try {
+        const model = new ServerInfoApplicationModel(authorization);
+        const response = await ServerInfoApplicationHandler.handle(model);
+        stream.pipeline(
+            response,
+            ps, // <---- this makes a trick with stream error handling
+            err => {
+                if (err) {
+                    console.log(err); // No such file or any other kind of error
+                    return res.sendStatus(400);
+                }
+            },
+        );
+    } catch (e) {
+        console.error(e);
+        throw res.sendStatus(401);
+    }
+
+    ps.pipe(res);
+});
+
+const httpServer = http.createServer(app);
+
+const DbServer = require('@database/mongodb/mongoose/server');
 const PlayerInfo = require('@database/repository/player-info.repository.js');
 
 const path = require('path');
@@ -60,7 +98,10 @@ async function authenticate(authToken, xTokenCode) {
 }
 
 const server = new ApolloServer({
-    plugins: [NODE_ENV === 'production' ? ApolloServerPluginLandingPageDisabled() : ApolloServerPluginLandingPageGraphQLPlayground()],
+    plugins: [
+        NODE_ENV === 'production' ? ApolloServerPluginLandingPageDisabled() : ApolloServerPluginLandingPageGraphQLPlayground(),
+        ApolloServerPluginDrainHttpServer({ httpServer }),
+    ],
     typeDefs,
     resolvers,
     context: async args => {
@@ -97,9 +138,12 @@ const server = new ApolloServer({
     playground: NODE_ENV !== 'production',
 });
 
-Server.checkAndConnect()
-    .then(() => {
-        return server.listen();
+DbServer.checkAndConnect()
+    .then(async () => {
+        await server.start();
+        server.applyMiddleware({ app });
+
+        return httpServer.listen({ port: 4000 });
     })
     .then(({ url }) => {
         console.log(`🚀 Server ready at ${url}`);

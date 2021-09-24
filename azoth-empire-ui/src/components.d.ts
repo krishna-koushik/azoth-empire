@@ -16,6 +16,7 @@ export namespace Components {
         memberId: string;
     }
     interface NwMembers {}
+    interface ServerInfo {}
     interface WarAttendance {
         name: string;
     }
@@ -62,6 +63,11 @@ declare global {
         prototype: HTMLNwMembersElement;
         new (): HTMLNwMembersElement;
     };
+    interface HTMLServerInfoElement extends Components.ServerInfo, HTMLStencilElement {}
+    var HTMLServerInfoElement: {
+        prototype: HTMLServerInfoElement;
+        new (): HTMLServerInfoElement;
+    };
     interface HTMLWarAttendanceElement extends Components.WarAttendance, HTMLStencilElement {}
     var HTMLWarAttendanceElement: {
         prototype: HTMLWarAttendanceElement;
@@ -81,6 +87,7 @@ declare global {
         'edit-member': HTMLEditMemberElement;
         'nw-member': HTMLNwMemberElement;
         'nw-members': HTMLNwMembersElement;
+        'server-info': HTMLServerInfoElement;
         'war-attendance': HTMLWarAttendanceElement;
         'war-report': HTMLWarReportElement;
     }
@@ -99,6 +106,7 @@ declare namespace LocalJSX {
         memberId?: string;
     }
     interface NwMembers {}
+    interface ServerInfo {}
     interface WarAttendance {
         name?: string;
     }
@@ -115,6 +123,7 @@ declare namespace LocalJSX {
         'edit-member': EditMember;
         'nw-member': NwMember;
         'nw-members': NwMembers;
+        'server-info': ServerInfo;
         'war-attendance': WarAttendance;
         'war-report': WarReport;
     }
@@ -131,6 +140,7 @@ declare module '@stencil/core' {
             'edit-member': LocalJSX.EditMember & JSXBase.HTMLAttributes<HTMLEditMemberElement>;
             'nw-member': LocalJSX.NwMember & JSXBase.HTMLAttributes<HTMLNwMemberElement>;
             'nw-members': LocalJSX.NwMembers & JSXBase.HTMLAttributes<HTMLNwMembersElement>;
+            'server-info': LocalJSX.ServerInfo & JSXBase.HTMLAttributes<HTMLServerInfoElement>;
             'war-attendance': LocalJSX.WarAttendance & JSXBase.HTMLAttributes<HTMLWarAttendanceElement>;
             'war-report': LocalJSX.WarReport & JSXBase.HTMLAttributes<HTMLWarReportElement>;
         }

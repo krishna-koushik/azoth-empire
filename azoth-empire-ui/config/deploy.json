@@ -5,6 +5,7 @@
     "placeholderUrl": "https://localhost:3333/framework/placeholder",
     "env": {
         "AE_API_URL": "http://localhost:4000/",
+        "AE_SERVER_INFO_URL": "http://localhost:4000/server-info",
         "D_CLIENT_ID": "883348010308874301",
         "D_REDIRECT_URI": "https%3A%2F%2Flocalhost%3A3333%2Fdiscord%2Fcallback"
     }

@@ -13,13 +13,14 @@ const ServerInfoApplicationHandler = require('@application/application-handlers/
 
 app.get('/server-info', async (req, res) => {
     const { authorization } = req.headers;
+    const { token } = req.query;
 
-    if (!authorization) {
+    if (!authorization && !token) {
         throw Boom.unauthorized('You are not ready. This is the way!');
     }
 
     try {
-        const model = new ServerInfoApplicationModel(authorization);
+        const model = new ServerInfoApplicationModel(token || authorization);
         const response = await ServerInfoApplicationHandler.handle(model);
 
         res.setHeader('content-type', 'image/jpeg');

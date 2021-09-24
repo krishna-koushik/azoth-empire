@@ -1,5 +1,5 @@
-const PlayersApplicationModel = require('@application/application-model/players.application.model');
-const PlayersApplicationHandler = require('@application/application-handlers/players.application.handler');
+const ConnectionModel = require('@application/application-model/connection.model');
+const ConnectionHandler = require('@application/application-handlers/connection.handler');
 
 const PlayerInfoRepository = require('../../database/repository/player-info.repository');
 const { UserInputError } = require('apollo-server');
@@ -29,8 +29,8 @@ module.exports = {
                 return null;
             }
             try {
-                const m = new PlayersApplicationModel(args);
-                return PlayersApplicationHandler.handle(m);
+                const m = new ConnectionModel(args);
+                return new ConnectionHandler('players').handle(m);
             } catch (e) {
                 console.error(e);
                 throw new UserInputError(e.message);

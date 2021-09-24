@@ -1,35 +1,47 @@
+const WarInfoRepository = require('@database/repository/war-info.repository');
 const PlayerInfoRepository = require('@database/repository/player-info.repository');
-const PlayerCountAggregationQuery = require('@database/queries/player-count.aggregation.query');
-const PlayersAggregationQuery = require('@database/queries/players.aggregation.query');
+const ConnectionCountAggregationQuery = require('@database/queries/connection-count.aggregation.query');
+const ConnectionAggregationQuery = require('@database/queries/connection.aggregation.query');
 const { offsetToCursor } = require('@lib/utils');
 
-class PlayersApplicationHandler {
+class ConnectionHandler {
+    constructor(collection) {
+        switch (collection) {
+            case 'wars':
+                this.collection = WarInfoRepository;
+                break;
+            case 'players':
+                this.collection = PlayerInfoRepository;
+                break;
+        }
+    }
+
     async handle(args) {
         const total = await this.handleTotalCount(args);
         if (total > 0) {
-            return await this.handlePlayers(args, total);
+            return await this.handleCollections(args, total);
         }
     }
 
     async handleTotalCount(args) {
-        const query = new PlayerCountAggregationQuery(args);
-        const res = await PlayerInfoRepository.findByAggregation(query);
+        const query = new ConnectionCountAggregationQuery(args);
+        const res = await this.collection.findByAggregation(query);
 
         const [{ total } = { total: 0 }] = res;
         return total;
     }
 
-    async handlePlayers(args, total) {
+    async handleCollections(args, total) {
         let edges = [];
         const { first, last } = args;
 
-        const query = new PlayersAggregationQuery(args, total);
+        const query = new ConnectionAggregationQuery(args, total);
         const { limit = 0, skip } = query;
 
-        const players = await PlayerInfoRepository.findByAggregation(query);
+        const collections = await this.collection.findByAggregation(query);
 
         if (limit > 0) {
-            edges = players.map((value, index) => {
+            edges = collections.map((value, index) => {
                 return {
                     cursor: offsetToCursor(skip + index + 1),
                     node: value._id,
@@ -51,4 +63,4 @@ class PlayersApplicationHandler {
     }
 }
 
-module.exports = new PlayersApplicationHandler();
+module.exports = ConnectionHandler;

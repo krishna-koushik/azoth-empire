@@ -16,12 +16,16 @@
         "@hapi/boom": "^9.1.4",
         "apollo-server": "^3.3.0",
         "apollo-server-core": "^3.3.0",
+        "apollo-server-express": "^3.3.0",
         "axios": "^0.21.4",
         "dotenv": "^10.0.0",
-        "graphql": "^15.5.3",
+        "express": "^4.17.1",
+        "graphql": "^15.6.0",
+        "jimp": "^0.16.1",
         "js-base64": "^3.7.1",
         "module-alias": "^2.2.2",
-        "mongoose": "^6.0.6"
+        "mongoose": "^6.0.6",
+        "text-to-image": "^4.0.0"
     },
     "devDependencies": {
         "nodemon": "^2.0.12"

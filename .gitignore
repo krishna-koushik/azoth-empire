@@ -116,3 +116,4 @@ dist
 !/azoth-empire-api/secrets/server.crt
 
 !/azoth-empire-api/secrets/server.key
+!/azoth-empire-api/secrets/.server-info.png

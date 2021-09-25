@@ -16,9 +16,19 @@ export enum PlayerOrderField {
     ACTIVE = 'ACTIVE',
 }
 
+export enum WarOrderField {
+    WAR_TIME = 'WAR_TIME',
+    WAR_TYPE = 'WAR_TYPE',
+}
+
 export interface IPlayerOrder {
     direction: OrderDirection;
     field: PlayerOrderField;
+}
+
+export interface IWarOrder {
+    direction: OrderDirection;
+    field: WarOrderField;
 }
 
 class NWGQLQuery {
@@ -84,6 +94,10 @@ class NWGQLQuery {
         };
     }
 
+    /**
+     * returns player by id
+     * @param id
+     */
     playerQuery(id: string) {
         return {
             operationName: 'player',
@@ -166,6 +180,118 @@ class NWGQLQuery {
                     joinDate
                     notes
                     active
+                }
+            }`,
+        };
+    }
+
+    /**
+     * first: Int
+     * after: String
+     * last: Int
+     * before: String
+     * orderBy: PlayerOrder
+     */
+    warsQuery(first: number, after: string, last: number, before: string, orderBy: IWarOrder): IGraphQLQuery {
+        return {
+            operationName: 'wars',
+            variables: {
+                first,
+                after,
+                last,
+                before,
+                orderBy,
+            },
+            query: `query wars(
+                $first: Int
+                $after: String
+                $last: Int
+                $before: String
+                $orderBy: WarOrder
+            )
+            {
+                wars(
+                    first: $first,
+                    after: $after,
+                    last: $last,
+                    before: $before,
+                    orderBy: $orderBy,
+                )
+                {
+                    pageInfo {
+                        hasNextPage
+                        hasPreviousPage
+                        startCursor
+                        endCursor
+                        total
+                    }
+                    edges {
+                        cursor
+                        node {
+                             _id
+                             companies {
+                                companyId
+                                name
+                                faction
+                                factionId
+                                role
+                                outcome
+                            }
+                             time
+                             warType
+                             location
+                        }
+                    }
+                }
+            }
+        `,
+        };
+    }
+
+    /**
+     * Returns war by id
+     * @param id
+     */
+    warQuery(id: string) {
+        return {
+            operationName: 'war',
+            variables: {
+                id,
+            },
+            query: `query war(
+                $id: ID!
+            ) {
+                war(
+                    id: $id,
+                )
+                {
+                     _id
+                     warType
+                     location
+                     companies {
+                        companyId
+                        name
+                        faction
+                        factionId
+                        role
+                        outcome
+                     }
+                     army {
+                        playerId
+                        name
+                        group
+                     }
+                     performance {
+                        playerId
+                        name
+                        rank
+                        score
+                        kills
+                        assists
+                        deaths
+                        healing
+                        damage
+                     }
                 }
             }`,
         };

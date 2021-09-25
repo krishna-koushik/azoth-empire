@@ -19,7 +19,13 @@ export class ServerInfo {
     render() {
         return (
             <Host>
-                <ion-content class="ion-padding">{!!this.imageUrl && <ion-img src={this.imageUrl}></ion-img>}</ion-content>
+                <ion-content class="server-info ion-padding">
+                    {!!this.imageUrl && (
+                        <div class="server-info--content">
+                            <ion-img class="server-info--content__image" src={this.imageUrl}></ion-img>
+                        </div>
+                    )}
+                </ion-content>
             </Host>
         );
     }

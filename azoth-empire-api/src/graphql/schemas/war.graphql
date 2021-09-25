@@ -1,64 +1,71 @@
 type War {
-  _id: ID!
-  warType: WarType!
-  location: String!
-  time: Date!
-  army: [ArmyPlayer!]!
-  attacker: Attacker
-  defender: Defender
-  performance: [PlayerPerformance!]
+    _id: ID!
+    warType: WarType!
+    location: String!
+    time: Date!
+    army: [ArmyPlayer!]!
+    companies: [WarCompany]!
+    performance: [PlayerPerformance!]
 }
 
 enum WarType {
-  WAR
-  INVASION
+    WAR
+    INVASION
 }
 
 type PlayerPerformance {
-  player: Player!
-  rank: Int!
-  score: Int!
-  kills: Int!
-  assists: Int!
-  deaths: Int!
-  healing: Int!
-  damage: Int!
+    playerId: ID!
+    name: String
+    rank: Int
+    score: Int
+    kills: Int
+    assists: Int
+    deaths: Int
+    healing: Int
+    damage: Int
 }
 
 type Attacker {
-  guild: Guild!
-  faction: Faction!
+    guild: Guild!
+    faction: Faction!
+}
+
+type WarCompany {
+    companyId: ID!
+    name: String
+    faction: FactionName
+    factionId: ID!
+    role: String
+    outcome: String
 }
 
 type Defender {
-  guild: Guild!
-  faction: Faction!
+    guild: Guild!
+    faction: Faction!
 }
 
 type ArmyPlayer {
-  player: Player!
-  name: String!
-  group: String!
+    playerId: ID!
+    name: String!
+    group: String!
 }
 
 enum WarOrderField {
-  ATTACKER
-  DEFENDER
-  WAR_TIME
-  WAR_TYPE
+    WAR_TIME
+    WAR_TYPE
 }
 
 input WarOrder {
-  direction: OrderDirection!
-  field: WarOrderField!
+    direction: OrderDirection!
+    field: WarOrderField!
 }
 
 type WarEdge {
-  cursor: String!
-  node: War!
+    cursor: String!
+    node: War!
 }
 
 type WarConnection {
-  edges: [WarEdge!]!
-  pageInfo: PageInfo!
+    edges: [WarEdge!]!
+    pageInfo: PageInfo!
 }

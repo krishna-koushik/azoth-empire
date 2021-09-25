@@ -29,7 +29,7 @@ class SyncAeDb {
                     let guildName = 'PAX';
 
                     if (!!playerNameMatch) {
-                        guildName = guilds.find(g => g.code.toLowerCase() === (playerNameMatch[1] || 'PAX').toLowerCase()).name;
+                        guildName = (guilds.find(g => (g.code || '').toLowerCase() === (playerNameMatch[1] || 'PAX').toLowerCase()) || 'PAX').name;
                         playerName = (playerNameMatch[2] || gMember.displayName).trim();
                     }
 
@@ -46,6 +46,8 @@ class SyncAeDb {
                 content: 'All users in AE discord are synced to our database.',
             };
         } catch (e) {
+            console.error(e);
+
             return {
                 content: 'Something went wrong. Please contact Administrators.',
             };

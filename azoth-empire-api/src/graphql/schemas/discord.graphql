@@ -1,8 +1,9 @@
 type Discord {
-  name: String
-  id: String
+    name: String
+    id: String
+    roles: [String]
 }
 
 type AppData {
-  login: Boolean
+    login: Boolean
 }

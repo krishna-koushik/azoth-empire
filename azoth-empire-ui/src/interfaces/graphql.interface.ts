@@ -37,7 +37,11 @@ class NWGQLQuery {
             operationName: 'loginToApp',
             variables: {},
             query: `query loginToApp {
-            login
+            login {
+                token
+                id
+                roles
+            }
           }`,
         };
     }

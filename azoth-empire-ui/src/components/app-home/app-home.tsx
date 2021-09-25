@@ -1,5 +1,6 @@
 import { Component, h } from '@stencil/core';
 import { authService } from '../../services/auth.service';
+import state from '../../stores/index';
 
 @Component({
     tag: 'app-home',
@@ -57,12 +58,17 @@ export class AppHome {
                                 Server Info
                             </ion-button>
 
-                            <ion-button href="/members" expand="block">
-                                Member List
-                            </ion-button>
-                            <ion-button href="/wars" expand="block">
-                                War List
-                            </ion-button>
+                            {state.isLeader && !state.isInActive && (
+                                <ion-button href="/members" expand="block">
+                                    Member List
+                                </ion-button>
+                            )}
+
+                            {state.isLeader && !state.isInActive && (
+                                <ion-button href="/wars" expand="block">
+                                    War List
+                                </ion-button>
+                            )}
                             <ion-button
                                 ref={el => {
                                     this.logoutButton = el;

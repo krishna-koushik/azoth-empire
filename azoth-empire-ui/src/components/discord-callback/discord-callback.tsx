@@ -1,6 +1,7 @@
 import { Component, Host, h, State, Element } from '@stencil/core';
 import { authService } from '../../services/auth.service';
 import GraphQLService from '../../services/graphql.service';
+import state from '../../stores/index';
 
 @Component({
     tag: 'discord-callback',
@@ -22,7 +23,13 @@ export class DiscordCallback {
 
     async componentDidLoad() {
         try {
-            this.token = await this.login(this.code);
+            const { token, id, roles } = await this.login(this.code);
+
+            this.token = token;
+
+            state.token = token;
+            state.currentPlayerId = id;
+            state.currentRoles = roles;
         } catch (e) {
             console.error(e);
         }

@@ -1,15 +1,24 @@
-version: "3.9"
+version: '3.9'
 services:
-  azoth-empire-webapp:
-    build: azoth-empire-ui/
-    ports:
-      - "3333:3333"
-    volumes:
-      - .:/code
-      - logvolume01:/var/log
-#    links:
-#      - mongodb
-#  mongodb:
-#    image: mongodb:latest
+    azoth-empire-webapp:
+        build: azoth-empire-ui/
+        ports:
+            - '3333:3333'
+        volumes:
+            - .:/code
+            - logvolume01:/var/log
+    azoth-empire-api:
+        build: azoth-empire-api/
+        ports:
+            - 4000:4000
+        environment:
+            - GUILD_ID=884134783867822140
+            - DISCORD_REDIRECT_URI=https://localhost:3333/discord/callback
+            - NODE_ENV=local
+        volumes:
+            - ./:/code
+            - logvolume01:/var/log
+        command: npm run start
+
 volumes:
-  logvolume01: {}
+    logvolume01: {}

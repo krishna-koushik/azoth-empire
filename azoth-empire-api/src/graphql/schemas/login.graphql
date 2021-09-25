@@ -1,0 +1,5 @@
+type Login {
+    token: String
+    id: String
+    roles: [String]
+}

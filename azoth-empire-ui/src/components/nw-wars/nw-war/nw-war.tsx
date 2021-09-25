@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 import GraphQLService from '../../../services/graphql.service';
 import NWGQLQuery from '../../../interfaces/graphql.interface';
 

@@ -60,8 +60,8 @@ export class AppHome {
                             <ion-button href="/members" expand="block">
                                 Member List
                             </ion-button>
-                            <ion-button href="/attendance" expand="block">
-                                War Attendance
+                            <ion-button href="/wars" expand="block">
+                                War List
                             </ion-button>
                             <ion-button
                                 ref={el => {

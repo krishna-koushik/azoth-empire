@@ -24,10 +24,12 @@ export class Members {
     private after: string = '';
     private before: string = '';
     private last: number;
+
     private orderBy: IPlayerOrder = {
         direction: OrderDirection.ASC,
         field: PlayerOrderField.NAME,
     };
+
     private infiniteScroll: any;
     private guildFilterInput: any;
     private activeFilterInput: any;
@@ -97,24 +99,6 @@ export class Members {
             });
         }
         return memberList;
-    }
-
-    openAddMemberModal() {
-        // create the modal with the `modal-page` component
-        this.modalElement = document.createElement('ion-modal');
-        this.modalElement.component = 'add-member';
-
-        this.modalElement.addEventListener('closeButtonClicked', async _e => {
-            await this.dismissModal();
-        });
-
-        this.modalElement.addEventListener('submitButtonClicked', async _e => {
-            await this.dismissModal();
-        });
-
-        // present the modal
-        document.body.appendChild(this.modalElement);
-        return this.modalElement.present();
     }
 
     async dismissModal() {

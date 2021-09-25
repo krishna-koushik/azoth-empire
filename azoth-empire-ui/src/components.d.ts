@@ -16,10 +16,11 @@ export namespace Components {
         memberId: string;
     }
     interface NwMembers {}
-    interface ServerInfo {}
-    interface WarAttendance {
-        name: string;
+    interface NwWar {
+        warId: string;
     }
+    interface NwWars {}
+    interface ServerInfo {}
     interface WarReport {}
 }
 declare global {
@@ -63,15 +64,20 @@ declare global {
         prototype: HTMLNwMembersElement;
         new (): HTMLNwMembersElement;
     };
+    interface HTMLNwWarElement extends Components.NwWar, HTMLStencilElement {}
+    var HTMLNwWarElement: {
+        prototype: HTMLNwWarElement;
+        new (): HTMLNwWarElement;
+    };
+    interface HTMLNwWarsElement extends Components.NwWars, HTMLStencilElement {}
+    var HTMLNwWarsElement: {
+        prototype: HTMLNwWarsElement;
+        new (): HTMLNwWarsElement;
+    };
     interface HTMLServerInfoElement extends Components.ServerInfo, HTMLStencilElement {}
     var HTMLServerInfoElement: {
         prototype: HTMLServerInfoElement;
         new (): HTMLServerInfoElement;
-    };
-    interface HTMLWarAttendanceElement extends Components.WarAttendance, HTMLStencilElement {}
-    var HTMLWarAttendanceElement: {
-        prototype: HTMLWarAttendanceElement;
-        new (): HTMLWarAttendanceElement;
     };
     interface HTMLWarReportElement extends Components.WarReport, HTMLStencilElement {}
     var HTMLWarReportElement: {
@@ -87,8 +93,9 @@ declare global {
         'edit-member': HTMLEditMemberElement;
         'nw-member': HTMLNwMemberElement;
         'nw-members': HTMLNwMembersElement;
+        'nw-war': HTMLNwWarElement;
+        'nw-wars': HTMLNwWarsElement;
         'server-info': HTMLServerInfoElement;
-        'war-attendance': HTMLWarAttendanceElement;
         'war-report': HTMLWarReportElement;
     }
 }
@@ -106,10 +113,11 @@ declare namespace LocalJSX {
         memberId?: string;
     }
     interface NwMembers {}
-    interface ServerInfo {}
-    interface WarAttendance {
-        name?: string;
+    interface NwWar {
+        warId?: string;
     }
+    interface NwWars {}
+    interface ServerInfo {}
     interface WarReport {
         onCloseButtonClicked?: (event: CustomEvent<any>) => void;
         onSubmitButtonClicked?: (event: CustomEvent<any>) => void;
@@ -123,8 +131,9 @@ declare namespace LocalJSX {
         'edit-member': EditMember;
         'nw-member': NwMember;
         'nw-members': NwMembers;
+        'nw-war': NwWar;
+        'nw-wars': NwWars;
         'server-info': ServerInfo;
-        'war-attendance': WarAttendance;
         'war-report': WarReport;
     }
 }
@@ -140,8 +149,9 @@ declare module '@stencil/core' {
             'edit-member': LocalJSX.EditMember & JSXBase.HTMLAttributes<HTMLEditMemberElement>;
             'nw-member': LocalJSX.NwMember & JSXBase.HTMLAttributes<HTMLNwMemberElement>;
             'nw-members': LocalJSX.NwMembers & JSXBase.HTMLAttributes<HTMLNwMembersElement>;
+            'nw-war': LocalJSX.NwWar & JSXBase.HTMLAttributes<HTMLNwWarElement>;
+            'nw-wars': LocalJSX.NwWars & JSXBase.HTMLAttributes<HTMLNwWarsElement>;
             'server-info': LocalJSX.ServerInfo & JSXBase.HTMLAttributes<HTMLServerInfoElement>;
-            'war-attendance': LocalJSX.WarAttendance & JSXBase.HTMLAttributes<HTMLWarAttendanceElement>;
             'war-report': LocalJSX.WarReport & JSXBase.HTMLAttributes<HTMLWarReportElement>;
         }
     }

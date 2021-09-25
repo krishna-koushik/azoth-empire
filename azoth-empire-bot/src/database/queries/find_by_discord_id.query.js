@@ -1,9 +1,10 @@
-const assert = require("assert");
+const assert = require('assert');
+
 class FindByDiscordIdQuery {
-  constructor(discordId) {
-    assert(discordId, "discordId is required.");
-    this["discord.id"] = discordId;
-  }
+    constructor(discordId) {
+        assert(discordId, 'discordId is required.');
+        this['discord.id'] = discordId;
+    }
 }
 
 module.exports = FindByDiscordIdQuery;

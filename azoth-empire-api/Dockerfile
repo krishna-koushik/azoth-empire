@@ -6,6 +6,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
 
 COPY package*.json ./
+COPY secrets secrets
 RUN npm ci
 
 # Final stage/image

@@ -8,7 +8,6 @@ class PlayerInfo {
 
     async handleInteraction(interaction) {
         const { guild, user } = interaction;
-        console.log(user);
         //TODO: Step 1: Get the current user discord name
         // Step 2: Make a database call and fetch the stats stored for the player
         // Step 3: Format and display the stats
@@ -35,23 +34,28 @@ class PlayerInfo {
                     playerStatsEmbed.addField(`Weapon ${index + 1}`, w, true);
                 });
 
-                playerStatsEmbed.addFields([
-                    { name: 'Skills', value: 'Trade' },
-                    { name: '\u200B', value: '\u200B' },
-                ]);
+                if (!!player.gameData.skills) {
+                    if (!!player.gameData.skills.trade) {
+                        playerStatsEmbed.addFields([
+                            { name: 'Skills', value: 'Trade' },
+                            { name: '\u200B', value: '\u200B' },
+                        ]);
+                        Object.keys(player.gameData.skills.trade).forEach(key => {
+                            playerStatsEmbed.addField(capitalize(key), player.gameData.skills.trade[key].toString(), true);
+                        });
+                    }
 
-                Object.keys(player.gameData.skills.trade).forEach(key => {
-                    playerStatsEmbed.addField(capitalize(key), player.gameData.skills.trade[key].toString(), true);
-                });
+                    if (!!player.gameData.skills.gathering) {
+                        playerStatsEmbed.addFields([
+                            { name: 'Skills', value: 'Gathering' },
+                            { name: '\u200B', value: '\u200B' },
+                        ]);
 
-                playerStatsEmbed.addFields([
-                    { name: 'Skills', value: 'Gathering' },
-                    { name: '\u200B', value: '\u200B' },
-                ]);
-
-                Object.keys(player.gameData.skills.gathering).forEach(key => {
-                    playerStatsEmbed.addField(capitalize(key), player.gameData.skills.gathering[key].toString(), true);
-                });
+                        Object.keys(player.gameData.skills.gathering).forEach(key => {
+                            playerStatsEmbed.addField(capitalize(key), player.gameData.skills.gathering[key].toString(), true);
+                        });
+                    }
+                }
             }
 
             return { embeds: [playerStatsEmbed] };

@@ -19,7 +19,7 @@ const client = new Client({
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand() && !interaction.isButton() && !interaction.isSelectMenu()) return;
 
-    const { commandName, guild, user, customId, message } = interaction;
+    const { commandName, guild, user, customId, message, reply } = interaction;
     if (commandName) {
         if (!client.commands.has(commandName.toLowerCase())) return;
     } else if (customId) {
@@ -31,9 +31,8 @@ client.on('interactionCreate', async interaction => {
 
     try {
         const member = await fetchDiscordUser(guild, user);
-
         if (
-            (checkIfUserHasPermissions(member.roles.cache, 'new world') || checkIfUserHasPermissions(member.roles.cache, 'leader')) &&
+            (checkIfUserHasPermissions(member.roles.cache, 'NewWorld') || checkIfUserHasPermissions(member.roles.cache, 'Leaders')) &&
             !checkIfUserHasPermissions(member.roles.cache, 'inactive')
         ) {
             if (interaction.isButton()) {
@@ -44,10 +43,10 @@ client.on('interactionCreate', async interaction => {
             } else if (interaction.isCommand()) {
                 client.commands.get(commandName.toLowerCase()).execute(interaction);
             } else {
-                await interaction.reply(`Command not recognized`);
+                await reply(`Command not recognized`);
             }
         } else {
-            await interaction.reply(`You do not have enough permissions. Please contact Leadership for perms.`);
+            await reply(`You do not have enough permissions. Please contact Leadership for perms.`);
         }
     } catch (error) {
         console.error(error);

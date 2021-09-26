@@ -19,17 +19,6 @@ export class WarReport {
     @State() attendanceImage: any;
     @State() performanceReportImages: any[] = [];
 
-    // private imageProcessor = createWorker({
-    //     logger: m => {
-    //         console.log(m);
-    //         const { progress, workerId } = m;
-    //         this.processingImages[workerId] = progress;
-    //
-    //         this.processingImages = { ...this.processingImages };
-    //         console.log(this.processingImages);
-    //     },
-    // });
-
     private imageAttendenceInput: any;
     private imageReportInput: any;
     private submitButton: any;
@@ -41,20 +30,7 @@ export class WarReport {
     private reportStartDateInput: any;
     private reportEndDateInput: any;
 
-    // async startTesseract(image) {
-    //     this.processing = true;
-    //     await this.imageProcessor.load();
-    //     await this.imageProcessor.loadLanguage('eng');
-    //     await this.imageProcessor.initialize('eng');
-    //     await this.imageProcessor.setParameters({
-    //         tessedit_ocr_engine_mode: OEM.TESSERACT_LSTM_COMBINED,
-    //         tessedit_pageseg_mode: PSM.SPARSE_TEXT_OSD,
-    //     });
-    //
-    //     const { data } = await this.imageProcessor.recognize(image, {});
-    //     console.log(data);
-    //     return data;
-    // }
+    private imageAttendenceStandbyInput: any;
 
     async disconnectedCallback() {
         // await this.imageProcessor.terminate();
@@ -73,14 +49,6 @@ export class WarReport {
             const file = files[0];
 
             this.attendanceImage = { ...file };
-
-            // Process the report which captures players for war attendance and which group they belonged to in the war.
-            // const roster = warRoster(URL.createObjectURL(file));
-            // const dataPromiseArray: any[] = roster.map(async img => {
-            //     return await this.startTesseract(img);
-            // });
-            // const response = await Promise.all(dataPromiseArray);
-            // console.log('response', response);
         });
 
         this.imageReportInput.addEventListener('change', async e => {
@@ -155,63 +123,6 @@ export class WarReport {
                 </ion-header>
                 <ion-content class="ion-padding" overflow-scroll="false">
                     <ion-item>
-                        <ion-label position="floating">Report Name</ion-label>
-                        <ion-input
-                            ref={el => {
-                                this.nameInput = el;
-                            }}
-                            required={true}
-                            max="250"
-                            debounce={500}
-                            value={this.report.name}
-                            clear-input={true}
-                        ></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating">Location</ion-label>
-                        <ion-input
-                            ref={el => {
-                                this.locationInput = el;
-                            }}
-                            required={true}
-                            max="250"
-                            debounce={500}
-                            value={this.report.location}
-                            clear-input={true}
-                        ></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Start Date & Time</ion-label>
-                        <ion-datetime
-                            ref={el => {
-                                this.reportStartDateInput = el;
-                            }}
-                            value={this.report.startDate}
-                            placeholder="Select Date & Time"
-                            display-timezone="America/New_York"
-                            display-format="MM/DD/YYYY h:mm A"
-                            picker-format="MM/DD/YYYY h:mm A"
-                        ></ion-datetime>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>End Date & Time</ion-label>
-                        <ion-datetime
-                            ref={el => {
-                                this.reportEndDateInput = el;
-                            }}
-                            value={this.report.endDate}
-                            placeholder="Select Date & Time"
-                            display-timezone="America/New_York"
-                            display-format="MM/DD/YYYY h:mm A"
-                            picker-format="MM/DD/YYYY h:mm A"
-                        ></ion-datetime>
-                    </ion-item>
-                    {Object.keys(this.processingImages).length > 0 && (
-                        <ion-item>
-                            <ion-progress-bar value={this.getProgress(this.processingImages)}></ion-progress-bar>
-                        </ion-item>
-                    )}
-                    <ion-item>
                         <ion-grid>
                             <ion-row>
                                 <ion-col>
@@ -223,7 +134,7 @@ export class WarReport {
                                         }}
                                     >
                                         <ion-icon slot="start" name="image-outline"></ion-icon>
-                                        War roster
+                                        War Army roster
                                     </ion-button>
                                     <input
                                         hidden
@@ -231,6 +142,29 @@ export class WarReport {
                                         accept="image/*"
                                         ref={el => {
                                             this.imageAttendenceInput = el;
+                                        }}
+                                    />
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col>
+                                    <ion-button
+                                        color="secondary"
+                                        fill="outline"
+                                        onClick={_ev => {
+                                            this.imageAttendenceStandbyInput.click();
+                                        }}
+                                    >
+                                        <ion-icon slot="start" name="image-outline"></ion-icon>
+                                        War Standby roster
+                                    </ion-button>
+                                    <input
+                                        hidden
+                                        type="file"
+                                        accept="image/*"
+                                        multiple={true}
+                                        ref={el => {
+                                            this.imageAttendenceStandbyInput = el;
                                         }}
                                     />
                                 </ion-col>
@@ -259,16 +193,9 @@ export class WarReport {
                                                 this.imageReportInput = el;
                                             }}
                                         />
-                                        War report
+                                        War Performance
                                     </ion-button>
                                 </ion-col>
-                                {this.performanceReportImages.length > 0 && (
-                                    <ion-col>
-                                        {this.performanceReportImages.map(item => (
-                                            <img src={URL.createObjectURL(item.src)} style={{ height: '100px', width: '100px' }} />
-                                        ))}
-                                    </ion-col>
-                                )}
                             </ion-row>
                         </ion-grid>
                     </ion-item>

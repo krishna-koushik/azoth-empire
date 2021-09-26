@@ -23,7 +23,7 @@ export class Member {
     }
 
     componentDidLoad() {
-        this.tabElement.select('tab-detail');
+        this.tabElement?.select('tab-detail');
         if (!!this.member.gameData) {
             this.renderChart();
             this.renderWarChart();
@@ -31,10 +31,19 @@ export class Member {
     }
 
     renderChart() {
+        const {
+            gameData: {
+                skills: {
+                    trade: { jewel = 0, engineering = 0, food = 0, armoring = 0, weaponsmithing = 0, arcana = 0, furnishing = 0, stone = 0 } = {},
+                    gathering: { smelting = 0, woodworking = 0, weaving = 0, leatherworking = 0, logging = 0, mining = 0, harvesting = 0, skinning = 0, fishing = 0 } = {},
+                } = {},
+            } = {},
+        } = this.member;
+
         const data1 = [
             {
                 type: 'scatterpolar',
-                r: [20, 250, 250, 50, 35, 40, 10, 150, 100],
+                r: [jewel, engineering, food, armoring, weaponsmithing, arcana, furnishing, stone],
                 theta: ['Jewel crafting', 'Engineering', 'Food / Cooking', 'Tailor / Outfitting/ Armoring', 'Weaponsmithing', 'Arcane', 'Furnishing', 'Stone cutting'],
                 fill: 'toself',
             },
@@ -42,7 +51,7 @@ export class Member {
         const data2 = [
             {
                 type: 'scatterpolar',
-                r: [175, 200, 170, 50, 250, 150, 50, 150, 100, 0],
+                r: [smelting, woodworking, weaving, leatherworking, logging, mining, harvesting, skinning, fishing],
                 theta: ['Smelting', 'Woodworking', 'Weaving', 'Leatherworking', 'Logging', 'Mining', 'Harvesting', 'Tracking & Skinning', 'Fishing'],
                 fill: 'toself',
             },
@@ -111,10 +120,12 @@ export class Member {
                                     </ion-card-header>
                                 </ion-card>
                                 <ion-card>
-                                    <ion-item>
-                                        <ion-icon name="logo-discord" slot="start"></ion-icon>
-                                        <ion-label>{this.member.discord.name}</ion-label>
-                                    </ion-item>
+                                    {!!this.member.discord && (
+                                        <ion-item>
+                                            <ion-icon name="logo-discord" slot="start"></ion-icon>
+                                            <ion-label>{this.member.discord.name}</ion-label>
+                                        </ion-item>
+                                    )}
                                     <ion-item>
                                         <div slot="start">In Game Name</div>
                                         <ion-label>{this.member.name}</ion-label>
@@ -155,13 +166,13 @@ export class Member {
                                                 <ion-card>
                                                     <ion-item>
                                                         <ion-label slot="start">Level</ion-label>
-                                                        <ion-badge color="primary">15</ion-badge>
+                                                        <ion-badge color="primary">{this.member.gameData.level}</ion-badge>
                                                     </ion-item>
                                                 </ion-card>
                                                 <ion-card>
                                                     <ion-item>
                                                         <ion-label slot="start">Average GS</ion-label>
-                                                        <ion-badge color="secondary">382</ion-badge>
+                                                        <ion-badge color="secondary">{this.member.gameData.averageGs}</ion-badge>
                                                     </ion-item>
                                                 </ion-card>
                                             </ion-col>
@@ -171,37 +182,41 @@ export class Member {
                                         <ion-row>
                                             <ion-col>
                                                 <ion-card>
-                                                    <ion-item>
-                                                        <ion-label slot="start">Weapon 1</ion-label>
-                                                        <ion-note slot="end">Musket</ion-note>
-                                                    </ion-item>
-                                                    <ion-item>
-                                                        <ion-label slot="start">Weapon 2</ion-label>
-                                                        <ion-note slot="end">Raipier</ion-note>
-                                                    </ion-item>
+                                                    {!!this.member.gameData.weapon && this.member.gameData.weapon.length > 0 && (
+                                                        <ion-item>
+                                                            <ion-label slot="start">Weapon 1</ion-label>
+                                                            <ion-note slot="end">{this.member.gameData.weapon[0]}</ion-note>
+                                                        </ion-item>
+                                                    )}
+                                                    {!!this.member.gameData.weapon && this.member.gameData.weapon.length > 0 && (
+                                                        <ion-item>
+                                                            <ion-label slot="start">Weapon 2</ion-label>
+                                                            <ion-note slot="end">{this.member.gameData.weapon[1]}</ion-note>
+                                                        </ion-item>
+                                                    )}
                                                     <ion-item>
                                                         <ion-label slot="start">Amulet</ion-label>
-                                                        <ion-note slot="end">300</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.amulet}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Ring</ion-label>
-                                                        <ion-note slot="end">420</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.ring}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Earring</ion-label>
-                                                        <ion-note slot="end">350</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.earring}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Bag 1</ion-label>
-                                                        <ion-note slot="end">100</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.bag1}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Bag 2</ion-label>
-                                                        <ion-note slot="end">100</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.bag2}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Bag 3</ion-label>
-                                                        <ion-note slot="end">100</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.bag3}</ion-note>
                                                     </ion-item>
                                                 </ion-card>
                                             </ion-col>
@@ -209,53 +224,56 @@ export class Member {
                                                 <ion-card>
                                                     <ion-item>
                                                         <ion-label slot="start">Helm</ion-label>
-                                                        <ion-note slot="end">300</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.helm}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Chest</ion-label>
-                                                        <ion-note slot="end">250</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.chest}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Hands</ion-label>
-                                                        <ion-note slot="end">425</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.hands}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Pants</ion-label>
-                                                        <ion-note slot="end">600</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.pants}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Boots</ion-label>
-                                                        <ion-note slot="end">100</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.boots}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
                                                         <ion-label slot="start">Sheild</ion-label>
-                                                        <ion-note slot="end">0</ion-note>
+                                                        <ion-note slot="end">{this.member.gameData.sheild}</ion-note>
                                                     </ion-item>
                                                 </ion-card>
                                             </ion-col>
                                         </ion-row>
-                                        <ion-row>
-                                            <ion-col>
-                                                <ion-card>
-                                                    <ion-item>
-                                                        <ion-label slot="start">Primary</ion-label>
-                                                        <ion-note slot="end">Dexterity</ion-note>
-                                                    </ion-item>
-                                                    <ion-item>
-                                                        <ion-label slot="start">Secondary</ion-label>
-                                                        <ion-note slot="end">Constituion</ion-note>
-                                                    </ion-item>
-                                                </ion-card>
-                                            </ion-col>
-                                            <ion-col>
-                                                <ion-card>
-                                                    <ion-item>
-                                                        <ion-label slot="start">Preferred Weight Class</ion-label>
-                                                        <ion-note slot="end">Medium</ion-note>
-                                                    </ion-item>
-                                                </ion-card>
-                                            </ion-col>
-                                        </ion-row>
+
+                                        {!!this.member.gameData.attribute && (
+                                            <ion-row>
+                                                <ion-col>
+                                                    <ion-card>
+                                                        <ion-item>
+                                                            <ion-label slot="start">Primary</ion-label>
+                                                            <ion-note slot="end">{this.member.gameData.attribute.primary}</ion-note>
+                                                        </ion-item>
+                                                        <ion-item>
+                                                            <ion-label slot="start">Secondary</ion-label>
+                                                            <ion-note slot="end">{this.member.gameData.attribute.secondary}</ion-note>
+                                                        </ion-item>
+                                                    </ion-card>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-card>
+                                                        <ion-item>
+                                                            <ion-label slot="start">Preferred Weight Class</ion-label>
+                                                            <ion-note slot="end">{this.member.gameData.attribute.preferredWeightClass}</ion-note>
+                                                        </ion-item>
+                                                    </ion-card>
+                                                </ion-col>
+                                            </ion-row>
+                                        )}
                                     </ion-grid>
                                 </section>
                             </ion-content>
@@ -305,7 +323,7 @@ export class Member {
                                 <section class="section is-large">
                                     <ion-card>
                                         <ion-card-header>
-                                            <ion-card-title>Last 4 war stats</ion-card-title>
+                                            <ion-card-title>Last few war stats</ion-card-title>
                                         </ion-card-header>
                                         <ion-card-content
                                             ref={el => {

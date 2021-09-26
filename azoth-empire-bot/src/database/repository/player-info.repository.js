@@ -42,7 +42,7 @@ class PlayerInfoRepository {
             updateData,
         });
         const response = await players.updateOne(findQuery, updateData, { upsert: true });
-        console.info(`finished updating player in mongodb for findQuery`, {
+        console.debug(`finished updating player in mongodb for findQuery`, {
             response,
         });
         return response;

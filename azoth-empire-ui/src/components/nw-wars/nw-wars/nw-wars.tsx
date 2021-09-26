@@ -68,13 +68,6 @@ export class NwWars {
             this.filters = { ...this.filters };
         });
 
-        this.activeFilterInput.addEventListener('ionChange', e => {
-            const { detail: { value = '' } = {} } = e;
-            this.filters.active = value;
-
-            this.filters = { ...this.filters };
-        });
-
         this.fabButton.addEventListener('click', _e => {
             this.openAddWarReportModal();
         });
@@ -117,7 +110,7 @@ export class NwWars {
         // create the modal with the `modal-page` component
         this.modalElement = document.createElement('ion-modal');
         this.modalElement.component = 'war-report';
-        this.modalElement.presentingElement = document.querySelector('ion-nav');
+        this.modalElement.presentingElement = document.querySelector('ion-content');
 
         this.modalElement.addEventListener('closeButtonClicked', async _e => {
             await this.dismissModal();
@@ -174,7 +167,13 @@ export class NwWars {
                     <ion-title>Wars</ion-title>
                 </ion-toolbar>
             </ion-header>,
-            <ion-content class="ion-padding" overflow-scroll="false">
+            <ion-content
+                class="ion-padding"
+                overflow-scroll="false"
+                ref={el => {
+                    this.contentElement = el;
+                }}
+            >
                 <section class="section is-large">
                     <h2 class="subtitle">List of past wars</h2>
                     <div class="container">

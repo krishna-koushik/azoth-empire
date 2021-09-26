@@ -1,16 +1,16 @@
-const { players } = require('../mongodb/mongoose/models');
+const { guild } = require('../mongodb/mongoose/models');
 
 class GuildRepository {
     constructor() {}
 
     async findByFilter(query) {
         console.log(`fetching guild by find query`, { query });
-        return await players.find(query.findQuery).lean().exec();
+        return await guild.find(query.findQuery).lean().exec();
     }
 
     async findGuildByName(name) {
         console.log(`fetching guild by name ${name}`);
-        return await players
+        return await guild
             .findOne({ name: `${name}` })
             .lean()
             .exec();
@@ -18,7 +18,7 @@ class GuildRepository {
 
     async findGuildByCode(code) {
         console.log(`fetching guild for code ${code}`);
-        return await players
+        return await guild
             .findOne({ name: `${code}` })
             .lean()
             .exec();

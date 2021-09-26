@@ -8,7 +8,7 @@ module.exports = {
         const { user, guild } = interaction;
         const member = await fetchDiscordUser(guild, user);
 
-        if (checkIfUserHasPermissions(member.roles.cache, 'leader')) {
+        if (checkIfUserHasPermissions(member.roles.cache, 'Leaders')) {
             interaction.reply('Ok. Sync started. Will DM you when done.');
             await SyncAeDb.handleInteraction(interaction);
         } else {

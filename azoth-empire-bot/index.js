@@ -43,14 +43,14 @@ client.on('interactionCreate', async interaction => {
             } else if (interaction.isCommand()) {
                 client.commands.get(commandName.toLowerCase()).execute(interaction);
             } else {
-                await reply(`Command not recognized`);
+                return await reply(`Command not recognized`);
             }
         } else {
-            await reply(`You do not have enough permissions. Please contact Leadership for perms.`);
+            return await reply(`You do not have enough permissions. Please contact Leadership for perms.`);
         }
     } catch (error) {
         console.error(error);
-        await message.reply('there was an error trying to execute that command!');
+        return await reply('there was an error trying to execute that command!');
     }
 });
 

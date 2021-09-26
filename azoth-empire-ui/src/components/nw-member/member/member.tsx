@@ -31,14 +31,11 @@ export class Member {
     }
 
     renderChart() {
-        const {
-            gameData: {
-                skills: {
-                    trade: { jewel = 0, engineering = 0, food = 0, armoring = 0, weaponsmithing = 0, arcana = 0, furnishing = 0, stone = 0 } = {},
-                    gathering: { smelting = 0, woodworking = 0, weaving = 0, leatherworking = 0, logging = 0, mining = 0, harvesting = 0, skinning = 0, fishing = 0 } = {},
-                } = {},
-            } = {},
-        } = this.member;
+        const { gameData } = this.member;
+        const { skills = {} } = gameData || {};
+        const { trade = {}, gathering = {} } = skills || {};
+        const { jewel = 0, engineering = 0, food = 0, armoring = 0, weaponsmithing = 0, arcana = 0, furnishing = 0, stone = 0 } = trade || {};
+        const { smelting = 0, woodworking = 0, weaving = 0, leatherworking = 0, logging = 0, mining = 0, harvesting = 0, skinning = 0, fishing = 0 } = gathering || {};
 
         const data1 = [
             {
@@ -66,7 +63,7 @@ export class Member {
             showlegend: false,
         };
 
-        const config = { responsive: true };
+        const config = { responsive: false, editable: false, staticPlot: true };
 
         Plotly.newPlot(this.craftingSkillChart, data1, layout, config);
         Plotly.newPlot(this.tradeSkillChart, data2, layout, config);

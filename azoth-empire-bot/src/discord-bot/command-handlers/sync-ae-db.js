@@ -12,7 +12,6 @@ class SyncAeDb {
 
         const query = new FindAllQuery();
         const guilds = await GuildRepository.findByFilter(query);
-        console.log(guilds);
         const res = await this.setup(guild, guilds);
 
         return user.send(res);
@@ -21,7 +20,6 @@ class SyncAeDb {
     async setup(memberGuild, guilds) {
         try {
             const allGuildUsers = await fetchAllDiscordUser(memberGuild);
-            console.log(guilds);
             const allPromises = allGuildUsers.map(async gMember => {
                 const { user, roles } = gMember;
                 if (!user.bot) {
@@ -31,7 +29,6 @@ class SyncAeDb {
 
                     if (!!playerNameMatch) {
                         const guild = guilds.find(g => (g.code || '').toLowerCase() === (playerNameMatch[1] || 'PAX').toLowerCase()) || 'PAX';
-                        console.log(guild);
                         guildName = guild.name;
                         playerName = (playerNameMatch[2] || gMember.displayName).trim();
                     }
@@ -65,6 +62,7 @@ class SyncAeDb {
             'discord.id': discordId,
             'discord.roles': roles,
             'guild': guildName,
+            'active': !roles.includes('inactive'),
         });
     }
 }

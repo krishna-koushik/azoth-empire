@@ -222,7 +222,7 @@ let playerSchema = new Schema({
     notes: String,
     active: {
         type: Boolean,
-        default: false,
+        default: true,
         index: true,
     },
 });

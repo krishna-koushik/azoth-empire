@@ -35,7 +35,6 @@ export class NwWars {
     };
     private infiniteScroll: any;
     private locationFilterInput: any;
-    private activeFilterInput: any;
 
     async componentWillLoad() {
         const wars = await this.fetchWars();

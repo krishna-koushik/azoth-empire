@@ -31,21 +31,21 @@ export class AddMember {
     private teamInput: any[] = [];
     private activeInput: any;
     private content: any;
-    private amuletInput: any;
-    private helmInput: any;
-    private ringInput: any;
-    private chestInput: any;
-    private earringInput: any;
-    private handInput: any;
-    private bag1Input: any;
-    private pantsInput: any;
-    private bag2Input: any;
-    private bootsInput: any;
-    private bag3Input: any;
-    private shieldInput: any;
-    private primaryStatInput: any;
-    private secondaryStatInput: any;
-    private preferredWeightClassInput: any;
+    // private amuletInput: any;
+    // private helmInput: any;
+    // private ringInput: any;
+    // private chestInput: any;
+    // private earringInput: any;
+    // private handInput: any;
+    // private bag1Input: any;
+    // private pantsInput: any;
+    // private bag2Input: any;
+    // private bootsInput: any;
+    // private bag3Input: any;
+    // private shieldInput: any;
+    // private primaryStatInput: any;
+    // private secondaryStatInput: any;
+    // private preferredWeightClassInput: any;
 
     private dismissModal(e: any) {
         this.closeButtonClicked.emit(e.detail);
@@ -444,9 +444,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Amulet</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.amuletInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.amuletInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -458,9 +458,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Helm</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.helmInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.helmInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -474,9 +474,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Ring</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.ringInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.ringInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -488,9 +488,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Chest</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.chestInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.chestInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -504,9 +504,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Earring</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.earringInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.earringInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -518,9 +518,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Hands</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.handInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.handInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -534,9 +534,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Bag 1</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.bag1Input = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.bag1Input = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -548,9 +548,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Pants</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.pantsInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.pantsInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -564,9 +564,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Bag 2</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.bag2Input = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.bag2Input = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -578,9 +578,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Boots</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.bootsInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.bootsInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -594,9 +594,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Bag 3</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.bag3Input = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.bag3Input = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -608,9 +608,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Shield</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.shieldInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.shieldInput = el;
+                                            // }}
                                             max="999"
                                             type="number"
                                             inputmode="numeric"
@@ -624,9 +624,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Primary Stat</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.primaryStatInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.primaryStatInput = el;
+                                            // }}
                                             max-length="250"
                                             debounce={500}
                                             value={this.member.gameData.primaryStat}
@@ -636,9 +636,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Secondary Stat</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.secondaryStatInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.secondaryStatInput = el;
+                                            // }}
                                             max-length="250"
                                             debounce={500}
                                             value={this.member.gameData.secondaryStat}
@@ -650,9 +650,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Preferred Weight class</ion-label>
                                         <ion-input
-                                            ref={el => {
-                                                this.preferredWeightClassInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.preferredWeightClassInput = el;
+                                            // }}
                                             max-length="250"
                                             debounce={500}
                                             value={this.member.gameData.preferredWeightClass}
@@ -662,9 +662,9 @@ export class AddMember {
                                     <ion-col>
                                         <ion-label>Active</ion-label>
                                         <ion-toggle
-                                            ref={el => {
-                                                this.activeInput = el;
-                                            }}
+                                            // ref={el => {
+                                            //     this.activeInput = el;
+                                            // }}
                                             slot="end"
                                             color="primary"
                                             style={{ border: '1px solid #CDCDCD' }}

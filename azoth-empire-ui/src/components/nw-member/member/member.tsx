@@ -240,8 +240,8 @@ export class Member {
                                                         <ion-note slot="end">{this.member.gameData.boots}</ion-note>
                                                     </ion-item>
                                                     <ion-item>
-                                                        <ion-label slot="start">Sheild</ion-label>
-                                                        <ion-note slot="end">{this.member.gameData.sheild}</ion-note>
+                                                        <ion-label slot="start">Shield</ion-label>
+                                                        <ion-note slot="end">{this.member.gameData.shield}</ion-note>
                                                     </ion-item>
                                                 </ion-card>
                                             </ion-col>

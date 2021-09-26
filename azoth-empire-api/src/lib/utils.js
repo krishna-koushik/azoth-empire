@@ -39,7 +39,6 @@ class Utils {
             debug: false,
             maxWidth: 325,
             fontSize: 18,
-            fontFamily: 'Balthazar',
             margin: 0,
             textColor: '#fefefe',
             customHeight: 25,

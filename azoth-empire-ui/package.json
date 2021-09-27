@@ -6,7 +6,7 @@
     "collection:main": "./dist/collection/index.js",
     "dependencies": {
         "@bulmil/core": "0.18.0",
-        "axios": "0.21.3",
+        "axios": "0.21.4",
         "d3-stencil": "2.2.3",
         "dayjs": "1.10.7",
         "discord-api-types": "0.22.0",

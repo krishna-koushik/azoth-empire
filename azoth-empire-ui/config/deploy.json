@@ -1,7 +1,7 @@
 {
     "version": "latest",
     "baseHref": "/",
-    "baseAssetsUrl": "https://app.newworld.k8s.cajun.pro/www",
+    "baseAssetsUrl": "https://app.newworld.k8s.cajun.pro",
     "placeholderUrl": "https://app.newworld.k8s.cajun.pro/framework/placeholder",
     "env": {
         "AE_API_URL": "http://ae-api:4000/graphql",

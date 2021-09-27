@@ -46,7 +46,7 @@
         "convert-ejs:deploy": "cat src/index.ejs | npx @immutablewebapps/ejs-cli --d config/deploy.json > src/index.html",
         "convert-ejs:local": "cat src/index.ejs | npx @immutablewebapps/ejs-cli --d config/local.json > src/index.html",
         "generate": "stencil generate",
-        "start": "export ENV=PROD && npx run convert-ejs:deploy && stencil build --dev --watch --serve",
+        "start": "export ENV=PROD && npm run convert-ejs:deploy && stencil build --dev --watch --serve",
         "start:local": "export ENV=LOCAL && npm run convert-ejs:local && stencil build --dev --watch --serve",
         "test": "stencil test --spec --e2e",
         "test.watch": "stencil test --spec --e2e --watch"

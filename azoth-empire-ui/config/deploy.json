@@ -4,8 +4,8 @@
     "baseAssetsUrl": "https://app.newworld.k8s.cajun.pro",
     "placeholderUrl": "https://app.newworld.k8s.cajun.pro/framework/placeholder",
     "env": {
-        "AE_API_URL": "http://ae-api:4000/graphql",
-        "AE_SERVER_INFO_URL": "http://ae-api:4000/server-info",
+        "AE_API_URL": "https://api.newworld.k8s.cajun.pro/graphql",
+        "AE_SERVER_INFO_URL": "https://api.newworld.k8s.cajun.pro/server-info",
         "D_CLIENT_ID": "883348010308874301",
         "D_REDIRECT_URI": "https%3A%2F%2Fapp.newworld.k8s.cajun.pro%2Fdiscord%2Fcallback"
     }

@@ -28,7 +28,7 @@
         "text-to-image": "^4.0.0"
     },
     "devDependencies": {
-        "nodemon": "^2.0.12"
+        "nodemon": "2.0.13"
     },
     "license": "ISC",
     "main": "index.js",

@@ -1,12 +1,12 @@
 {
     "version": "local",
     "baseHref": "/",
-    "baseAssetsUrl": "https://localhost:3333/www",
-    "placeholderUrl": "https://localhost:3333/framework/placeholder",
+    "baseAssetsUrl": "https://0.0.0.0:3333/www",
+    "placeholderUrl": "https://0.0.0.0:3333/framework/placeholder",
     "env": {
-        "AE_API_URL": "http://localhost:4000/graphql",
-        "AE_SERVER_INFO_URL": "http://localhost:4000/server-info",
+        "AE_API_URL": "http://0.0.0.0:4000/graphql",
+        "AE_SERVER_INFO_URL": "http://0.0.0.0:4000/server-info",
         "D_CLIENT_ID": "883348010308874301",
-        "D_REDIRECT_URI": "https%3A%2F%2Flocalhost%3A3333%2Fdiscord%2Fcallback"
+        "D_REDIRECT_URI": "https%3A%2F%2Fapp.newworld.k8s.cajun.pro%2Fdiscord%2Fcallback"
     }
 }

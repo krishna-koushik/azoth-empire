@@ -43,7 +43,7 @@
     "private": true,
     "scripts": {
         "build": "stencil build --prod",
-        "convert-ejs:deploy": "node scripts/convert-ejs --env deploy",
+        "convert-ejs:deploy": "cat src/index.ejs | npx @immutablewebapps/ejs-cli --d config/deploy.json > src/index.html",
         "convert-ejs:local": "cat src/index.ejs | npx @immutablewebapps/ejs-cli --d config/local.json > src/index.html",
         "generate": "stencil generate",
         "start": "export ENV=PROD && npx run convert-ejs:deploy && stencil build --dev --watch --serve",

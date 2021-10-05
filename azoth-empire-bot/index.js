@@ -32,7 +32,10 @@ client.on('interactionCreate', async interaction => {
     try {
         const member = await fetchDiscordUser(guild, user);
         if (
-            (checkIfUserHasPermissions(member.roles.cache, 'NewWorld') || checkIfUserHasPermissions(member.roles.cache, 'Leaders')) &&
+            (checkIfUserHasPermissions(member.roles.cache, 'NewWorld') ||
+                checkIfUserHasPermissions(member.roles.cache, 'New World') ||
+                checkIfUserHasPermissions(member.roles.cache, 'Leaders') ||
+                checkIfUserHasPermissions(member.roles.cache, 'AE Leaders')) &&
             !checkIfUserHasPermissions(member.roles.cache, 'inactive')
         ) {
             if (interaction.isButton()) {

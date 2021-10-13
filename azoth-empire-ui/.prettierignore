@@ -121,3 +121,4 @@ build
 
 # Ignore all HTML files:
 *.html
+/src/index.html

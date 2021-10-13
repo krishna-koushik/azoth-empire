@@ -124,3 +124,4 @@ build
 
 # Ignore github actions
 .github
+/azoth-empire-ui/src/index.html

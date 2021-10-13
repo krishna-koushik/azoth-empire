@@ -16,12 +16,20 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
         <meta http-equiv="x-ua-compatible" content="IE=Edge" />
+        <link rel="stylesheet" href="https://unpkg.com/@bulmil/core@latest/dist/css/bulmil.min.css" />
+        <link href="<%- version !== 'local' ? baseAssetsUrl : '' %>/build/azoth-empire.css" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="180x180" href="<%- version !== 'local' ? baseAssetsUrl : '' %>/assets/icon/AE.png" />
+        <link rel="icon" type="image/x-icon" href="<%- version !== 'local' ? baseAssetsUrl : '' %>/assets/icon/AE.png" />
+        <link rel="manifest" href="<%- version !== 'local' ? baseAssetsUrl : '' %>/manifest.json" />
 
-        <script src="https://unpkg.com/@bulmil/core@latest/dist/bulmil/bulmil.esm.js"></script>
+        <script src="https://unpkg.com/@bulmil/core@latest/dist/bulmil/bulmil.js"></script>
         <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script>
 
         <script type="module">
-            import { applyPolyfills, defineCustomElements } from 'https://unpkg.com/@bulmil/core@latest/dist/loader/index.es2017.js';
+            import {
+                applyPolyfills,
+                defineCustomElements,
+            } from 'https://unpkg.com/@bulmil/core@latest/dist/loader/index.es2017.js';
             applyPolyfills().then(() => {
                 defineCustomElements(window);
             });
@@ -30,12 +38,6 @@
 
         <script type="module" src="<%- version !== 'local' ? baseAssetsUrl : '' %>/build/azoth-empire.esm.js"></script>
         <script nomodule src="<%- version !== 'local' ? baseAssetsUrl : '' %>/build/azoth-empire.js"></script>
-
-        <link rel="stylesheet" href="https://unpkg.com/@bulmil/core@latest/dist/css/bulmil.min.css" />
-        <link href="<%- version !== 'local' ? baseAssetsUrl : '' %>/build/azoth-empire.css" rel="stylesheet" />
-        <link rel="apple-touch-icon" sizes="180x180" href="<%- version !== 'local' ? baseAssetsUrl : '' %>/assets/icon/AE.png" />
-        <link rel="icon" type="image/x-icon" href="<%- version !== 'local' ? baseAssetsUrl : '' %>/assets/icon/AE.png" />
-        <link rel="manifest" href="<%- version !== 'local' ? baseAssetsUrl : '' %>/manifest.json" />
     </head>
 
     <body>

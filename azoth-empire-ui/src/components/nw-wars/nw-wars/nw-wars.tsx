@@ -43,9 +43,8 @@ export class NwWars {
 
     async fetchWars() {
         this.isLoading = true;
-        const { data: { wars: { edges: wars = [], pageInfo = {} } = {} } = {} } = await GraphQLService.query(
-            NWGQLQuery.warsQuery(this.first, this.after, this.last, this.before, this.orderBy),
-        );
+        const { data = {} } = await GraphQLService.query(NWGQLQuery.warsQuery(this.first, this.after, this.last, this.before, this.orderBy));
+        const { wars: { edges: wars = [], pageInfo = {} } = {} } = data || {};
 
         this.totalWars = pageInfo.total || 0;
         this.after = pageInfo.endCursor;
@@ -208,36 +207,42 @@ export class NwWars {
                             <ion-text color="dark">
                                 <h5>Total Wars: {this.totalWars}</h5>
                             </ion-text>
-                            <table class="table is-fullwidth">
-                                <thead>
-                                    <tr>
-                                        <th>War Name</th>
-                                        <th>Location</th>
-                                        <th>Winner</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.findWarsByCriteria(this.warList, this.filters).map(m => {
-                                        return this.renderWarRow(m);
-                                    })}
-                                    <tr>
-                                        <td colSpan={3}>
-                                            <ion-infinite-scroll
-                                                threshold="100px"
-                                                ref={el => {
-                                                    this.infiniteScroll = el;
-                                                }}
-                                                onIonInfinite={ev => {
-                                                    return this.infiniteScrollMembers(ev);
-                                                }}
-                                            >
-                                                <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more wars..."></ion-infinite-scroll-content>
-                                            </ion-infinite-scroll>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            {this.findWarsByCriteria(this.warList, this.filters).length > 0 ? (
+                                <table class="table is-fullwidth">
+                                    <thead>
+                                        <tr>
+                                            <th>War Name</th>
+                                            <th>Location</th>
+                                            <th>Winner</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.findWarsByCriteria(this.warList, this.filters).map(m => {
+                                            return this.renderWarRow(m);
+                                        })}
+                                        <tr>
+                                            <td colSpan={3}>
+                                                <ion-infinite-scroll
+                                                    threshold="100px"
+                                                    ref={el => {
+                                                        this.infiniteScroll = el;
+                                                    }}
+                                                    onIonInfinite={ev => {
+                                                        return this.infiniteScrollMembers(ev);
+                                                    }}
+                                                >
+                                                    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more wars..."></ion-infinite-scroll-content>
+                                                </ion-infinite-scroll>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <ion-card>
+                                    <ion-card-content>No wars fought in the selected criteria.</ion-card-content>
+                                </ion-card>
+                            )}
                         </div>
                     </div>
                 </section>

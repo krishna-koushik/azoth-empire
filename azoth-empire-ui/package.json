@@ -5,7 +5,7 @@
     "collection": "./dist/collection/collection-manifest.json",
     "collection:main": "./dist/collection/index.js",
     "dependencies": {
-        "@bulmil/core": "0.19.1",
+        "@bulmil/core": "0.19.2",
         "axios": "0.21.3",
         "d3-stencil": "2.2.3",
         "dayjs": "1.10.7",

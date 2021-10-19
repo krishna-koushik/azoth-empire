@@ -9,7 +9,7 @@
         "axios": "0.21.3",
         "d3-stencil": "2.2.3",
         "dayjs": "1.10.7",
-        "discord-api-types": "0.22.0",
+        "discord-api-types": "0.23.1",
         "discord.js": "13.2.0",
         "plotly.js-dist-min": "2.5.0"
     },

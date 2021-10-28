@@ -5,12 +5,12 @@
     "collection": "./dist/collection/collection-manifest.json",
     "collection:main": "./dist/collection/index.js",
     "dependencies": {
-        "@bulmil/core": "0.18.0",
+        "@bulmil/core": "0.19.1",
         "axios": "0.21.3",
         "d3-stencil": "2.2.3",
         "dayjs": "1.10.7",
         "discord-api-types": "0.22.0",
-        "discord.js": "13.1.0",
+        "discord.js": "13.2.0",
         "plotly.js-dist-min": "2.5.0"
     },
     "devDependencies": {

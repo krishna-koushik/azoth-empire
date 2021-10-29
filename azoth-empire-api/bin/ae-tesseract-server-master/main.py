@@ -24,14 +24,17 @@ if __name__ == "__main__":
     #  img_path = 'images\\invasion_roster_example.png'
 
 
-    images = [
-                {'img_path': 'images\\war_roster_example_bw1.jpg', 'type': ROSTER},
-                {'img_path': 'images\\war_roster_example_bw2.jpg', 'type': STANDBY},
-                {'img_path': 'images\\rankings_example_bw1.png', 'type': RANKINGS},
-                {'img_path': 'images\\rankings_example_bw2.png', 'type': RANKINGS}
-             ]
+#     images = [
+#                 {'img_path': 'images\\war_roster_example_bw1.jpg', 'type': ROSTER},
+#                 {'img_path': 'images\\war_roster_example_bw2.jpg', 'type': STANDBY},
+#                 {'img_path': 'images\\rankings_example_bw1.png', 'type': RANKINGS},
+#                 {'img_path': 'images\\rankings_example_bw2.png', 'type': RANKINGS}
+#              ]
+    # expect an argument
+    images = sys.argv[1]
+    CONNECTION_STRING = sys.argv[2]
 
-    db = Db()
+    db = Db(CONNECTION_STRING)
     for img in images:
 
         # typeDetector = ImgTypeDetector()

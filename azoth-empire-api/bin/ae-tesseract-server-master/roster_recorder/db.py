@@ -6,8 +6,8 @@ from bson.objectid import ObjectId
 
 class Db():
 
-    def __init__(self):
-        self.client = MongoClient(dontshareme.CONNECTION_STRING)
+    def __init__(self, CONNECTION_STRING):
+        self.client = MongoClient(CONNECTION_STRING)
         self.ae = self.client['ae']
         self.war_id = None
         self.attacker = {}

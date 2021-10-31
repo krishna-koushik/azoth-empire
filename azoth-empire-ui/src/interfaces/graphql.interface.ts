@@ -120,6 +120,7 @@ class NWGQLQuery {
                     discord {
                         id
                         name
+                        roles
                     }
                     guild
                     gameData {
@@ -267,6 +268,57 @@ class NWGQLQuery {
             ) {
                 war(
                     id: $id,
+                )
+                {
+                     _id
+                     warType
+                     location
+                     companies {
+                        companyId
+                        name
+                        faction
+                        factionId
+                        role
+                        outcome
+                     }
+                     army {
+                        playerId
+                        name
+                        group
+                     }
+                     performance {
+                        playerId
+                        name
+                        rank
+                        score
+                        kills
+                        assists
+                        deaths
+                        healing
+                        damage
+                     }
+                }
+            }`,
+        };
+    }
+
+    warFiles(roster: File, stanbyList: File[], rankings: File[]) {
+        return {
+            operationName: 'warFiles',
+            variables: {
+                rankings: rankings,
+                roster: roster,
+                stanbyList: stanbyList,
+            },
+            query: `mutation warFiles(
+                $rankings: [Upload!]!
+                $roster: Upload!
+                $stanbyList: [Upload!]!
+            ) {
+                warFiles(
+                    rankings: $rankings,
+                    roster: $roster,
+                    stanbyList: $stanbyList
                 )
                 {
                      _id

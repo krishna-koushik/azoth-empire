@@ -11,6 +11,9 @@ RUN npm ci
 
 # Final stage/image
 FROM node:current-bullseye-slim
+RUN apt-get update && \
+    apt-get install -qy --no-install-recommends python3 python3-pip
+RUN pip3 install pytesseract
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
 

@@ -117,3 +117,7 @@ dist
 
 !/azoth-empire-api/secrets/server.key
 !/azoth-empire-api/secrets/.server-info.png
+!/azoth-empire-api/assets/
+!/azoth-empire-api/assets/rankings/
+!/azoth-empire-api/assets/roster/
+!/azoth-empire-api/assets/standby/

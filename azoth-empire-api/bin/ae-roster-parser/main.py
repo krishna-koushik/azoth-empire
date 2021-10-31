@@ -1,3 +1,4 @@
+import sys
 from roster_recorder.rosterdecoder import RosterDecoder
 from roster_recorder.rankingsdecoder import RankingsDecoder
 from roster_recorder.imgtypedetector import ImgTypeDetector
@@ -31,14 +32,18 @@ if __name__ == "__main__":
 #                 {'img_path': 'images\\rankings_example_bw2.png', 'type': RANKINGS}
 #              ]
     # expect an argument
-    images = sys.argv[1]
+    sys.stdout.write('Hello world')
+    images = type(sys.argv[1])
     CONNECTION_STRING = sys.argv[2]
+    sys.stdout.write(images)
+    sys.stdout.write(CONNECTION_STRING)
 
     db = Db(CONNECTION_STRING)
     for img in images:
-
         # typeDetector = ImgTypeDetector()
         # img_type = typeDetector.Detect(img_path)
+        imgpath = img['img_path']
+        sys.stdout.write(imgpath)
 
         if img['type'] == ROSTER:
             decoder = RosterDecoder()

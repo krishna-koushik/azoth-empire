@@ -18,7 +18,6 @@ export class Member {
 
     async componentWillLoad() {
         const { data: { player = {} } = {} } = await GraphQLService.query(NWGQLQuery.playerQuery(this.memberId));
-
         this.member = { ...player };
     }
 
@@ -121,6 +120,15 @@ export class Member {
                                         <ion-item>
                                             <ion-icon name="logo-discord" slot="start"></ion-icon>
                                             <ion-label>{this.member.discord.name}</ion-label>
+                                        </ion-item>
+                                    )}
+                                    {!!this.member.discord && (
+                                        <ion-item>
+                                            {this.member.discord.roles.map(r => (
+                                                <ion-chip>
+                                                    <ion-label>{r}</ion-label>
+                                                </ion-chip>
+                                            ))}
                                         </ion-item>
                                     )}
                                     <ion-item>

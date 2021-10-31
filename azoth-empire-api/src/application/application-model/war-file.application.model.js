@@ -6,10 +6,17 @@ class WarFileApplicationModel {
         assert(roster, 'roster image file is required.');
         assert(stanbyList, 'stanbyList image files are required.');
         assert(rankings, 'rankings image files are required.');
+        const { file: rosterFile } = roster;
 
-        this.roster = roster;
-        this.stanbyList = stanbyList;
-        this.rankings = rankings;
+        this.roster = rosterFile;
+        this.stanbyList = stanbyList.map(s => {
+            const { file: standbyFile } = s;
+            return standbyFile;
+        });
+        this.rankings = rankings.map(r => {
+            const { file: rankingFile } = r;
+            return rankingFile;
+        });
     }
 }
 

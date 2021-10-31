@@ -2,19 +2,33 @@ const fs = require('fs');
 const path = require('path');
 
 const { finished } = require('stream/promises');
-const DirectoryName = './assets';
+const DirectoryName = '../../../assets';
 const { spawn } = require('child_process');
+const { rmSync } = require('fs');
+const MONGO_URI = fs.readFileSync('secrets/.mongo-uri', 'utf8').toString().trim();
 
 class ServerInfoApplicationHandler {
     async handle(args) {
-        const { roster, stanbyList, rankings } = args;
+        let res;
+        let imageFiles = [];
+        try {
+            const { roster, stanbyList, rankings } = args;
 
-        const rosterFiles = await this.handleFileUpload([roster], 'roster');
-        const standbyFiles = await this.handleFileUpload(stanbyList, 'standby');
-        const rankingFiles = await this.handleFileUpload(rankings, 'rankings');
+            const rosterFiles = await this.handleFileUpload([roster], 'ROSTER');
+            const standbyFiles = await this.handleFileUpload(stanbyList, 'STANDBY');
+            const rankingFiles = await this.handleFileUpload(rankings, 'RANKINGS');
 
-        const imageFiles = [...rosterFiles, ...standbyFiles, ...rankingFiles];
-        return this.processImageFiles(imageFiles);
+            imageFiles = [...rosterFiles, ...standbyFiles, ...rankingFiles];
+
+            res = await this.processImageFiles(imageFiles);
+            await this.removeImageFiles(imageFiles);
+        } catch (e) {
+            console.error(e);
+            await this.removeImageFiles(imageFiles);
+            throw new Error('Unable to parse images. Please take a new screenshot and try again.');
+        }
+
+        return res;
     }
 
     async handleFileUpload(files, type) {
@@ -36,20 +50,28 @@ class ServerInfoApplicationHandler {
         return filenames;
     }
 
+    async removeImageFiles(files) {
+        return Promise.all(
+            files.map(async file => {
+                return fs.rmSync(file.img_path);
+            }),
+        );
+    }
+
     async processImageFiles(files) {
         return new Promise((resolve, reject) => {
             let dataToSend = '';
             // collect data from script
-            const python = spawn('python', ['./bin/main.py']);
+            const scriptPath = path.join(__dirname, '../../../bin/ae-roster-parser/main.py');
+            const python = spawn('python3', [scriptPath, files, `${MONGO_URI}`]);
             python.stdout.on('data', function (data) {
                 console.log('Pipe data from python script ...');
                 dataToSend = data.toString();
             });
 
-            python.on('error', err => {
-                console.error(err);
+            python.stderr.on('data', data => {
                 // send data to browser
-                reject(err);
+                reject(data.toString());
             });
 
             python.on('close', code => {

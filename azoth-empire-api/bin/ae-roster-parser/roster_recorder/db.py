@@ -1,11 +1,10 @@
-from roster_recorder import dontshareme, ATTACKER, DEFENDER
+from roster_recorder import ATTACKER, DEFENDER
 from pymongo import MongoClient
 import datetime
 import re
 from bson.objectid import ObjectId
 
 class Db():
-
     def __init__(self, CONNECTION_STRING):
         self.client = MongoClient(CONNECTION_STRING)
         self.ae = self.client['ae']

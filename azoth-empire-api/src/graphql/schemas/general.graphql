@@ -4,6 +4,7 @@ scalar Phone
 scalar JSON
 scalar Password
 scalar JWT
+scalar Upload
 
 type PageInfo {
     hasPreviousPage: Boolean!

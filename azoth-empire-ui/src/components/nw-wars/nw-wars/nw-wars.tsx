@@ -114,8 +114,15 @@ export class NwWars {
             await this.dismissModal();
         });
 
-        this.modalElement.addEventListener('submitButtonClicked', async _e => {
-            console.log(_e);
+        this.modalElement.addEventListener('submitButtonClicked', async e => {
+            const { detail: { roster = {}, standby = [], performance = [] } = {} } = e;
+            const { data = {}, errors = [] } = await GraphQLService.mutateUploadFiles(NWGQLQuery.warFiles(roster, standby, performance));
+            console.log({ data, errors });
+
+            if (!!errors && errors.length > 0) {
+                await this.showError();
+            }
+
             await this.dismissModal();
         });
 
@@ -257,5 +264,17 @@ export class NwWars {
                 </ion-fab>
             </ion-content>,
         ];
+    }
+
+    private async showError() {
+        const alert = document.createElement('ion-alert');
+        alert.header = 'Error Parsing Roster';
+        alert.message = 'Screenshot which you are trying to upload was not parsed correctly. Please take a new screenshot and try again.';
+        alert.buttons = ['OK'];
+
+        document.body.appendChild(alert);
+        await alert.present();
+
+        await alert.onDidDismiss();
     }
 }

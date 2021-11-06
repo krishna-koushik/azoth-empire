@@ -122,3 +122,7 @@ build
 # Ignore all HTML files:
 *.html
 /src/index.html
+!/azoth-empire-api/assets/
+!/azoth-empire-api/assets/rankings/
+!/azoth-empire-api/assets/roster/
+!/azoth-empire-api/assets/standby/

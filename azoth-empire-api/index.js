@@ -2,6 +2,9 @@ require('module-alias/register');
 require('dotenv').config(); //initialize dotenv
 const { NODE_ENV } = process.env;
 const { ApolloServer } = require('apollo-server-express');
+const {
+    graphqlUploadExpress, // A Koa implementation is also exported.
+} = require('graphql-upload');
 const { ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandingPageDisabled, ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
 const Boom = require('@hapi/boom');
 const { getOauthToken, getCurrentUser } = require('@discord/repository/discord.repository');
@@ -125,11 +128,14 @@ const server = new ApolloServer({
     },
     introspection: NODE_ENV !== 'production',
     playground: NODE_ENV !== 'production',
+    uploads: false,
+    debug: false,
 });
 
 DbServer.checkAndConnect()
     .then(async () => {
         await server.start();
+        app.use(graphqlUploadExpress());
         server.applyMiddleware({ app });
 
         return httpServer.listen({ port: 4000 });

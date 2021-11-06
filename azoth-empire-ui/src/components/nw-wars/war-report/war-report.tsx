@@ -16,39 +16,32 @@ export class WarReport {
     };
     @State() processingImages: any = {};
     @State() processing: boolean = false;
-    @State() attendanceImage: any;
-    @State() performanceReportImages: any[] = [];
+    @State() attendanceImage: File;
+    @State() performanceReportImages: File[];
+    @State() standbyImages: File[];
 
     private imageAttendenceInput: any;
     private imageReportInput: any;
-    private submitButton: any;
 
     @Event() submitButtonClicked: EventEmitter;
     @Event() closeButtonClicked: EventEmitter;
-    private nameInput: any;
-    private locationInput: any;
-    private reportStartDateInput: any;
-    private reportEndDateInput: any;
 
     private imageAttendenceStandbyInput: any;
 
     async disconnectedCallback() {
-        // await this.imageProcessor.terminate();
+        delete this.attendanceImage;
+        delete this.performanceReportImages;
+        delete this.standbyImages;
     }
 
     async componentDidLoad() {
-        this.submitButton.addEventListener('click', e => {
-            this.onSubmitButtonClick(e);
-        });
-
         this.imageAttendenceInput.addEventListener('change', async e => {
             const {
                 target: { files },
             } = e;
 
             const file = files[0];
-
-            this.attendanceImage = { ...file };
+            this.attendanceImage = file;
         });
 
         this.imageReportInput.addEventListener('change', async e => {
@@ -56,38 +49,24 @@ export class WarReport {
                 target: { files },
             } = e;
 
-            this.performanceReportImages = [...files];
+            const fileList = [];
+            for (let i = 0; i < files.length; i++) {
+                fileList.push(files[i]);
+            }
 
-            // Process the war report after the war which captures performance of all players
-            // for (const file of files) {
-            //     await this.startTesseract(file);
-            // }
+            this.performanceReportImages = fileList;
         });
 
-        this.nameInput.addEventListener('ionChange', e => {
-            const { detail: { value = '' } = {} } = e;
-            this.report.name = value;
-            this.report = { ...this.report };
-        });
+        this.imageAttendenceStandbyInput.addEventListener('change', async e => {
+            const {
+                target: { files },
+            } = e;
+            const fileList = [];
+            for (let i = 0; i < files.length; i++) {
+                fileList.push(files[i]);
+            }
 
-        this.locationInput.addEventListener('ionChange', e => {
-            const { detail: { value = '' } = {} } = e;
-            this.report.location = value;
-            this.report = { ...this.report };
-        });
-
-        this.reportStartDateInput.addEventListener('ionChange', e => {
-            const { detail: { value = '' } = {} } = e;
-            console.log(value);
-            this.report.startDate = value;
-            this.report = { ...this.report };
-        });
-
-        this.reportEndDateInput.addEventListener('ionChange', e => {
-            const { detail: { value = '' } = {} } = e;
-            console.log(value);
-            this.report.endDate = value;
-            this.report = { ...this.report };
+            this.standbyImages = fileList;
         });
     }
 
@@ -95,17 +74,11 @@ export class WarReport {
         this.closeButtonClicked.emit(e.detail);
     }
     private onSubmitButtonClick(_e) {
-        this.submitButtonClicked.emit(this.report);
-    }
-
-    getProgress(processingImages) {
-        const keys = Object.keys(processingImages);
-        let progress: number[] = [];
-        keys.forEach(k => {
-            progress.push(processingImages[k]);
+        this.submitButtonClicked.emit({
+            roster: this.attendanceImage,
+            standby: this.standbyImages,
+            performance: this.performanceReportImages,
         });
-        this.processing = Math.min(...progress) < 1;
-        return Math.min(...progress);
     }
 
     render() {
@@ -129,6 +102,7 @@ export class WarReport {
                                     <ion-button
                                         color="secondary"
                                         fill="outline"
+                                        disabled={!!this.attendanceImage}
                                         onClick={_ev => {
                                             this.imageAttendenceInput.click();
                                         }}
@@ -151,6 +125,7 @@ export class WarReport {
                                     <ion-button
                                         color="secondary"
                                         fill="outline"
+                                        disabled={!!this.standbyImages}
                                         onClick={_ev => {
                                             this.imageAttendenceStandbyInput.click();
                                         }}
@@ -168,17 +143,13 @@ export class WarReport {
                                         }}
                                     />
                                 </ion-col>
-                                {!!this.attendanceImage && Object.keys(this.attendanceImage).length > 0 && (
-                                    <ion-col>
-                                        <img src={URL.createObjectURL(this.attendanceImage)} style={{ height: '100px', width: '100px' }} />
-                                    </ion-col>
-                                )}
                             </ion-row>
                             <ion-row>
                                 <ion-col>
                                     <ion-button
                                         color="secondary"
                                         fill="outline"
+                                        disabled={!!this.performanceReportImages}
                                         onClick={_ev => {
                                             this.imageReportInput.click();
                                         }}
@@ -199,14 +170,50 @@ export class WarReport {
                             </ion-row>
                         </ion-grid>
                     </ion-item>
+                    {!!this.attendanceImage && (
+                        <ion-item>
+                            <ion-label position="stacked" color={'light'}>
+                                Main Roster
+                            </ion-label>
+                            <ion-card>
+                                <img src={URL.createObjectURL(this.attendanceImage)} style={{ 'width': '150px', 'height': '150px', 'object-fit': 'cover' }} />
+                            </ion-card>
+                        </ion-item>
+                    )}
+                    {!!this.standbyImages && (
+                        <ion-item-group>
+                            <ion-item-divider>
+                                <ion-label color={'light'}>Standby page</ion-label>
+                            </ion-item-divider>
+                            <ion-item>
+                                {this.standbyImages.map(standby => (
+                                    <ion-card>
+                                        <img src={URL.createObjectURL(standby)} style={{ 'width': '150px', 'height': '150px', 'object-fit': 'cover' }} />
+                                    </ion-card>
+                                ))}
+                            </ion-item>
+                        </ion-item-group>
+                    )}
+                    {!!this.performanceReportImages && (
+                        <ion-item-group>
+                            <ion-item-divider>
+                                <ion-label color={'light'}>Ranking page</ion-label>
+                            </ion-item-divider>
+                            <ion-item>
+                                {this.performanceReportImages.map(r => (
+                                    <ion-card>
+                                        <img src={URL.createObjectURL(r)} style={{ 'width': '150px', 'height': '150px', 'object-fit': 'cover' }} />
+                                    </ion-card>
+                                ))}
+                            </ion-item>
+                        </ion-item-group>
+                    )}
                     <ion-item>
                         <ion-button
                             slot="end"
-                            disabled={this.processing}
-                            ref={el => {
-                                this.submitButton = el;
-                            }}
+                            disabled={!this.attendanceImage || !this.standbyImages || !this.performanceReportImages}
                             fill="solid"
+                            onClick={ev => this.onSubmitButtonClick(ev)}
                         >
                             Submit
                         </ion-button>

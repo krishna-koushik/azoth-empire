@@ -14,7 +14,7 @@
         "plotly.js-dist-min": "2.5.0"
     },
     "devDependencies": {
-        "@ionic/core": "5.7.0",
+        "@ionic/core": "5.9.3",
         "@stencil/core": "2.7.1",
         "@stencil/sass": "1.4.1",
         "@stencil/store": "1.4.1",

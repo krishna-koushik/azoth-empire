@@ -1,7 +1,7 @@
 ARG NODE_ENV=development
 
 #Builder stage
-FROM node:current-bullseye-slim as builder
+FROM node:17-slim as builder
 ENV NODE_ENV=${NODE_ENV}
 
 COPY package*.json ./
@@ -9,7 +9,7 @@ RUN npm i plotly.js-dist-min
 RUN npm ci
 
 # Final stage/image
-FROM node:current-bullseye-slim
+FROM node:17-slim
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 

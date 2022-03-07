@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "",
   "dependencies": {
-    "@ionic/core": "^5.8.0",
+    "@ionic/core": "^6.0.0",
     "plotly.js-dist-min": "^2.5.0"
   },
   "devDependencies": {

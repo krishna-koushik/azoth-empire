@@ -22,7 +22,7 @@
         "text-to-image": "^4.0.0"
     },
     "devDependencies": {
-        "@types/node": "16.7.10",
+        "@types/node": "16.11.26",
         "husky": "7.0.2",
         "nodemon": "2.0.12",
         "prettier": "2.4.0",
